@@ -4,6 +4,7 @@
 
 Sondip Poul Singh · Susmoy Bless Singh
 
+[![DOI](https://zenodo.org/badge/1426554812.svg)](https://doi.org/10.5281/zenodo.23491402)
 [![License: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Runs on Kaggle](https://img.shields.io/badge/runs%20on-Kaggle%20T4-20BEFF)
@@ -96,7 +97,7 @@ All models forecast counts for places and weeks, never for individuals, and use 
 
 ## Citation
 
-If you use this code or these results, please cite the repository (see [`CITATION.cff`](CITATION.cff)); the paper reference will be added on publication.
+If you use this code or these results, please cite the Zenodo archive: Singh, S. P. and Singh, S. B. (2026). *crime-forecasting-audit* (v1.0). Zenodo. <https://doi.org/10.5281/zenodo.23491403> (all versions: <https://doi.org/10.5281/zenodo.23491402>). See also [`CITATION.cff`](CITATION.cff); the paper reference will be added on publication.
 
 ## License
 

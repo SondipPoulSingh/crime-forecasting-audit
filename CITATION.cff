@@ -9,6 +9,15 @@ authors:
   - family-names: Singh
     given-names: Susmoy Bless
     email: susmoyblesssingh@gmail.com
+doi: "10.5281/zenodo.23491402"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.23491402"
+    description: "Concept DOI (all versions)"
+  - type: doi
+    value: "10.5281/zenodo.23491403"
+    description: "Version 1.0"
+version: "1.0"
 repository-code: "https://github.com/SondipPoulSingh/crime-forecasting-audit"
 license: MIT
 date-released: 2026-10-20

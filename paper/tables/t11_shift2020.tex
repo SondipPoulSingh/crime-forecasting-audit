@@ -1,0 +1,15 @@
+\begin{table}[t]\centering\scriptsize\setlength{\tabcolsep}{3.5pt}
+\caption{The 2020 test year (rolling origin, $H=1$; third run). Overall coverage, worst under-coverage and worst absolute deviation over the volume quintiles (points), and mean interval score.}\label{tab:shift}
+\begin{tabular}{lrrrrrrrr}\toprule
+ & \multicolumn{4}{c}{Chicago} & \multicolumn{4}{c}{New York}\\\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+Method & Cov. & Under & Worst & IS & Cov. & Under & Worst & IS\\\midrule
+Poisson & 91.6 & 7.5 & 7.5 & 10.65 & 89.0 & 9.9 & 9.9 & 15.56 \\
+Neg. binomial & 93.4 & 1.6 & 7.4 & 10.17 & 91.2 & 4.3 & 6.1 & 14.76 \\
+ZINB (fitted) & 93.3 & 1.9 & 7.4 & 10.18 & 91.8 & 3.5 & 6.1 & 14.66 \\
+ZINB (fitted per volume bin) & 93.7 & 2.5 & 7.8 & 10.19 & 92.7 & 3.4 & 6.7 & 14.62 \\
+GRU-ZINB (learned) & 94.8 & -1.2 & 7.5 & 9.54 & 93.2 & 0.6 & 6.7 & 14.00 \\
+Split conformal (CP) & 88.4 & 12.4 & 12.4 & 11.35 & 88.0 & 10.1 & 10.1 & 15.79 \\
+CQR & 87.6 & 6.1 & 6.1 & 11.36 & 87.2 & 7.9 & 7.9 & 15.49 \\
+Mondrian CP & 88.4 & 3.9 & 3.9 & 10.95 & 88.4 & 4.4 & 4.4 & 15.32 \\
+Mondrian-ACI & 89.5 & 1.1 & 1.1 & 10.71 & 89.5 & 1.3 & 1.3 & 15.07 \\
+\bottomrule\end{tabular}\end{table}

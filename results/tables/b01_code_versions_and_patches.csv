@@ -1,0 +1,5 @@
+repository,url,commit,patches
+STHSL,https://github.com/LZH-YS1998/STHSL,6f3429c07f88ada44b5c34a0a098e95eedf9cbd6,engine.py: running loss stored with .item() (memory only); train.py: device and seed read from arguments/environment (official default seed 523 = our seed 0)
+ST-SHN,https://github.com/akaxlh/ST-SHN,0a5f1adf907e91212a0b0e252a59fb3e379a975b,TensorFlow 1 code run with tf.compat.v1; xavier_initializer → glorot_uniform (same initialiser); softmax on 6-D tensor written out (numerically identical); seed from environment; predictions and validation metrics logged every epoch
+Graph-WaveNet,https://github.com/nnzhan/Graph-WaveNet,6b162e80c59a1d494809252eca055cff93dc66b1,nn.Conv1d with 2-D kernels replaced by nn.Conv2d (old PyTorch accepted this silently; identical computation)
+MTGNN,https://github.com/nnzhan/MTGNN,f811746fa7022ebf336f9ecd2434af5f365ecbf6,none

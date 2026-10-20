@@ -1,0 +1,5 @@
+# local scripts (tables, figures, decision protocol); the notebooks install their own extras on Kaggle
+numpy>=1.26
+pandas>=2.0
+scipy>=1.11
+matplotlib>=3.8

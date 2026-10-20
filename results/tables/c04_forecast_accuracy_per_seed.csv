@@ -1,0 +1,373 @@
+H,split,city,model,key,seed,poisson_deviance,mae
+1,validation,CHI,LightGBM-Poisson,lgbm,0,1.274880887525819,1.828803
+1,validation,CHI,LightGBM-Poisson,lgbm,1,1.2703441292679178,1.8224051
+1,validation,CHI,LightGBM-Poisson,lgbm,2,1.273144688999666,1.825415
+1,validation,CHI,XGBoost-Poisson,xgb,0,1.276409998519226,1.830615
+1,validation,CHI,XGBoost-Poisson,xgb,1,1.278492303432975,1.8351253
+1,validation,CHI,XGBoost-Poisson,xgb,2,1.2776557733020146,1.8330426
+1,validation,CHI,Poisson GLM,glm,0,1.3623658508906251,1.8810343
+1,validation,CHI,Poisson GLM,glm,1,1.3653270863680744,1.8785483
+1,validation,CHI,Poisson GLM,glm,2,1.3619890146319809,1.8766571
+1,validation,CHI,GRU (global),gru,0,1.2716701821538654,1.8185837
+1,validation,CHI,GRU (global),gru,1,1.269150849819794,1.8136374
+1,validation,CHI,GRU (global),gru,2,1.2712028863346998,1.8086526
+1,validation,CHI,ST-GRU (graph diffusion input),stgru,0,1.2711035253085403,1.7953064
+1,validation,CHI,ST-GRU (graph diffusion input),stgru,1,1.2652659705947484,1.8157631
+1,validation,CHI,ST-GRU (graph diffusion input),stgru,2,1.2690907919650942,1.8302447
+1,validation,CHI,Moving average (4 w),ma4,-1,1.5138634284009984,1.9432272
+1,validation,CHI,Historical average (52 w),ma52,-1,1.3507927616627065,1.9181134
+1,validation,CHI,Exp. smoothing (0.3),ses,-1,1.3989572604021578,1.8842546
+1,validation,CHI,Last week,naive,-1,2.6827983328184253,2.3370721
+1,validation,CHI,Seasonal naive (52 w),snaive,-1,3.0104015439927174,2.5726092
+1,validation,NYC,LightGBM-Poisson,lgbm,0,1.4230180218314366,2.8160899
+1,validation,NYC,LightGBM-Poisson,lgbm,1,1.4182665692405894,2.8089232
+1,validation,NYC,LightGBM-Poisson,lgbm,2,1.422840042090979,2.814919
+1,validation,NYC,XGBoost-Poisson,xgb,0,1.4250345252919219,2.8177328
+1,validation,NYC,XGBoost-Poisson,xgb,1,1.4284404332241012,2.824321
+1,validation,NYC,XGBoost-Poisson,xgb,2,1.42975712443425,2.8282092
+1,validation,NYC,Poisson GLM,glm,0,1.4828445928487854,2.8536277
+1,validation,NYC,Poisson GLM,glm,1,1.4866200940430363,2.857422
+1,validation,NYC,Poisson GLM,glm,2,1.50234721936594,2.8589833
+1,validation,NYC,GRU (global),gru,0,1.4224664585645772,2.8096519
+1,validation,NYC,GRU (global),gru,1,1.4243064013607196,2.8104508
+1,validation,NYC,GRU (global),gru,2,1.4342491793810566,2.809115
+1,validation,NYC,ST-GRU (graph diffusion input),stgru,0,1.4296648721495038,2.79321
+1,validation,NYC,ST-GRU (graph diffusion input),stgru,1,1.447530185082955,2.841512
+1,validation,NYC,ST-GRU (graph diffusion input),stgru,2,1.424892411478247,2.8264778
+1,validation,NYC,Moving average (4 w),ma4,-1,1.6439940491868905,2.9870925
+1,validation,NYC,Historical average (52 w),ma52,-1,1.5397303454782527,2.9692466
+1,validation,NYC,Exp. smoothing (0.3),ses,-1,1.525951417082481,2.88908
+1,validation,NYC,Last week,naive,-1,2.8996112200867006,3.61375
+1,validation,NYC,Seasonal naive (52 w),snaive,-1,3.4468652566521283,4.0588503
+1,validation,SF,LightGBM-Poisson,lgbm,0,1.2184427771176565,1.5131645
+1,validation,SF,LightGBM-Poisson,lgbm,1,1.2078697580101616,1.4967097
+1,validation,SF,LightGBM-Poisson,lgbm,2,1.2150072603093736,1.5093974
+1,validation,SF,XGBoost-Poisson,xgb,0,1.215241447127141,1.5082785
+1,validation,SF,XGBoost-Poisson,xgb,1,1.221840806158734,1.5169402
+1,validation,SF,XGBoost-Poisson,xgb,2,1.2252820152725765,1.5197498
+1,validation,SF,Poisson GLM,glm,0,1.3761787049117826,1.6069127
+1,validation,SF,Poisson GLM,glm,1,1.3687822439032045,1.5867244
+1,validation,SF,Poisson GLM,glm,2,1.360450891862632,1.5860041
+1,validation,SF,GRU (global),gru,0,1.2234752658524035,1.5005196
+1,validation,SF,GRU (global),gru,1,1.208116458628966,1.4829289
+1,validation,SF,GRU (global),gru,2,1.230132250554139,1.5038278
+1,validation,SF,ST-GRU (graph diffusion input),stgru,0,1.2171571217424197,1.4732752
+1,validation,SF,ST-GRU (graph diffusion input),stgru,1,1.211199248326829,1.4941831
+1,validation,SF,ST-GRU (graph diffusion input),stgru,2,1.2232057755451011,1.5218618
+1,validation,SF,Moving average (4 w),ma4,-1,1.4557431673912111,1.5735118
+1,validation,SF,Historical average (52 w),ma52,-1,1.352292444561261,1.6613705
+1,validation,SF,Exp. smoothing (0.3),ses,-1,1.3457401698409477,1.530847
+1,validation,SF,Last week,naive,-1,2.5345482246420596,1.8929728
+1,validation,SF,Seasonal naive (52 w),snaive,-1,2.8636579009598973,2.3816307
+1,test,CHI,LightGBM-Poisson,lgbm,0,1.2825292360043175,1.7626724
+1,test,CHI,LightGBM-Poisson,lgbm,1,1.283809577833918,1.7639167
+1,test,CHI,LightGBM-Poisson,lgbm,2,1.2832264605770152,1.7640989
+1,test,CHI,XGBoost-Poisson,xgb,0,1.2838912140315735,1.7636999
+1,test,CHI,XGBoost-Poisson,xgb,1,1.2844127908292144,1.765019
+1,test,CHI,XGBoost-Poisson,xgb,2,1.2855900161571003,1.766553
+1,test,CHI,Poisson GLM,glm,0,1.3651186696893982,1.8188727
+1,test,CHI,Poisson GLM,glm,1,1.3632553450872444,1.8071908
+1,test,CHI,Poisson GLM,glm,2,1.3617542366334503,1.8049489
+1,test,CHI,GRU (global),gru,0,1.2794923827015616,1.7546023
+1,test,CHI,GRU (global),gru,1,1.2734008163222124,1.7436975
+1,test,CHI,GRU (global),gru,2,1.2804591459590942,1.7497627
+1,test,CHI,ST-GRU (graph diffusion input),stgru,0,1.2815270496976756,1.7336075
+1,test,CHI,ST-GRU (graph diffusion input),stgru,1,1.2747318480356618,1.7548193
+1,test,CHI,ST-GRU (graph diffusion input),stgru,2,1.285911523525721,1.7839724
+1,test,CHI,Moving average (4 w),ma4,-1,1.5147905082418385,1.8788271
+1,test,CHI,Historical average (52 w),ma52,-1,1.359883419812466,1.8409244
+1,test,CHI,Exp. smoothing (0.3),ses,-1,1.4052572610473788,1.8259614
+1,test,CHI,Last week,naive,-1,2.688408103814935,2.2774098
+1,test,CHI,Seasonal naive (52 w),snaive,-1,2.964018917503306,2.5122666
+1,test,NYC,LightGBM-Poisson,lgbm,0,1.4207639370405627,2.8287678
+1,test,NYC,LightGBM-Poisson,lgbm,1,1.4182974535427537,2.8277388
+1,test,NYC,LightGBM-Poisson,lgbm,2,1.4214795173810835,2.8329241
+1,test,NYC,XGBoost-Poisson,xgb,0,1.4325566343597635,2.8467038
+1,test,NYC,XGBoost-Poisson,xgb,1,1.4348339133710344,2.8506207
+1,test,NYC,XGBoost-Poisson,xgb,2,1.4365333817476735,2.8523412
+1,test,NYC,Poisson GLM,glm,0,1.481215636138661,2.8779018
+1,test,NYC,Poisson GLM,glm,1,1.4839935548592846,2.8876975
+1,test,NYC,Poisson GLM,glm,2,1.4860638111022362,2.863212
+1,test,NYC,GRU (global),gru,0,1.4182640539721347,2.8104527
+1,test,NYC,GRU (global),gru,1,1.4220227374710672,2.819863
+1,test,NYC,GRU (global),gru,2,1.4261374531796884,2.8192115
+1,test,NYC,ST-GRU (graph diffusion input),stgru,0,1.4263319097625407,2.806269
+1,test,NYC,ST-GRU (graph diffusion input),stgru,1,1.4365616559896284,2.8404946
+1,test,NYC,ST-GRU (graph diffusion input),stgru,2,1.4344564948502394,2.8558578
+1,test,NYC,Moving average (4 w),ma4,-1,1.6358550667696463,2.9896927
+1,test,NYC,Historical average (52 w),ma52,-1,1.5350172915284863,2.9834719
+1,test,NYC,Exp. smoothing (0.3),ses,-1,1.5215334328124477,2.897968
+1,test,NYC,Last week,naive,-1,2.871886094196118,3.5967245
+1,test,NYC,Seasonal naive (52 w),snaive,-1,3.395277586590512,4.101804
+1,test,SF,LightGBM-Poisson,lgbm,0,1.1842091527107936,1.3758824
+1,test,SF,LightGBM-Poisson,lgbm,1,1.1754855046656227,1.3639116
+1,test,SF,LightGBM-Poisson,lgbm,2,1.1798097959821112,1.3708782
+1,test,SF,XGBoost-Poisson,xgb,0,1.1822931764929028,1.3725283
+1,test,SF,XGBoost-Poisson,xgb,1,1.189534214581243,1.3799403
+1,test,SF,XGBoost-Poisson,xgb,2,1.193035934441359,1.3821236
+1,test,SF,Poisson GLM,glm,0,1.3442917144833222,1.4609215
+1,test,SF,Poisson GLM,glm,1,1.3388599958250198,1.4513214
+1,test,SF,Poisson GLM,glm,2,1.3265746427694165,1.4385896
+1,test,SF,GRU (global),gru,0,1.179891112653346,1.3566974
+1,test,SF,GRU (global),gru,1,1.171727985509069,1.3459139
+1,test,SF,GRU (global),gru,2,1.1836945808379895,1.3569895
+1,test,SF,ST-GRU (graph diffusion input),stgru,0,1.1768417756513792,1.3252236
+1,test,SF,ST-GRU (graph diffusion input),stgru,1,1.1742640233616612,1.3583711
+1,test,SF,ST-GRU (graph diffusion input),stgru,2,1.186765786490081,1.3776264
+1,test,SF,Moving average (4 w),ma4,-1,1.3951201304771277,1.4202572
+1,test,SF,Historical average (52 w),ma52,-1,1.2517334990227262,1.423245
+1,test,SF,Exp. smoothing (0.3),ses,-1,1.282281479707487,1.380459
+1,test,SF,Last week,naive,-1,2.40544881097696,1.7102672
+1,test,SF,Seasonal naive (52 w),snaive,-1,2.686089657569453,2.030892
+2,validation,CHI,LightGBM-Poisson,lgbm,0,1.2896968720612854,1.8436421
+2,validation,CHI,LightGBM-Poisson,lgbm,1,1.28925359060324,1.8421065
+2,validation,CHI,LightGBM-Poisson,lgbm,2,1.2922659633427316,1.8478539
+2,validation,CHI,XGBoost-Poisson,xgb,0,1.296888860896953,1.8560987
+2,validation,CHI,XGBoost-Poisson,xgb,1,1.296173192654244,1.8543881
+2,validation,CHI,XGBoost-Poisson,xgb,2,1.2980847369373136,1.8571591
+2,validation,CHI,Moving average (4 w),ma4,-1,1.5587826483599307,1.9820293
+2,validation,CHI,Historical average (52 w),ma52,-1,1.3565813607579091,1.9233894
+2,validation,CHI,Exp. smoothing (0.3),ses,-1,1.4378537731344527,1.9255145
+2,validation,CHI,Last week,naive,-1,2.7757258949051775,2.3835256
+2,validation,CHI,Seasonal naive (52 w),snaive,-1,3.0104015439927174,2.5726092
+2,validation,NYC,LightGBM-Poisson,lgbm,0,1.4546136537149552,2.8602533
+2,validation,NYC,LightGBM-Poisson,lgbm,1,1.4489133455530965,2.8553944
+2,validation,NYC,LightGBM-Poisson,lgbm,2,1.4558089560067613,2.8611128
+2,validation,NYC,XGBoost-Poisson,xgb,0,1.4683988908545944,2.880655
+2,validation,NYC,XGBoost-Poisson,xgb,1,1.464378816699818,2.870046
+2,validation,NYC,XGBoost-Poisson,xgb,2,1.4655198226304615,2.874928
+2,validation,NYC,Moving average (4 w),ma4,-1,1.698073014647781,3.0499613
+2,validation,NYC,Historical average (52 w),ma52,-1,1.5507982277261663,2.9827535
+2,validation,NYC,Exp. smoothing (0.3),ses,-1,1.5830853208981208,2.951831
+2,validation,NYC,Last week,naive,-1,3.0358410907302025,3.6907184
+2,validation,NYC,Seasonal naive (52 w),snaive,-1,3.4468652566521283,4.0588503
+2,validation,SF,LightGBM-Poisson,lgbm,0,1.2278929274889052,1.5239788
+2,validation,SF,LightGBM-Poisson,lgbm,1,1.2265654242688977,1.5208608
+2,validation,SF,LightGBM-Poisson,lgbm,2,1.2343498391540562,1.5340976
+2,validation,SF,XGBoost-Poisson,xgb,0,1.2399015821514296,1.5387915
+2,validation,SF,XGBoost-Poisson,xgb,1,1.234179856657563,1.5363785
+2,validation,SF,XGBoost-Poisson,xgb,2,1.2402062135162855,1.5417705
+2,validation,SF,Moving average (4 w),ma4,-1,1.4745886194131501,1.5967721
+2,validation,SF,Historical average (52 w),ma52,-1,1.3604506832400989,1.6730802
+2,validation,SF,Exp. smoothing (0.3),ses,-1,1.362527142769528,1.5572578
+2,validation,SF,Last week,naive,-1,2.5794849868905563,1.9333106
+2,validation,SF,Seasonal naive (52 w),snaive,-1,2.8636579009598973,2.3816307
+2,test,CHI,LightGBM-Poisson,lgbm,0,1.302989870604505,1.7821976
+2,test,CHI,LightGBM-Poisson,lgbm,1,1.303954058901967,1.7826507
+2,test,CHI,LightGBM-Poisson,lgbm,2,1.3020747039842329,1.781474
+2,test,CHI,XGBoost-Poisson,xgb,0,1.30350628056997,1.7830853
+2,test,CHI,XGBoost-Poisson,xgb,1,1.3027911758045003,1.782342
+2,test,CHI,XGBoost-Poisson,xgb,2,1.3039370500873755,1.7841344
+2,test,CHI,Moving average (4 w),ma4,-1,1.5469898273222242,1.9013792
+2,test,CHI,Historical average (52 w),ma52,-1,1.3662562787981403,1.8462167
+2,test,CHI,Exp. smoothing (0.3),ses,-1,1.4382873966959282,1.8533326
+2,test,CHI,Last week,naive,-1,2.778787543236832,2.3188322
+2,test,CHI,Seasonal naive (52 w),snaive,-1,2.964018917503306,2.5122666
+2,test,NYC,LightGBM-Poisson,lgbm,0,1.4581275853162554,2.880413
+2,test,NYC,LightGBM-Poisson,lgbm,1,1.4564676862780832,2.8804798
+2,test,NYC,LightGBM-Poisson,lgbm,2,1.4583309001251543,2.879334
+2,test,NYC,XGBoost-Poisson,xgb,0,1.479540286156483,2.9138818
+2,test,NYC,XGBoost-Poisson,xgb,1,1.475704303154727,2.9094834
+2,test,NYC,XGBoost-Poisson,xgb,2,1.478137134614046,2.9121096
+2,test,NYC,Moving average (4 w),ma4,-1,1.6843177517179833,3.0460975
+2,test,NYC,Historical average (52 w),ma52,-1,1.5456638809138383,2.9958918
+2,test,NYC,Exp. smoothing (0.3),ses,-1,1.5779706746938016,2.9683256
+2,test,NYC,Last week,naive,-1,3.0196453801376864,3.732802
+2,test,NYC,Seasonal naive (52 w),snaive,-1,3.395277586590512,4.101804
+2,test,SF,LightGBM-Poisson,lgbm,0,1.196593509544268,1.3855237
+2,test,SF,LightGBM-Poisson,lgbm,1,1.1990699702274077,1.3884016
+2,test,SF,LightGBM-Poisson,lgbm,2,1.2055234373791806,1.3957263
+2,test,SF,XGBoost-Poisson,xgb,0,1.2158272759203719,1.4028981
+2,test,SF,XGBoost-Poisson,xgb,1,1.2091159460190977,1.3973731
+2,test,SF,XGBoost-Poisson,xgb,2,1.2142876224928916,1.4028867
+2,test,SF,Moving average (4 w),ma4,-1,1.4223718249142179,1.4340448
+2,test,SF,Historical average (52 w),ma52,-1,1.2598131581366063,1.4304816
+2,test,SF,Exp. smoothing (0.3),ses,-1,1.3081697821659204,1.3972843
+2,test,SF,Last week,naive,-1,2.4868559026526613,1.732722
+2,test,SF,Seasonal naive (52 w),snaive,-1,2.686089657569453,2.030892
+3,validation,CHI,LightGBM-Poisson,lgbm,0,1.2983200725324853,1.8529649
+3,validation,CHI,LightGBM-Poisson,lgbm,1,1.3032296258809093,1.8600698
+3,validation,CHI,LightGBM-Poisson,lgbm,2,1.2993097056395182,1.8541834
+3,validation,CHI,XGBoost-Poisson,xgb,0,1.3078199857131374,1.8678288
+3,validation,CHI,XGBoost-Poisson,xgb,1,1.3038405077900732,1.8612368
+3,validation,CHI,XGBoost-Poisson,xgb,2,1.307026460957725,1.8655765
+3,validation,CHI,Moving average (4 w),ma4,-1,1.576115491990898,1.9994892
+3,validation,CHI,Historical average (52 w),ma52,-1,1.3613622488977881,1.9281445
+3,validation,CHI,Exp. smoothing (0.3),ses,-1,1.4573933462041724,1.947098
+3,validation,CHI,Last week,naive,-1,2.8182364552371317,2.4165833
+3,validation,CHI,Seasonal naive (52 w),snaive,-1,3.0104015439927174,2.5726092
+3,validation,NYC,LightGBM-Poisson,lgbm,0,1.4774175649883,2.8915672
+3,validation,NYC,LightGBM-Poisson,lgbm,1,1.4768284356011472,2.8890948
+3,validation,NYC,LightGBM-Poisson,lgbm,2,1.4804119471628763,2.8969913
+3,validation,NYC,XGBoost-Poisson,xgb,0,1.4923381529635786,2.9100335
+3,validation,NYC,XGBoost-Poisson,xgb,1,1.4881749085094638,2.904954
+3,validation,NYC,XGBoost-Poisson,xgb,2,1.4884170622138537,2.9023137
+3,validation,NYC,Moving average (4 w),ma4,-1,1.7356910104867787,3.0903075
+3,validation,NYC,Historical average (52 w),ma52,-1,1.5604440416755145,2.9945343
+3,validation,NYC,Exp. smoothing (0.3),ses,-1,1.6156473156762907,2.9949524
+3,validation,NYC,Last week,naive,-1,3.1356626797000784,3.7655525
+3,validation,NYC,Seasonal naive (52 w),snaive,-1,3.4468652566521283,4.0588503
+3,validation,SF,LightGBM-Poisson,lgbm,0,1.2407743689654747,1.5413008
+3,validation,SF,LightGBM-Poisson,lgbm,1,1.2465888064840902,1.5433735
+3,validation,SF,LightGBM-Poisson,lgbm,2,1.2383513020240375,1.5356531
+3,validation,SF,XGBoost-Poisson,xgb,0,1.2582234919428064,1.5592444
+3,validation,SF,XGBoost-Poisson,xgb,1,1.246209158885768,1.5464536
+3,validation,SF,XGBoost-Poisson,xgb,2,1.2548713138570813,1.5562402
+3,validation,SF,Moving average (4 w),ma4,-1,1.4779774013278344,1.6103743
+3,validation,SF,Historical average (52 w),ma52,-1,1.3705338817838861,1.6844046
+3,validation,SF,Exp. smoothing (0.3),ses,-1,1.368352385212579,1.5653191
+3,validation,SF,Last week,naive,-1,2.6138442284775905,1.9320314
+3,validation,SF,Seasonal naive (52 w),snaive,-1,2.8636579009598973,2.3816307
+3,test,CHI,LightGBM-Poisson,lgbm,0,1.313750440904963,1.7941109
+3,test,CHI,LightGBM-Poisson,lgbm,1,1.314463848122148,1.795059
+3,test,CHI,LightGBM-Poisson,lgbm,2,1.3132280783474168,1.79334
+3,test,CHI,XGBoost-Poisson,xgb,0,1.3155488942186424,1.7952591
+3,test,CHI,XGBoost-Poisson,xgb,1,1.3109258389429512,1.789798
+3,test,CHI,XGBoost-Poisson,xgb,2,1.3137127780861229,1.7933599
+3,test,CHI,Moving average (4 w),ma4,-1,1.5651672939228882,1.9188087
+3,test,CHI,Historical average (52 w),ma52,-1,1.3714250676335387,1.8508831
+3,test,CHI,Exp. smoothing (0.3),ses,-1,1.4549045233819582,1.8704134
+3,test,CHI,Last week,naive,-1,2.7862129698613574,2.3359513
+3,test,CHI,Seasonal naive (52 w),snaive,-1,2.964018917503306,2.5122666
+3,test,NYC,LightGBM-Poisson,lgbm,0,1.4815800280103963,2.9116108
+3,test,NYC,LightGBM-Poisson,lgbm,1,1.483564120965661,2.9147437
+3,test,NYC,LightGBM-Poisson,lgbm,2,1.4828321990112383,2.914927
+3,test,NYC,XGBoost-Poisson,xgb,0,1.5043558792115097,2.9450085
+3,test,NYC,XGBoost-Poisson,xgb,1,1.499727091431931,2.937983
+3,test,NYC,XGBoost-Poisson,xgb,2,1.496343313904686,2.9312344
+3,test,NYC,Moving average (4 w),ma4,-1,1.7154852253665684,3.0847576
+3,test,NYC,Historical average (52 w),ma52,-1,1.554667707672963,3.0068965
+3,test,NYC,Exp. smoothing (0.3),ses,-1,1.6036321687673152,2.998075
+3,test,NYC,Last week,naive,-1,3.059838396735296,3.7702081
+3,test,NYC,Seasonal naive (52 w),snaive,-1,3.395277586590512,4.101804
+3,test,SF,LightGBM-Poisson,lgbm,0,1.2156964975811215,1.4064294
+3,test,SF,LightGBM-Poisson,lgbm,1,1.2257422065103056,1.41648
+3,test,SF,LightGBM-Poisson,lgbm,2,1.2132336173835718,1.4032569
+3,test,SF,XGBoost-Poisson,xgb,0,1.2351637351308582,1.4231933
+3,test,SF,XGBoost-Poisson,xgb,1,1.2210421518534735,1.4107814
+3,test,SF,XGBoost-Poisson,xgb,2,1.2283089539816208,1.4171175
+3,test,SF,Moving average (4 w),ma4,-1,1.4310859771973086,1.4390197
+3,test,SF,Historical average (52 w),ma52,-1,1.267348822218146,1.4382008
+3,test,SF,Exp. smoothing (0.3),ses,-1,1.317136106187356,1.4040816
+3,test,SF,Last week,naive,-1,2.4933788551603793,1.739731
+3,test,SF,Seasonal naive (52 w),snaive,-1,2.686089657569453,2.030892
+4,validation,CHI,LightGBM-Poisson,lgbm,0,1.3081773815145,1.8661548
+4,validation,CHI,LightGBM-Poisson,lgbm,1,1.3108741593415596,1.8685869
+4,validation,CHI,LightGBM-Poisson,lgbm,2,1.3075534537204132,1.8647308
+4,validation,CHI,XGBoost-Poisson,xgb,0,1.3203607958565324,1.8839213
+4,validation,CHI,XGBoost-Poisson,xgb,1,1.316973430194205,1.8804278
+4,validation,CHI,XGBoost-Poisson,xgb,2,1.3150266739225953,1.8770502
+4,validation,CHI,Poisson GLM,glm,0,1.389097900558597,1.9077939
+4,validation,CHI,Poisson GLM,glm,1,1.4032243029018732,1.9227728
+4,validation,CHI,Poisson GLM,glm,2,1.3966437412715962,1.9118226
+4,validation,CHI,GRU (global),gru,0,1.331591731143058,1.8884335
+4,validation,CHI,GRU (global),gru,1,1.3072711036490001,1.8564019
+4,validation,CHI,GRU (global),gru,2,1.30487313553284,1.8381624
+4,validation,CHI,ST-GRU (graph diffusion input),stgru,0,1.3132375094950117,1.8678399
+4,validation,CHI,ST-GRU (graph diffusion input),stgru,1,1.325999435755651,1.8727233
+4,validation,CHI,ST-GRU (graph diffusion input),stgru,2,1.315349275151969,1.8446937
+4,validation,CHI,Moving average (4 w),ma4,-1,1.587744783995123,2.0127258
+4,validation,CHI,Historical average (52 w),ma52,-1,1.3654370601868266,1.9321309
+4,validation,CHI,Exp. smoothing (0.3),ses,-1,1.4701356123621265,1.9596043
+4,validation,CHI,Last week,naive,-1,2.8470903091407016,2.4348378
+4,validation,CHI,Seasonal naive (52 w),snaive,-1,3.0104015439927174,2.5726092
+4,validation,NYC,LightGBM-Poisson,lgbm,0,1.4912703023216902,2.9074583
+4,validation,NYC,LightGBM-Poisson,lgbm,1,1.4937432307292393,2.9075007
+4,validation,NYC,LightGBM-Poisson,lgbm,2,1.4912756619645582,2.9037538
+4,validation,NYC,XGBoost-Poisson,xgb,0,1.5065365754794529,2.925153
+4,validation,NYC,XGBoost-Poisson,xgb,1,1.5065933853659834,2.9245718
+4,validation,NYC,XGBoost-Poisson,xgb,2,1.5037025874961205,2.9208798
+4,validation,NYC,Poisson GLM,glm,0,1.5462009285871339,2.9256
+4,validation,NYC,Poisson GLM,glm,1,1.5594160682281675,2.951814
+4,validation,NYC,Poisson GLM,glm,2,1.5675537834349274,2.955999
+4,validation,NYC,GRU (global),gru,0,1.5863708178239428,3.0312762
+4,validation,NYC,GRU (global),gru,1,1.509417387881802,2.94007
+4,validation,NYC,GRU (global),gru,2,1.5014402023749567,2.8626487
+4,validation,NYC,ST-GRU (graph diffusion input),stgru,0,1.520503531777041,2.9329743
+4,validation,NYC,ST-GRU (graph diffusion input),stgru,1,1.5864685552106264,3.0182555
+4,validation,NYC,ST-GRU (graph diffusion input),stgru,2,1.6173165101611382,3.050479
+4,validation,NYC,Moving average (4 w),ma4,-1,1.7537261970754365,3.114113
+4,validation,NYC,Historical average (52 w),ma52,-1,1.5689245364932227,3.0047626
+4,validation,NYC,Exp. smoothing (0.3),ses,-1,1.6359727490682456,3.013185
+4,validation,NYC,Last week,naive,-1,3.1506814318340783,3.7636454
+4,validation,NYC,Seasonal naive (52 w),snaive,-1,3.4468652566521283,4.0588503
+4,validation,SF,LightGBM-Poisson,lgbm,0,1.2589134016668435,1.5620278
+4,validation,SF,LightGBM-Poisson,lgbm,1,1.2654726118732147,1.5618944
+4,validation,SF,LightGBM-Poisson,lgbm,2,1.257680020231638,1.5576303
+4,validation,SF,XGBoost-Poisson,xgb,0,1.275381175063785,1.5813822
+4,validation,SF,XGBoost-Poisson,xgb,1,1.2694469914309303,1.5765666
+4,validation,SF,XGBoost-Poisson,xgb,2,1.265732282204951,1.5720425
+4,validation,SF,Poisson GLM,glm,0,1.3943125030663475,1.6289282
+4,validation,SF,Poisson GLM,glm,1,1.4066571682563234,1.6371088
+4,validation,SF,Poisson GLM,glm,2,1.4070458085555677,1.6341858
+4,validation,SF,GRU (global),gru,0,1.269223890531542,1.5703415
+4,validation,SF,GRU (global),gru,1,1.2471521997738195,1.5216688
+4,validation,SF,GRU (global),gru,2,1.2459469723267067,1.5164804
+4,validation,SF,ST-GRU (graph diffusion input),stgru,0,1.2367537937709225,1.5248826
+4,validation,SF,ST-GRU (graph diffusion input),stgru,1,1.2510037197429904,1.5400193
+4,validation,SF,ST-GRU (graph diffusion input),stgru,2,1.2761302249011532,1.549704
+4,validation,SF,Moving average (4 w),ma4,-1,1.4934936715423315,1.6308844
+4,validation,SF,Historical average (52 w),ma52,-1,1.379822587900569,1.695627
+4,validation,SF,Exp. smoothing (0.3),ses,-1,1.379959361661795,1.5773178
+4,validation,SF,Last week,naive,-1,2.5775647488614477,1.9464438
+4,validation,SF,Seasonal naive (52 w),snaive,-1,2.8636579009598973,2.3816307
+4,test,CHI,LightGBM-Poisson,lgbm,0,1.324957106182101,1.8041945
+4,test,CHI,LightGBM-Poisson,lgbm,1,1.3274421636498952,1.8071442
+4,test,CHI,LightGBM-Poisson,lgbm,2,1.3253893893159,1.8037934
+4,test,CHI,XGBoost-Poisson,xgb,0,1.3281667634544885,1.807176
+4,test,CHI,XGBoost-Poisson,xgb,1,1.325065247928076,1.8036548
+4,test,CHI,XGBoost-Poisson,xgb,2,1.324833394457678,1.8044283
+4,test,CHI,Poisson GLM,glm,0,1.3915077373875264,1.8398515
+4,test,CHI,Poisson GLM,glm,1,1.3913230491234165,1.8319957
+4,test,CHI,Poisson GLM,glm,2,1.3969610636016239,1.8417647
+4,test,CHI,GRU (global),gru,0,1.3224860495842383,1.7879416
+4,test,CHI,GRU (global),gru,1,1.3230385553651876,1.7944635
+4,test,CHI,GRU (global),gru,2,1.321485324590478,1.7798721
+4,test,CHI,ST-GRU (graph diffusion input),stgru,0,1.31064625169785,1.7732912
+4,test,CHI,ST-GRU (graph diffusion input),stgru,1,1.3195000486801398,1.7815748
+4,test,CHI,ST-GRU (graph diffusion input),stgru,2,1.3325056215685265,1.7868627
+4,test,CHI,Moving average (4 w),ma4,-1,1.5831546822829272,1.9344946
+4,test,CHI,Historical average (52 w),ma52,-1,1.3763781443797647,1.8551884
+4,test,CHI,Exp. smoothing (0.3),ses,-1,1.470196137791265,1.8837587
+4,test,CHI,Last week,naive,-1,2.795156717312785,2.3377824
+4,test,CHI,Seasonal naive (52 w),snaive,-1,2.964018917503306,2.5122666
+4,test,NYC,LightGBM-Poisson,lgbm,0,1.5024945775518006,2.942522
+4,test,NYC,LightGBM-Poisson,lgbm,1,1.5023223471309712,2.9389634
+4,test,NYC,LightGBM-Poisson,lgbm,2,1.5011300106351342,2.9378138
+4,test,NYC,XGBoost-Poisson,xgb,0,1.5205875993149156,2.965981
+4,test,NYC,XGBoost-Poisson,xgb,1,1.5212881826593514,2.9706218
+4,test,NYC,XGBoost-Poisson,xgb,2,1.516301982401308,2.9630046
+4,test,NYC,Poisson GLM,glm,0,1.5529900874048246,2.9930878
+4,test,NYC,Poisson GLM,glm,1,1.5518622771354056,2.9843903
+4,test,NYC,Poisson GLM,glm,2,1.552353192561849,2.980468
+4,test,NYC,GRU (global),gru,0,1.5511048248168213,2.9939485
+4,test,NYC,GRU (global),gru,1,1.5076728699978736,2.9546463
+4,test,NYC,GRU (global),gru,2,1.4842121252410063,2.8775172
+4,test,NYC,ST-GRU (graph diffusion input),stgru,0,1.4981684224693956,2.913915
+4,test,NYC,ST-GRU (graph diffusion input),stgru,1,1.5490656351448686,2.98768
+4,test,NYC,ST-GRU (graph diffusion input),stgru,2,1.5710468441994467,3.0115082
+4,test,NYC,Moving average (4 w),ma4,-1,1.7440323704323495,3.1210592
+4,test,NYC,Historical average (52 w),ma52,-1,1.563159970427301,3.0179262
+4,test,NYC,Exp. smoothing (0.3),ses,-1,1.6264494208667917,3.0237892
+4,test,NYC,Last week,naive,-1,3.0671069314104735,3.7650647
+4,test,NYC,Seasonal naive (52 w),snaive,-1,3.395277586590512,4.101804
+4,test,SF,LightGBM-Poisson,lgbm,0,1.2383795535364974,1.4322021
+4,test,SF,LightGBM-Poisson,lgbm,1,1.2448349916363863,1.4370543
+4,test,SF,LightGBM-Poisson,lgbm,2,1.2369718387802617,1.4313525
+4,test,SF,XGBoost-Poisson,xgb,0,1.2546467599058202,1.4458507
+4,test,SF,XGBoost-Poisson,xgb,1,1.2448457352554938,1.4358879
+4,test,SF,XGBoost-Poisson,xgb,2,1.2451213210264664,1.4357268
+4,test,SF,Poisson GLM,glm,0,1.381483875578822,1.4991025
+4,test,SF,Poisson GLM,glm,1,1.3855631931564993,1.4943724
+4,test,SF,Poisson GLM,glm,2,1.388616777786266,1.494258
+4,test,SF,GRU (global),gru,0,1.2383588562741499,1.4119945
+4,test,SF,GRU (global),gru,1,1.224562728451174,1.3695434
+4,test,SF,GRU (global),gru,2,1.2177619126311865,1.3631066
+4,test,SF,ST-GRU (graph diffusion input),stgru,0,1.2096190186957523,1.3848152
+4,test,SF,ST-GRU (graph diffusion input),stgru,1,1.2224002872222692,1.3845282
+4,test,SF,ST-GRU (graph diffusion input),stgru,2,1.2392251057266628,1.3774027
+4,test,SF,Moving average (4 w),ma4,-1,1.431971729516831,1.451351
+4,test,SF,Historical average (52 w),ma52,-1,1.2747722378928732,1.4456108
+4,test,SF,Exp. smoothing (0.3),ses,-1,1.3233535932022986,1.4161391
+4,test,SF,Last week,naive,-1,2.483829118162425,1.7526213
+4,test,SF,Seasonal naive (52 w),snaive,-1,2.686089657569453,2.030892

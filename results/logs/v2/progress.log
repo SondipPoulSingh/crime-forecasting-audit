@@ -1,0 +1,99 @@
+[ 0.00 h] environment: {'python': '3.13.15', 'numpy': '2.1.3', 'pandas': '2.3.3', 'torch': '2.11.0+cu128', 'xgboost': '3.4.1', 'lightgbm': '4.6.0', 'device': 'cuda', 'gpu': 'Tesla T4', 'fast': False}
+[ 0.00 h] v1 outputs: /kaggle/input/datasets/sondippoulsingh83/optiona-outputs-v1/optionA_outputs
+[ 0.00 h] finished re-runs already available: 0
+[ 0.00 h] ===== I.1 benchmark: code, data and protocol audit started
+[ 0.00 h] ===== I.1 benchmark: code, data and protocol audit: ok (0 min)
+[ 0.01 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (26.6 MB)
+[ 0.01 h] Census API key: found
+[ 0.01 h]   reading /kaggle/working/optionA_outputs/predictions/weekly_test_predictions_H1.csv/weekly_test_predictions_H1.csv
+[ 0.01 h]   reading /kaggle/working/optionA_outputs/predictions/intervals_test_H1_CHI.csv/intervals_test_H1_CHI.csv
+[ 0.01 h]   reading /kaggle/working/optionA_outputs/predictions/intervals_test_H1_NYC.csv/intervals_test_H1_NYC.csv
+[ 0.01 h]   reading /kaggle/working/optionA_outputs/predictions/intervals_test_H1_SF.csv/intervals_test_H1_SF.csv
+[ 0.01 h] ===== V. equity check (census) started
+[ 0.01 h] CHI: downloading 2024–2025 incidents for the tract → area mapping ...
+[ 0.03 h]   CHI 2024: 259,661 rows
+[ 0.04 h]   CHI 2025: 238,156 rows
+[ 0.04 h]   CHI: 845 tracts → 77 of 77 areas with census data
+[ 0.04 h] NYC: downloading 2024–2025 incidents for the tract → area mapping ...
+[ 0.07 h]   NYC 2024: 574,192 rows
+[ 0.10 h]   NYC 2025: 567,668 rows
+[ 0.10 h]   NYC: 2241 tracts → 76 of 77 areas with census data
+[ 0.10 h] SF: downloading 2024–2025 incidents for the tract → area mapping ...
+[ 0.10 h]   SF 2024: 110,239 rows
+[ 0.10 h]   SF 2025: 95,777 rows
+[ 0.10 h]   SF: 241 tracts → 40 of 41 areas with census data
+[ 0.11 h] ===== V. equity check (census): ok (6 min)
+[ 0.11 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (27.2 MB)
+[ 0.11 h] ===== I.2 benchmark: forecasts, re-runs and protocols (v2) started
+[ 0.13 h] NYC: our forecasters (5 seeds) in 88s; validation deviance {'Ours: GBM-Poisson (LightGBM)': np.float64(0.3525654112176272), 'Ours: GBM-Poisson (XGBoost)': np.float64(0.3513935431500928)} → Ours: GBM-Poisson (XGBoost)
+[ 0.15 h] CHI: our forecasters (5 seeds) in 72s; validation deviance {'Ours: GBM-Poisson (LightGBM)': np.float64(0.5146633042999199), 'Ours: GBM-Poisson (XGBoost)': np.float64(0.5129412107672364)} → Ours: GBM-Poisson (XGBoost)
+[ 0.32 h]   ST-HSL NYC seed 3: 25/25 epochs, validation-best epoch 24, 10 min
+[ 0.32 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (27.6 MB)
+[ 0.40 h]   ST-HSL CHI seed 3: 25/25 epochs, validation-best epoch 17, 5 min
+[ 0.40 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (27.8 MB)
+[ 0.57 h]   ST-HSL NYC seed 4: 25/25 epochs, validation-best epoch 16, 10 min
+[ 0.57 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (28.1 MB)
+[ 0.65 h]   ST-HSL CHI seed 4: 25/25 epochs, validation-best epoch 13, 5 min
+[ 0.65 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (28.4 MB)
+[ 0.71 h]   Graph WaveNet NYC seed 3: 26 epochs, best 16, 3.4 min
+[ 0.71 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (28.7 MB)
+[ 0.77 h]   Graph WaveNet CHI seed 3: 41 epochs, best 31, 3.5 min
+[ 0.77 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (29.0 MB)
+[ 0.84 h]   Graph WaveNet NYC seed 4: 29 epochs, best 19, 3.8 min
+[ 0.84 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (29.3 MB)
+[ 0.88 h]   Graph WaveNet CHI seed 4: 30 epochs, best 20, 2.5 min
+[ 0.88 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (29.5 MB)
+[ 0.94 h]   MTGNN NYC seed 3: 33 epochs, best 23, 3.4 min
+[ 0.94 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (29.9 MB)
+[ 0.98 h]   MTGNN CHI seed 3: 30 epochs, best 20, 2.6 min
+[ 0.98 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (30.1 MB)
+[ 1.01 h]   MTGNN NYC seed 4: 16 epochs, best 6, 1.6 min
+[ 1.01 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (30.4 MB)
+[ 1.05 h]   MTGNN CHI seed 4: 23 epochs, best 13, 2.0 min
+[ 1.05 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (30.6 MB)
+[ 1.80 h]   ST-SHN NYC seed 0: 25/25 epochs, 45 min; epoch by validation / test: first 10 epochs 3 / 3, all 25 epochs 3 / 3
+[ 1.80 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (32.2 MB)
+[ 2.30 h]   ST-SHN CHI seed 0: 25/25 epochs, 30 min; epoch by validation / test: first 10 epochs 3 / 3, all 25 epochs 3 / 3
+[ 2.30 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (33.4 MB)
+[ 3.05 h]   ST-SHN NYC seed 1: 25/25 epochs, 45 min; epoch by validation / test: first 10 epochs 3 / 3, all 25 epochs 3 / 3
+[ 3.05 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (34.9 MB)
+[ 3.54 h]   ST-SHN CHI seed 1: 25/25 epochs, 30 min; epoch by validation / test: first 10 epochs 10 / 10, all 25 epochs 25 / 25
+[ 3.54 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (36.0 MB)
+[ 4.29 h]   ST-SHN NYC seed 2: 25/25 epochs, 45 min; epoch by validation / test: first 10 epochs 2 / 2, all 25 epochs 2 / 2
+[ 4.29 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (37.6 MB)
+[ 4.79 h]   ST-SHN CHI seed 2: 25/25 epochs, 30 min; epoch by validation / test: first 10 epochs 7 / 7, all 25 epochs 24 / 14
+[ 4.79 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (38.6 MB)
+[ 5.53 h]   ST-SHN NYC seed 3: 25/25 epochs, 45 min; epoch by validation / test: first 10 epochs 10 / 10, all 25 epochs 20 / 20
+[ 5.53 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (40.2 MB)
+[ 6.03 h]   ST-SHN CHI seed 3: 25/25 epochs, 30 min; epoch by validation / test: first 10 epochs 6 / 6, all 25 epochs 6 / 6
+[ 6.03 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (41.3 MB)
+[ 6.78 h]   ST-SHN NYC seed 4: 25/25 epochs, 45 min; epoch by validation / test: first 10 epochs 5 / 4, all 25 epochs 11 / 11
+[ 6.78 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (42.8 MB)
+[ 7.28 h]   ST-SHN CHI seed 4: 25/25 epochs, 30 min; epoch by validation / test: first 10 epochs 2 / 2, all 25 epochs 2 / 2
+[ 7.28 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (43.9 MB)
+[ 7.28 h] ===== I.2 benchmark: forecasts, re-runs and protocols (v2): ok (430 min)
+[ 7.28 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (43.9 MB)
+[ 7.28 h] ===== I.2b merge v1 and v2 predictions started
+[ 7.28 h]   NYC ST-HSL (re-run): 5 seeds
+[ 7.28 h]   NYC Graph WaveNet (official model code, re-trained): 5 seeds
+[ 7.28 h]   NYC MTGNN (official model code, re-trained): 5 seeds
+[ 7.28 h]   NYC ST-SHN: 5 seeds
+[ 7.28 h]   CHI ST-HSL (re-run): 5 seeds
+[ 7.28 h]   CHI Graph WaveNet (official model code, re-trained): 5 seeds
+[ 7.28 h]   CHI MTGNN (official model code, re-trained): 5 seeds
+[ 7.28 h]   CHI ST-SHN: 5 seeds
+[ 7.28 h] ===== I.2b merge v1 and v2 predictions: ok (0 min)
+[ 7.28 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (53.4 MB)
+[ 7.28 h] ===== I.2c benchmark scores under the three protocols (v2) started
+[ 7.28 h] ===== I.2c benchmark scores under the three protocols (v2): ok (0 min)
+[ 7.28 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (53.4 MB)
+[ 7.28 h] ===== I.3 benchmark: reproduction gap, exploit, rankings, intervals started
+[ 7.28 h] ===== I.3 benchmark: reproduction gap, exploit, rankings, intervals: ok (0 min)
+[ 7.29 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (53.4 MB)
+[ 7.29 h] ===== I.4 reproduction gap against seed noise (v2) started
+[ 7.29 h] ===== I.4 reproduction gap against seed noise (v2): ok (0 min)
+[ 7.29 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (53.4 MB)
+[ 7.29 h] ===== VI. hypothesis verdicts and summary started
+[ 7.29 h] results_summary.md written
+[ 7.29 h] ===== VI. hypothesis verdicts and summary: ok (0 min)
+[ 7.29 h] zip refreshed: /kaggle/working/optionA_outputs_v2.zip (53.4 MB)

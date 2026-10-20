@@ -1,0 +1,12 @@
+\begin{table*}[t]\centering\scriptsize\setlength{\tabcolsep}{3.5pt}
+\caption{Equity of interval coverage ($H=1$, test). Coverage in the poorest third of areas (ACS 2022 poverty rate), the coverage gap poorest minus richest third (points), and Spearman's $\rho$ between an area's coverage and its minority share (77, 76 and 40 areas).}\label{tab:equity}
+\begin{tabular}{lrrrrrrrrr}\toprule
+ & \multicolumn{3}{c}{Chicago} & \multicolumn{3}{c}{New York} & \multicolumn{3}{c}{San Francisco}\\\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+Method & Cov.\ poor & Gap & $\rho$ minority & Cov.\ poor & Gap & $\rho$ minority & Cov.\ poor & Gap & $\rho$ minority\\\midrule
+Poisson & 92.0 & -1.6 & -0.09 & 89.4 & -1.8 & -0.56 & 92.5 & -3.2 & -0.16 \\
+Neg. binomial & 93.9 & -1.0 & -0.04 & 92.7 & -1.1 & -0.47 & 95.2 & -1.3 & -0.12 \\
+Split conformal (CP) & 89.3 & -2.0 & -0.11 & 89.4 & -1.7 & -0.56 & 88.6 & -4.8 & -0.17 \\
+CQR & 89.8 & -0.8 & -0.25 & 89.6 & -1.1 & -0.33 & 89.8 & -2.5 & -0.22 \\
+Mondrian CP & 90.3 & +0.1 & +0.05 & 90.2 & -0.6 & -0.32 & 90.1 & -1.7 & -0.15 \\
+Mondrian-ACI & 90.0 & -0.0 & +0.05 & 89.9 & -0.5 & -0.26 & 90.0 & -1.9 & -0.18 \\
+\bottomrule\end{tabular}\end{table*}

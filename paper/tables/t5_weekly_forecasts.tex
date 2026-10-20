@@ -1,0 +1,16 @@
+\begin{table*}[t]\centering\scriptsize\setlength{\tabcolsep}{3.5pt}
+\caption{Weekly area $\times$ crime-type forecasts, test period (July 2024 onwards): mean Poisson deviance (lower is better; $\pm$ sd over 3 seeds for learned models) at horizons of 1 and 4 weeks. The forecaster selected on validation deviance is LightGBM-Poisson.}\label{tab:weekly}
+\begin{tabular}{lrrrrrr}\toprule
+ & \multicolumn{3}{c}{$H=1$} & \multicolumn{3}{c}{$H=4$}\\\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Model & Chicago & New York & San Francisco & Chicago & New York & San Francisco\\\midrule
+LightGBM-Poisson & 1.283\,{\tiny$\pm$0.001} & 1.420\,{\tiny$\pm$0.002} & 1.180\,{\tiny$\pm$0.004} & 1.326\,{\tiny$\pm$0.001} & 1.502\,{\tiny$\pm$0.001} & 1.240\,{\tiny$\pm$0.004} \\
+XGBoost-Poisson & 1.285\,{\tiny$\pm$0.001} & 1.435\,{\tiny$\pm$0.002} & 1.188\,{\tiny$\pm$0.005} & 1.326\,{\tiny$\pm$0.002} & 1.519\,{\tiny$\pm$0.003} & 1.248\,{\tiny$\pm$0.006} \\
+GRU (global) & 1.278\,{\tiny$\pm$0.004} & 1.422\,{\tiny$\pm$0.004} & 1.178\,{\tiny$\pm$0.006} & 1.322\,{\tiny$\pm$0.001} & 1.514\,{\tiny$\pm$0.034} & 1.227\,{\tiny$\pm$0.010} \\
+ST-GRU (graph diffusion input) & 1.281\,{\tiny$\pm$0.006} & 1.432\,{\tiny$\pm$0.005} & 1.179\,{\tiny$\pm$0.007} & 1.321\,{\tiny$\pm$0.011} & 1.539\,{\tiny$\pm$0.037} & 1.224\,{\tiny$\pm$0.015} \\
+Poisson GLM & 1.363\,{\tiny$\pm$0.002} & 1.484\,{\tiny$\pm$0.002} & 1.337\,{\tiny$\pm$0.009} & 1.393\,{\tiny$\pm$0.003} & 1.552\,{\tiny$\pm$0.001} & 1.385\,{\tiny$\pm$0.004} \\
+Historical average (52 w) & 1.360 & 1.535 & 1.252 & 1.376 & 1.563 & 1.275 \\
+Exp. smoothing (0.3) & 1.405 & 1.522 & 1.282 & 1.470 & 1.626 & 1.323 \\
+Moving average (4 w) & 1.515 & 1.636 & 1.395 & 1.583 & 1.744 & 1.432 \\
+Last week & 2.688 & 2.872 & 2.405 & 2.795 & 3.067 & 2.484 \\
+Seasonal naive (52 w) & 2.964 & 3.395 & 2.686 & 2.964 & 3.395 & 2.686 \\
+\bottomrule\end{tabular}\end{table*}

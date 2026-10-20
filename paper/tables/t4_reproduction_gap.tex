@@ -1,0 +1,40 @@
+\begin{table*}[t]\centering\scriptsize\setlength{\tabcolsep}{3.5pt}
+\caption{Reproduction gap under the official protocol P1: published MAE vs.\ re-run of the official code (mean $\pm$ sd over 5 seeds) and the 95\,\% $t$-interval of the gap; for ST-HSL also the gap of the official seed (523) alone. \emph{worse}/\emph{better}: the whole interval lies above/below the published number; \emph{noise}: it contains it.}\label{tab:repro}
+\begin{tabular}{lllrrrrrl}\toprule
+Model & City & Category & Published & Re-run & 95\,\% CI of gap & Gap (\%) & Official seed (\%) & Verdict\\\midrule
+ST-HSL & New York & Burglary & 0.7329 & 0.7819 $\pm$ 0.0469 & [-0.009, +0.107] & +6.7 & -1.7 & noise \\
+ &  & Larceny & 1.0316 & 1.0724 $\pm$ 0.0298 & [+0.004, +0.078] & +4.0 & +0.4 & worse \\
+ &  & Robbery & 0.7912 & 0.8355 $\pm$ 0.0333 & [+0.003, +0.086] & +5.6 & -1.4 & worse \\
+ &  & Assault & 0.8484 & 0.8858 $\pm$ 0.0419 & [-0.015, +0.089] & +4.4 & -3.5 & noise \\
+ & Chicago & Theft & 1.2952 & 1.3261 $\pm$ 0.0110 & [+0.017, +0.045] & +2.4 & +1.0 & worse \\
+ &  & Battery & 1.1016 & 1.1545 $\pm$ 0.0220 & [+0.026, +0.080] & +4.8 & +4.2 & worse \\
+ &  & Assault & 0.6665 & 0.7336 $\pm$ 0.0187 & [+0.044, +0.090] & +10.1 & +12.6 & worse \\
+ &  & Damage & 0.8446 & 0.8794 $\pm$ 0.0160 & [+0.015, +0.055] & +4.1 & +4.0 & worse \\
+\midrule
+Graph WaveNet & New York & Burglary & 0.7993 & 0.7994 $\pm$ 0.0141 & [-0.017, +0.018] & +0.0 & -- & noise \\
+ &  & Larceny & 1.0493 & 1.0643 $\pm$ 0.0124 & [-0.000, +0.030] & +1.4 & -- & noise \\
+ &  & Robbery & 0.8681 & 0.8671 $\pm$ 0.0098 & [-0.013, +0.011] & -0.1 & -- & noise \\
+ &  & Assault & 0.8866 & 0.9169 $\pm$ 0.0075 & [+0.021, +0.040] & +3.4 & -- & worse \\
+ & Chicago & Theft & 1.3211 & 1.3432 $\pm$ 0.0157 & [+0.003, +0.042] & +1.7 & -- & worse \\
+ &  & Battery & 1.1331 & 1.1549 $\pm$ 0.0134 & [+0.005, +0.038] & +1.9 & -- & worse \\
+ &  & Assault & 0.7493 & 0.7807 $\pm$ 0.0175 & [+0.010, +0.053] & +4.2 & -- & worse \\
+ &  & Damage & 0.8584 & 0.8765 $\pm$ 0.0065 & [+0.010, +0.026] & +2.1 & -- & worse \\
+\midrule
+MTGNN & New York & Burglary & 0.8329 & 0.8132 $\pm$ 0.0096 & [-0.032, -0.008] & -2.4 & -- & better \\
+ &  & Larceny & 1.0473 & 1.0525 $\pm$ 0.0048 & [-0.001, +0.011] & +0.5 & -- & noise \\
+ &  & Robbery & 0.8759 & 0.8727 $\pm$ 0.0038 & [-0.008, +0.001] & -0.4 & -- & noise \\
+ &  & Assault & 0.9090 & 0.9103 $\pm$ 0.0070 & [-0.007, +0.010] & +0.1 & -- & noise \\
+ & Chicago & Theft & 1.3054 & 1.3021 $\pm$ 0.0018 & [-0.006, -0.001] & -0.3 & -- & better \\
+ &  & Battery & 1.1307 & 1.1535 $\pm$ 0.0074 & [+0.014, +0.032] & +2.0 & -- & worse \\
+ &  & Assault & 0.7571 & 0.7477 $\pm$ 0.0153 & [-0.028, +0.010] & -1.2 & -- & noise \\
+ &  & Damage & 0.8667 & 0.8741 $\pm$ 0.0041 & [+0.002, +0.012] & +0.9 & -- & worse \\
+\midrule
+ST-SHN & New York & Burglary & 0.8012 & 0.5266 $\pm$ 0.0157 & [-0.294, -0.255] & -34.3 & -- & better \\
+ &  & Larceny & 1.0431 & 0.9098 $\pm$ 0.0197 & [-0.158, -0.109] & -12.8 & -- & better \\
+ &  & Robbery & 0.8717 & 0.6190 $\pm$ 0.0066 & [-0.261, -0.245] & -29.0 & -- & better \\
+ &  & Assault & 0.9169 & 0.6636 $\pm$ 0.0067 & [-0.262, -0.245] & -27.6 & -- & better \\
+ & Chicago & Theft & 1.3231 & 1.2770 $\pm$ 0.0277 & [-0.081, -0.012] & -3.5 & -- & better \\
+ &  & Battery & 1.1348 & 1.0615 $\pm$ 0.0213 & [-0.100, -0.047] & -6.5 & -- & better \\
+ &  & Assault & 0.7758 & 0.6001 $\pm$ 0.0150 & [-0.194, -0.157] & -22.6 & -- & better \\
+ &  & Damage & 0.8741 & 0.7921 $\pm$ 0.0131 & [-0.098, -0.066] & -9.4 & -- & better \\
+\bottomrule\end{tabular}\end{table*}

@@ -1,0 +1,12 @@
+\begin{table*}[t]\centering\scriptsize
+\caption{Protocol census of public crime-prediction code, audited automatically at pinned commits (Section~\ref{sec:census}). \emph{Indirect}: the crime pipeline was not released; the finding follows from the shared metric code and the shipped configuration.}\label{tab:census}
+\setlength{\tabcolsep}{3pt}\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{1.45cm}>{\raggedright\arraybackslash}p{2.0cm}>{\raggedright\arraybackslash}p{1.25cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{2.1cm}>{\raggedright\arraybackslash}p{1.8cm}>{\raggedright\arraybackslash}p{0.9cm}>{\raggedright\arraybackslash}p{1.05cm}@{}}\toprule
+Code & Paper & Task & Cells scored by the test metric & Training loss & Epoch reported & Zeros ignored & Evidence\\\midrule
+CL4ST & Tang et al., CIKM 2023 & regression & cells with y $>$ 0 when mae\_thresh = 0.0 (shipped config) & smooth L1 on all cells & validation & yes & indirect \\
+EasyST & Tang et al., CIKM 2024 & regression & cells with y $>$ 0 when mae\_thresh = 0.0 (shipped config) & MSE on all cells & -- & yes & direct \\
+HAGEN & Wang et al., HAGEN (crime occurrence) & classification & all cells (macro/micro F1 of occurrence) & binary cross-entropy on all cells & best validation F1 & no & direct \\
+ST-HHOL & ST-HHOL, ICLR 2026 & regression & cells with y $\neq$ 0 (null\_val = 0) & masked MAE: crime cells only & validation & yes & direct \\
+ST-HSL & Li et al., ICDE 2022 & regression & crime cell-days only (y $>$ 0) & all cell-days & best validation RMSE + MAE & yes & direct \\
+ST-SHN & Xia et al., IJCAI 2021 & regression & crime cell-days only (y $>$ 0), and only cells active on 20--80 \% of days & crime cell-days only & best TEST MAPE & yes & direct \\
+STExplainer & Tang et al., STExplainer & regression & cells with y $>$ 0 when mae\_thresh = 0.0 (shipped config) & -- & validation & yes & indirect \\
+\bottomrule\end{tabularx}\end{table*}

@@ -1,0 +1,11 @@
+{
+ "I.1 benchmark: code, data and protocol audit": "ok (0 min)",
+ "II.1 city data and weekly panels": "ok (23 min)",
+ "II.2 forecasters \u00d7 horizons \u00d7 seeds": "ok (14 min)",
+ "III. intervals on the main split": "ok (3 min)",
+ "IV. rolling-origin folds": "ok (7 min)",
+ "V. equity check (census)": "ok (0 min)",
+ "I.2 benchmark: forecasts, re-runs and protocols": "ok (137 min)",
+ "I.3 benchmark: reproduction gap, exploit, rankings, intervals": "ok (0 min)",
+ "VI. hypothesis verdicts and summary": "ok (0 min)"
+}

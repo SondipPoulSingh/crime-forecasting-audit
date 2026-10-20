@@ -1,0 +1,5 @@
+Crime-prediction benchmarks score only the cell-days on which crime occurred
+Trivial predictors that never forecast zero beat the published state of the art
+Official rankings disagree with full-task and hot-spot hit-rate rankings
+All six audited public crime-count codebases, 2021-2026, ignore zero cells
+Mondrian conformal intervals stay calibrated for quiet, busy, poor and rich areas

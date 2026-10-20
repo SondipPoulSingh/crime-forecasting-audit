@@ -1,0 +1,158 @@
+[ 0.00 h] environment: {'python': '3.13.15', 'numpy': '2.1.3', 'pandas': '2.3.3', 'torch': '2.11.0+cu128', 'xgboost': '3.4.1', 'lightgbm': '4.6.0', 'device': 'cuda', 'gpu': 'Tesla T4', 'fast': False}
+[ 0.00 h] ===== I.1 benchmark: code, data and protocol audit started
+[ 0.01 h] ===== I.1 benchmark: code, data and protocol audit: ok (0 min)
+[ 0.01 h] zip refreshed: /kaggle/working/optionA_outputs.zip (0.0 MB)
+[ 0.01 h] ===== II.1 city data and weekly panels started
+[ 0.01 h] CHI: downloading from 2016 ...
+[ 0.01 h]   CHI 2016: 270,034 rows
+[ 0.02 h]   CHI 2017: 269,350 rows
+[ 0.03 h]   CHI 2018: 269,238 rows
+[ 0.04 h]   CHI 2019: 261,942 rows
+[ 0.05 h]   CHI 2020: 213,077 rows
+[ 0.05 h]   CHI 2021: 210,009 rows
+[ 0.05 h]   CHI 2022: 240,502 rows
+[ 0.06 h]   CHI 2023: 263,856 rows
+[ 0.08 h]   CHI 2024: 259,659 rows
+[ 0.08 h]   CHI 2025: 238,150 rows
+[ 0.09 h]   CHI 2026: 179,360 rows
+[ 0.09 h] Chicago: 2,675,177 rows read, 2,672,507 kept (305s)
+[ 0.09 h] Chicago: 561 weeks (2016-01-04 – 2026-09-28) × 77 areas × 11 types, 2,668,250 incidents
+[ 0.09 h] NYC: downloading from 2016 ...
+[ 0.10 h]   NYC 2016: 478,780 rows
+[ 0.11 h]   NYC 2017: 468,556 rows
+[ 0.14 h]   NYC 2018: 462,931 rows
+[ 0.17 h]   NYC 2019: 459,608 rows
+[ 0.22 h]   NYC 2020: 414,277 rows
+[ 0.27 h]   NYC 2021: 450,331 rows
+[ 0.31 h]   NYC 2022: 531,322 rows
+[ 0.32 h]   NYC 2023: 553,468 rows
+[ 0.34 h]   NYC 2024: 574,192 rows
+[ 0.35 h]   NYC 2025: 567,668 rows
+[ 0.35 h]   NYC 2026: 0 rows
+[ 0.35 h]   NYC_YTD 2025: 7,609 rows
+[ 0.36 h]   NYC_YTD 2026: 270,113 rows
+[ 0.36 h]   NYC year-to-date rows added: 270,113
+[ 0.36 h] New York: 5,231,246 rows read, 5,231,149 kept (984s)
+[ 0.37 h] New York: 544 weeks (2016-01-04 – 2026-06-01) × 77 areas × 11 types, 5,192,833 incidents
+[ 0.37 h] SF: downloading from 2016 ...
+[ 0.37 h]   SF 2018: 147,460 rows
+[ 0.37 h]   SF 2019: 142,969 rows
+[ 0.37 h]   SF 2020: 114,586 rows
+[ 0.38 h]   SF 2021: 125,182 rows
+[ 0.38 h]   SF 2022: 132,870 rows
+[ 0.38 h]   SF 2023: 130,936 rows
+[ 0.38 h]   SF 2024: 110,238 rows
+[ 0.38 h]   SF 2025: 95,769 rows
+[ 0.38 h]   SF 2026: 73,178 rows
+[ 0.38 h]   SF: 37,687 duplicate incident × category rows removed
+[ 0.38 h] San Francisco: 1,035,501 rows read, 977,360 kept (57s)
+[ 0.38 h] San Francisco: 456 weeks (2018-01-08 – 2026-09-28) × 41 areas × 11 types, 972,359 incidents
+[ 0.38 h] ===== II.1 city data and weekly panels: ok (23 min)
+[ 0.38 h] zip refreshed: /kaggle/working/optionA_outputs.zip (0.2 MB)
+[ 0.38 h] ===== II.2 forecasters × horizons × seeds started
+[ 0.38 h] H=1: 1,027,906 rows (677,655 fit, 55,770 early stop, 55,770 validation, 238,711 test)
+[ 0.39 h]   LightGBM seed 0: 222 trees, 25s
+[ 0.39 h]   XGBoost seed 0: 242 trees, 4s
+[ 0.40 h]   LightGBM seed 1: 312 trees, 36s
+[ 0.40 h]   XGBoost seed 1: 212 trees, 4s
+[ 0.41 h]   LightGBM seed 2: 251 trees, 29s
+[ 0.41 h]   XGBoost seed 2: 203 trees, 4s
+[ 0.41 h]   glm seed 0: 10s
+[ 0.42 h]   glm seed 1: 4s
+[ 0.42 h]   glm seed 2: 4s
+[ 0.43 h]   gru seed 0: 42s
+[ 0.45 h]   gru seed 1: 69s
+[ 0.46 h]   gru seed 2: 51s
+[ 0.47 h]   stgru seed 0: 43s
+[ 0.49 h]   stgru seed 1: 56s
+[ 0.50 h]   stgru seed 2: 33s
+[ 0.50 h] H=2: 1,025,761 rows (675,510 fit, 55,770 early stop, 55,770 validation, 238,711 test)
+[ 0.51 h]   LightGBM seed 0: 254 trees, 29s
+[ 0.51 h]   XGBoost seed 0: 195 trees, 4s
+[ 0.52 h]   LightGBM seed 1: 274 trees, 32s
+[ 0.52 h]   XGBoost seed 1: 206 trees, 4s
+[ 0.52 h]   LightGBM seed 2: 216 trees, 24s
+[ 0.52 h]   XGBoost seed 2: 194 trees, 4s
+[ 0.53 h] H=3: 1,023,616 rows (673,365 fit, 55,770 early stop, 55,770 validation, 238,711 test)
+[ 0.53 h]   LightGBM seed 0: 213 trees, 24s
+[ 0.53 h]   XGBoost seed 0: 187 trees, 4s
+[ 0.54 h]   LightGBM seed 1: 198 trees, 23s
+[ 0.54 h]   XGBoost seed 1: 206 trees, 4s
+[ 0.55 h]   LightGBM seed 2: 221 trees, 25s
+[ 0.55 h]   XGBoost seed 2: 192 trees, 4s
+[ 0.55 h] H=4: 1,021,471 rows (671,220 fit, 55,770 early stop, 55,770 validation, 238,711 test)
+[ 0.55 h]   LightGBM seed 0: 196 trees, 22s
+[ 0.56 h]   XGBoost seed 0: 181 trees, 4s
+[ 0.56 h]   LightGBM seed 1: 187 trees, 21s
+[ 0.56 h]   XGBoost seed 1: 188 trees, 4s
+[ 0.57 h]   LightGBM seed 2: 200 trees, 23s
+[ 0.57 h]   XGBoost seed 2: 188 trees, 4s
+[ 0.57 h]   glm seed 0: 6s
+[ 0.57 h]   glm seed 1: 3s
+[ 0.57 h]   glm seed 2: 3s
+[ 0.58 h]   gru seed 0: 19s
+[ 0.59 h]   gru seed 1: 24s
+[ 0.59 h]   gru seed 2: 33s
+[ 0.61 h]   stgru seed 0: 47s
+[ 0.61 h]   stgru seed 1: 20s
+[ 0.62 h]   stgru seed 2: 24s
+[ 0.62 h] validation deviance (mean over seeds, cities, horizons [1, 4]): {'lgbm': 1.3283, 'xgb': 1.3366, 'gru': 1.3366, 'stgru': 1.3445, 'glm': 1.4298} → selected: LightGBM-Poisson; per horizon: {1: 'lgbm', 2: 'lgbm', 3: 'lgbm', 4: 'lgbm'}
+[ 0.62 h] ===== II.2 forecasters × horizons × seeds: ok (14 min)
+[ 0.62 h] zip refreshed: /kaggle/working/optionA_outputs.zip (8.3 MB)
+[ 0.62 h] ===== III. intervals on the main split started
+[ 0.65 h]   H=1: CQR and locally weighted CP models in 91s
+[ 0.65 h]   intervals H=1 done
+[ 0.65 h]   intervals H=2 done
+[ 0.65 h]   intervals H=3 done
+[ 0.67 h]   H=4: CQR and locally weighted CP models in 79s
+[ 0.68 h]   intervals H=4 done
+[ 0.68 h] ===== III. intervals on the main split: ok (3 min)
+[ 0.68 h] zip refreshed: /kaggle/working/optionA_outputs.zip (13.0 MB)
+[ 0.68 h] ===== IV. rolling-origin folds started
+[ 0.70 h]   fold 2020: models in 57s
+[ 0.70 h]     SF: fewer than 26 training weeks before 2020, skipped
+[ 0.71 h]   fold 2021: models in 55s
+[ 0.74 h]   fold 2022: models in 90s
+[ 0.77 h]   fold 2023: models in 104s
+[ 0.79 h]   fold 2024: models in 90s
+[ 0.79 h] ===== IV. rolling-origin folds: ok (7 min)
+[ 0.79 h] zip refreshed: /kaggle/working/optionA_outputs.zip (13.3 MB)
+[ 0.79 h] ===== V. equity check (census) started
+[ 0.79 h]   census data for CHI not available: Expecting value: line 1 column 1 (char 0)
+[ 0.79 h]   census data for NYC not available: Expecting value: line 1 column 1 (char 0)
+[ 0.79 h]   census data for SF not available: Expecting value: line 1 column 1 (char 0)
+[ 0.79 h] ===== V. equity check (census): ok (0 min)
+[ 0.79 h] zip refreshed: /kaggle/working/optionA_outputs.zip (13.3 MB)
+[ 0.79 h] ===== I.2 benchmark: forecasts, re-runs and protocols started
+[ 0.81 h] NYC: our forecasters (3 seeds) in 56s; validation deviance {'Ours: GBM-Poisson (LightGBM)': np.float64(0.35275849003423626), 'Ours: GBM-Poisson (XGBoost)': np.float64(0.35138425033960535)} → Ours: GBM-Poisson (XGBoost)
+[ 0.82 h] CHI: our forecasters (3 seeds) in 47s; validation deviance {'Ours: GBM-Poisson (LightGBM)': np.float64(0.5146464377996752), 'Ours: GBM-Poisson (XGBoost)': np.float64(0.513090667582346)} → Ours: GBM-Poisson (XGBoost)
+[ 0.89 h]   Graph WaveNet NYC seed 0: 29 epochs, best 19, 3.9 min
+[ 0.92 h]   Graph WaveNet CHI seed 0: 19 epochs, best 9, 1.6 min
+[ 0.96 h]   MTGNN NYC seed 0: 23 epochs, best 13, 2.4 min
+[ 1.00 h]   MTGNN CHI seed 0: 29 epochs, best 19, 2.6 min
+[ 1.17 h]   ST-HSL NYC seed 0: 25/25 epochs, validation-best epoch 14, 10 min
+[ 1.25 h]   ST-HSL CHI seed 0: 25/25 epochs, validation-best epoch 23, 5 min
+[ 1.56 h]   ST-SHN NYC seed 0: 10 epochs, epoch by validation 3, by test (official) 3, 19 min
+[ 1.77 h]   ST-SHN CHI seed 0: 10 epochs, epoch by validation 3, by test (official) 3, 12 min
+[ 1.81 h]   Graph WaveNet NYC seed 1: 18 epochs, best 8, 2.4 min
+[ 1.86 h]   Graph WaveNet NYC seed 2: 26 epochs, best 16, 3.5 min
+[ 1.91 h]   Graph WaveNet CHI seed 1: 33 epochs, best 23, 2.8 min
+[ 1.95 h]   Graph WaveNet CHI seed 2: 26 epochs, best 16, 2.2 min
+[ 1.98 h]   MTGNN NYC seed 1: 18 epochs, best 8, 1.9 min
+[ 2.02 h]   MTGNN NYC seed 2: 24 epochs, best 14, 2.5 min
+[ 2.04 h]   MTGNN CHI seed 1: 12 epochs, best 2, 1.1 min
+[ 2.07 h]   MTGNN CHI seed 2: 22 epochs, best 12, 1.9 min
+[ 2.24 h]   ST-HSL NYC seed 1: 25/25 epochs, validation-best epoch 10, 10 min
+[ 2.40 h]   ST-HSL NYC seed 2: 25/25 epochs, validation-best epoch 10, 10 min
+[ 2.49 h]   ST-HSL CHI seed 1: 25/25 epochs, validation-best epoch 18, 5 min
+[ 2.57 h]   ST-HSL CHI seed 2: 25/25 epochs, validation-best epoch 14, 5 min
+[ 2.88 h]   ST-SHN NYC seed 1: 10 epochs, epoch by validation 3, by test (official) 3, 18 min
+[ 3.08 h]   ST-SHN CHI seed 1: 10 epochs, epoch by validation 10, by test (official) 10, 12 min
+[ 3.08 h] ===== I.2 benchmark: forecasts, re-runs and protocols: ok (137 min)
+[ 3.08 h] zip refreshed: /kaggle/working/optionA_outputs.zip (25.5 MB)
+[ 3.08 h] ===== I.3 benchmark: reproduction gap, exploit, rankings, intervals started
+[ 3.08 h] ===== I.3 benchmark: reproduction gap, exploit, rankings, intervals: ok (0 min)
+[ 3.08 h] zip refreshed: /kaggle/working/optionA_outputs.zip (25.9 MB)
+[ 3.08 h] ===== VI. hypothesis verdicts and summary started
+[ 3.08 h] results_summary.md written
+[ 3.08 h] ===== VI. hypothesis verdicts and summary: ok (0 min)

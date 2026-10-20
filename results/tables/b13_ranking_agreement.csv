@@ -1,0 +1,9 @@
+city,protocol_a,protocol_b,kendall_tau,p_value,best_a,best_b,models
+NYC,P1_mean_MAE,P3_deviance_all,-0.45454545454545453,0.06017015392015392,Ours – protocol-aware (zero-truncated median),Ours: GBM-Poisson (XGBoost),11
+NYC,P1_mean_MAE,P3_MAE_all,-0.6000000000000001,0.00994553671637005,Ours – protocol-aware (zero-truncated median),Ours: GBM-Poisson (XGBoost),11
+NYC,P2_mean_MAE,P3_deviance_all,-0.4909090909090909,0.04053235730319064,Ours – protocol-aware (zero-truncated median),Ours: GBM-Poisson (XGBoost),11
+NYC,P1_mean_MAE,P2_mean_MAE,0.8909090909090909,1.3728555395222063e-05,Ours – protocol-aware (zero-truncated median),Ours – protocol-aware (zero-truncated median),11
+CHI,P1_mean_MAE,P3_deviance_all,0.0,1.0,Ours – protocol-aware (zero-truncated median),Ours: GBM-Poisson (XGBoost),11
+CHI,P1_mean_MAE,P3_MAE_all,-0.037037037037037035,0.8755259328487163,Ours – protocol-aware (zero-truncated median),Ours: GBM-Poisson (XGBoost),11
+CHI,P2_mean_MAE,P3_deviance_all,-0.3333333333333333,0.15860164569939683,Ours – protocol-aware (zero-truncated median),Ours: GBM-Poisson (XGBoost),11
+CHI,P1_mean_MAE,P2_mean_MAE,0.5185185185185185,0.028306878069320546,Ours – protocol-aware (zero-truncated median),Ours – protocol-aware (zero-truncated median),11

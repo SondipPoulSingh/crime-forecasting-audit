@@ -1,0 +1,41 @@
+model,city,seed,epochs_run,epochs_planned,selected_epoch,selection,minutes,finished,selected_epoch_validation,selected_epoch_test,source,epoch_by_validation_official,epoch_by_test_official,budget_official,epoch_by_validation_long,epoch_by_test_long,budget_long
+ST-HSL,NYC,0,25,25,14.0,validation (official rule),10.021563728650412,True,,,v1,,,,,,
+ST-HSL,NYC,1,25,25,10.0,validation (official rule),9.96259902715683,True,,,v1,,,,,,
+ST-HSL,NYC,2,25,25,10.0,validation (official rule),9.962570770581562,True,,,v1,,,,,,
+ST-HSL,NYC,3,25,25,24.0,validation (official rule),9.996789153416952,True,,,v2,,,,,,
+ST-HSL,NYC,4,25,25,16.0,validation (official rule),9.881107858816783,True,,,v2,,,,,,
+Graph WaveNet,NYC,0,29,100,19.0,validation (ST-HSL rule),3.871938530604045,True,,,v1,,,,,,
+Graph WaveNet,NYC,1,18,100,8.0,validation (ST-HSL rule),2.3873453934987388,True,,,v1,,,,,,
+Graph WaveNet,NYC,2,26,100,16.0,validation (ST-HSL rule),3.453886195023854,True,,,v1,,,,,,
+Graph WaveNet,NYC,3,26,100,16.0,validation (ST-HSL rule),3.445097740491231,True,,,v2,,,,,,
+Graph WaveNet,NYC,4,29,100,19.0,validation (ST-HSL rule),3.8273107012112937,True,,,v2,,,,,,
+MTGNN,NYC,0,23,100,13.0,validation (ST-HSL rule),2.3933366417884825,True,,,v1,,,,,,
+MTGNN,NYC,1,18,100,8.0,validation (ST-HSL rule),1.8679738203684488,True,,,v1,,,,,,
+MTGNN,NYC,2,24,100,14.0,validation (ST-HSL rule),2.4928566376368204,True,,,v1,,,,,,
+MTGNN,NYC,3,33,100,23.0,validation (ST-HSL rule),3.404060089588165,True,,,v2,,,,,,
+MTGNN,NYC,4,16,100,6.0,validation (ST-HSL rule),1.6465258677800496,True,,,v2,,,,,,
+ST-SHN,NYC,0,25,25,,,45.2187996506691,True,3.0,3.0,v2,3.0,3.0,10.0,3.0,3.0,25.0
+ST-SHN,NYC,1,25,25,,,44.906047749519345,True,3.0,3.0,v2,3.0,3.0,10.0,3.0,3.0,25.0
+ST-SHN,NYC,2,25,25,,,44.77792699337006,True,2.0,2.0,v2,2.0,2.0,10.0,2.0,2.0,25.0
+ST-SHN,NYC,3,25,25,,,44.69488645792008,True,10.0,10.0,v2,10.0,10.0,10.0,20.0,20.0,25.0
+ST-SHN,NYC,4,25,25,,,44.96472369035085,True,5.0,4.0,v2,5.0,4.0,10.0,11.0,11.0,25.0
+ST-HSL,CHI,0,25,25,23.0,validation (official rule),5.013275937239329,True,,,v1,,,,,,
+ST-HSL,CHI,1,25,25,18.0,validation (official rule),5.007478419939677,True,,,v1,,,,,,
+ST-HSL,CHI,2,25,25,14.0,validation (official rule),5.006855742136637,True,,,v1,,,,,,
+ST-HSL,CHI,3,25,25,17.0,validation (official rule),4.964344219366709,True,,,v2,,,,,,
+ST-HSL,CHI,4,25,25,13.0,validation (official rule),4.962305255730947,True,,,v2,,,,,,
+Graph WaveNet,CHI,0,19,100,9.0,validation (ST-HSL rule),1.6266228278477988,True,,,v1,,,,,,
+Graph WaveNet,CHI,1,33,100,23.0,validation (ST-HSL rule),2.819000399112701,True,,,v1,,,,,,
+Graph WaveNet,CHI,2,26,100,16.0,validation (ST-HSL rule),2.21454652150472,True,,,v1,,,,,,
+Graph WaveNet,CHI,3,41,100,31.0,validation (ST-HSL rule),3.479649384816488,True,,,v2,,,,,,
+Graph WaveNet,CHI,4,30,100,20.0,validation (ST-HSL rule),2.546227816740672,True,,,v2,,,,,,
+MTGNN,CHI,0,29,100,19.0,validation (ST-HSL rule),2.566491389274597,True,,,v1,,,,,,
+MTGNN,CHI,1,12,100,2.0,validation (ST-HSL rule),1.0621058265368144,True,,,v1,,,,,,
+MTGNN,CHI,2,22,100,12.0,validation (ST-HSL rule),1.946508006254832,True,,,v1,,,,,,
+MTGNN,CHI,3,30,100,20.0,validation (ST-HSL rule),2.6401020606358845,True,,,v2,,,,,,
+MTGNN,CHI,4,23,100,13.0,validation (ST-HSL rule),2.022944398721059,True,,,v2,,,,,,
+ST-SHN,CHI,0,25,25,,,29.780926672617593,True,3.0,3.0,v2,3.0,3.0,10.0,3.0,3.0,25.0
+ST-SHN,CHI,1,25,25,,,29.629879542191823,True,10.0,10.0,v2,10.0,10.0,10.0,25.0,25.0,25.0
+ST-SHN,CHI,2,25,25,,,29.887158433596294,True,7.0,7.0,v2,7.0,7.0,10.0,24.0,14.0,25.0
+ST-SHN,CHI,3,25,25,,,29.76988441546758,True,6.0,6.0,v2,6.0,6.0,10.0,6.0,6.0,25.0
+ST-SHN,CHI,4,25,25,,,29.748736770947776,True,2.0,2.0,v2,2.0,2.0,10.0,2.0,2.0,25.0

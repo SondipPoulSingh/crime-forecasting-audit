@@ -1,0 +1,9 @@
+code,aspect,what the official code does,verified in code
+ST-HSL,scored cell-days,only cell-days with at least one crime (mask = label > 0),True
+ST-HSL,training loss,squared error on every cell-day (mask = label >= 0),True
+ST-HSL,reported epoch,best validation RMSE + MAE,True
+ST-HSL,random seed,"fixed (seed_torch, 523)",True
+ST-SHN,scored cell-days,"crime days only, and only cells with crime on 20–80 % of training days",True
+ST-SHN,training loss,squared error on crime days only (regression: negRate = 0),True
+ST-SHN,reported epoch,epoch with the best TEST MAPE (the test set chooses the epoch),True
+ST-SHN,random seed,none set,True

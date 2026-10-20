@@ -1,0 +1,114 @@
+[ 0.00 h] environment: {'python': '3.13.15', 'numpy': '2.1.3', 'pandas': '2.3.3', 'torch': '2.11.0+cu128', 'xgboost': '3.4.1', 'lightgbm': '4.6.0', 'device': 'cuda', 'gpu': 'Tesla T4', 'fast': False}
+[ 0.04 h] v2 outputs: /kaggle/input/datasets/sondippoulsingh83/optiona-outputs-v2/optionA_outputs
+[ 0.07 h] v1 last weeks: {'CHI': '2026-09-28', 'NYC': '2026-06-01', 'SF': '2026-09-28'}
+[ 0.07 h] ===== I.1 benchmark: code, data and protocol audit started
+[ 0.07 h] ===== I.1 benchmark: code, data and protocol audit: ok (0 min)
+[ 0.07 h] zip refreshed: /kaggle/working/optionA_outputs_v3.zip (53.4 MB)
+[ 0.07 h] ===== VII (v3). protocol census of public crime-prediction code started
+[ 0.08 h]   protocol census: 6/6 regression codebases score only non-zero cells
+[ 0.08 h] ===== VII (v3). protocol census of public crime-prediction code: ok (0 min)
+[ 0.08 h] zip refreshed: /kaggle/working/optionA_outputs_v3.zip (53.4 MB)
+[ 0.08 h] ===== II.1 city data and weekly panels started
+[ 0.08 h] CHI: downloading from 2016 ...
+[ 0.08 h]   CHI 2016: 270,034 rows
+[ 0.08 h]   CHI 2017: 269,350 rows
+[ 0.09 h]   CHI 2018: 269,239 rows
+[ 0.09 h]   CHI 2019: 261,941 rows
+[ 0.09 h]   CHI 2020: 213,080 rows
+[ 0.10 h]   CHI 2021: 210,013 rows
+[ 0.10 h]   CHI 2022: 240,502 rows
+[ 0.11 h]   CHI 2023: 263,859 rows
+[ 0.11 h]   CHI 2024: 259,661 rows
+[ 0.12 h]   CHI 2025: 238,158 rows
+[ 0.12 h]   CHI 2026: 181,394 rows
+[ 0.13 h] Chicago: 2,677,231 rows read, 2,674,555 kept (176s)
+[ 0.13 h] Chicago: 561 weeks (2016-01-04 – 2026-09-28) × 77 areas × 11 types, 2,668,345 incidents
+[ 0.13 h] NYC: downloading from 2016 ...
+[ 0.14 h]   NYC 2016: 478,780 rows
+[ 0.14 h]   NYC 2017: 468,556 rows
+[ 0.16 h]   NYC 2018: 462,931 rows
+[ 0.16 h]   NYC 2019: 459,608 rows
+[ 0.17 h]   NYC 2020: 414,277 rows
+[ 0.18 h]   NYC 2021: 450,331 rows
+[ 0.18 h]   NYC 2022: 531,322 rows
+[ 0.19 h]   NYC 2023: 553,468 rows
+[ 0.21 h]   NYC 2024: 574,192 rows
+[ 0.23 h]   NYC 2025: 567,668 rows
+[ 0.23 h]   NYC 2026: 0 rows
+[ 0.24 h]   NYC_YTD 2025: 7,609 rows
+[ 0.24 h]   NYC_YTD 2026: 270,113 rows
+[ 0.24 h]   NYC year-to-date rows added: 270,113
+[ 0.24 h] New York: 5,231,246 rows read, 5,231,149 kept (424s)
+[ 0.25 h] New York: 544 weeks (2016-01-04 – 2026-06-01) × 77 areas × 11 types, 5,192,833 incidents
+[ 0.25 h] SF: downloading from 2016 ...
+[ 0.25 h]   SF 2018: 147,460 rows
+[ 0.27 h]   SF 2019: 142,969 rows
+[ 0.27 h]   SF 2020: 114,586 rows
+[ 0.27 h]   SF 2021: 125,182 rows
+[ 0.28 h]   SF 2022: 132,870 rows
+[ 0.28 h]   SF 2023: 130,936 rows
+[ 0.29 h]   SF 2024: 110,239 rows
+[ 0.29 h]   SF 2025: 95,779 rows
+[ 0.29 h]   SF 2026: 73,944 rows
+[ 0.29 h]   SF: 37,719 duplicate incident × category rows removed
+[ 0.30 h] San Francisco: 1,036,246 rows read, 978,071 kept (175s)
+[ 0.30 h] San Francisco: 456 weeks (2018-01-08 – 2026-09-28) × 41 areas × 11 types, 972,455 incidents
+[ 0.30 h] ===== II.1 city data and weekly panels: ok (13 min)
+[ 0.30 h] zip refreshed: /kaggle/working/optionA_outputs_v3.zip (53.6 MB)
+[ 0.30 h] ===== II.1b (v3) cut the panels at v1's last week and compare with v1 started
+[ 0.30 h]   the open-data portals revise old records (late reports, reclassifications); a change of well under 1 % is expected
+[ 0.30 h] ===== II.1b (v3) cut the panels at v1's last week and compare with v1: ok (0 min)
+[ 0.30 h] zip refreshed: /kaggle/working/optionA_outputs_v3.zip (53.6 MB)
+[ 0.30 h] ===== II.2 (v3) point forecasts for the intervals: LightGBM-Poisson (as selected in v1) and GRU-ZINB started
+[ 0.30 h] H=1: 1,027,906 rows (677,655 fit, 55,770 early stop, 55,770 calibration, 238,711 test)
+[ 0.31 h]   LightGBM seed 0: 213 trees, 24s
+[ 0.31 h]   LightGBM seed 1: 233 trees, 25s
+[ 0.32 h]   LightGBM seed 2: 220 trees, 24s
+[ 0.34 h]   GRU-ZINB seed 0: 64s, mean pi on test 0.060, median r 10.06
+[ 0.35 h]   GRU-ZINB seed 1: 41s, mean pi on test 0.064, median r 11.23
+[ 0.36 h]   GRU-ZINB seed 2: 51s, mean pi on test 0.061, median r 10.95
+[ 0.36 h] H=2: 1,025,761 rows (675,510 fit, 55,770 early stop, 55,770 calibration, 238,711 test)
+[ 0.37 h]   LightGBM seed 0: 244 trees, 28s
+[ 0.38 h]   LightGBM seed 1: 275 trees, 31s
+[ 0.39 h]   LightGBM seed 2: 290 trees, 33s
+[ 0.39 h] H=3: 1,023,616 rows (673,365 fit, 55,770 early stop, 55,770 calibration, 238,711 test)
+[ 0.39 h]   LightGBM seed 0: 213 trees, 23s
+[ 0.40 h]   LightGBM seed 1: 208 trees, 23s
+[ 0.41 h]   LightGBM seed 2: 191 trees, 21s
+[ 0.41 h] H=4: 1,021,471 rows (671,220 fit, 55,770 early stop, 55,770 calibration, 238,711 test)
+[ 0.41 h]   LightGBM seed 0: 196 trees, 22s
+[ 0.42 h]   LightGBM seed 1: 180 trees, 20s
+[ 0.43 h]   LightGBM seed 2: 208 trees, 23s
+[ 0.43 h] ===== II.2 (v3) point forecasts for the intervals: LightGBM-Poisson (as selected in v1) and GRU-ZINB: ok (8 min)
+[ 0.43 h] zip refreshed: /kaggle/working/optionA_outputs_v3.zip (53.6 MB)
+[ 0.43 h] ===== III (v3). intervals on the main split, with ZINB baselines started
+[ 0.45 h]   H=1: CQR and locally weighted CP models in 79s
+[ 0.46 h]   intervals H=1 done
+[ 0.47 h]   intervals H=2 done
+[ 0.48 h]   intervals H=3 done
+[ 0.50 h]   H=4: CQR and locally weighted CP models in 63s
+[ 0.51 h]   intervals H=4 done
+[ 0.51 h] ===== III (v3). intervals on the main split, with ZINB baselines: ok (5 min)
+[ 0.51 h] zip refreshed: /kaggle/working/optionA_outputs_v3.zip (53.9 MB)
+[ 0.51 h] ===== IV (v3). rolling origins, with ZINB baselines started
+[ 0.53 h]   fold 2020: models in 71s
+[ 0.53 h]     SF: fewer than 26 training weeks before 2020, skipped
+[ 0.55 h]   fold 2021: models in 84s
+[ 0.59 h]   fold 2022: models in 138s
+[ 0.62 h]   fold 2023: models in 84s
+[ 0.68 h]   fold 2024: models in 198s
+[ 0.68 h] ===== IV (v3). rolling origins, with ZINB baselines: ok (10 min)
+[ 0.68 h] zip refreshed: /kaggle/working/optionA_outputs_v3.zip (54.1 MB)
+[ 0.68 h] ===== I.5 (v3) benchmark intervals with ZINB baselines started
+[ 0.68 h]   NYC seed 0: ZINB fitted on the 30 validation days: global bin -1: pi=0.00 r=12.35, per volume bin bin 0: pi=1.00 r=0.00, per volume bin bin 1: pi=1.00 r=0.00
+[ 0.69 h]   NYC seed 1: ZINB fitted on the 30 validation days: global bin -1: pi=0.00 r=12.58, per volume bin bin 0: pi=1.00 r=0.00, per volume bin bin 1: pi=1.00 r=0.00
+[ 0.69 h]   NYC seed 2: ZINB fitted on the 30 validation days: global bin -1: pi=0.00 r=12.52, per volume bin bin 0: pi=1.00 r=0.00, per volume bin bin 1: pi=1.00 r=0.00
+[ 0.69 h]   CHI seed 0: ZINB fitted on the 30 validation days: global bin -1: pi=0.00 r=24.27, per volume bin bin 0: pi=1.00 r=0.00, per volume bin bin 1: pi=1.00 r=0.00
+[ 0.69 h]   CHI seed 1: ZINB fitted on the 30 validation days: global bin -1: pi=0.00 r=24.10, per volume bin bin 0: pi=1.00 r=0.00, per volume bin bin 1: pi=1.00 r=0.00
+[ 0.69 h]   CHI seed 2: ZINB fitted on the 30 validation days: global bin -1: pi=0.00 r=24.42, per volume bin bin 0: pi=1.00 r=0.00, per volume bin bin 1: pi=1.00 r=0.00
+[ 0.69 h] ===== I.5 (v3) benchmark intervals with ZINB baselines: ok (1 min)
+[ 0.70 h] zip refreshed: /kaggle/working/optionA_outputs_v3.zip (54.1 MB)
+[ 0.70 h] ===== VI (v3). consistency with v1, new verdicts and summary started
+[ 0.70 h]   v1 vs v3 (same methods): coverage differs by at most 0.84 pts, worst-quintile deviation by at most 2.35 pts
+[ 0.70 h] results_summary.md written
+[ 0.70 h] ===== VI (v3). consistency with v1, new verdicts and summary: ok (0 min)

@@ -1,0 +1,11 @@
+{
+ "I.1 benchmark: code, data and protocol audit": "ok (0 min)",
+ "VII (v3). protocol census of public crime-prediction code": "ok (0 min)",
+ "II.1 city data and weekly panels": "ok (13 min)",
+ "II.1b (v3) cut the panels at v1's last week and compare with v1": "ok (0 min)",
+ "II.2 (v3) point forecasts for the intervals: LightGBM-Poisson (as selected in v1) and GRU-ZINB": "ok (8 min)",
+ "III (v3). intervals on the main split, with ZINB baselines": "ok (5 min)",
+ "IV (v3). rolling origins, with ZINB baselines": "ok (10 min)",
+ "I.5 (v3) benchmark intervals with ZINB baselines": "ok (1 min)",
+ "VI (v3). consistency with v1, new verdicts and summary": "ok (0 min)"
+}

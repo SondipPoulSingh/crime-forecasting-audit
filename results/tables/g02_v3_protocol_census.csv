@@ -1,0 +1,8 @@
+code,paper,task,crime data released,crime pipeline released,epoch reported,metric called with null_val = 0,scored cells (test metric),shipped config masks zeros,shipped crime config masks zeros,training loss,test metric ignores zero cells,evidence
+CL4ST,"Tang et al., CIKM 2023",regression,,no,validation,,cells with y > 0 when mae_thresh = 0.0 (shipped config),mae_thresh = 0.0,,smooth L1 on all cells,True,indirect: metric code + shipped (traffic) config; crime pipeline not released
+EasyST,"Tang et al., CIKM 2024",regression,"external (Hugging Face), a different 42 × 35 grid",crime loader in the code,,,cells with y > 0 when mae_thresh = 0.0 (shipped config),,mae_thresh = 0.0 in the Chicago crime config,MSE on all cells,True,direct: crime code / crime config
+HAGEN,"Wang et al., HAGEN (crime occurrence)",classification,"yes (Chicago, LA)",,best validation F1,,all cells (macro/micro F1 of occurrence),,,binary cross-entropy on all cells,False,direct: crime code / crime config
+ST-HHOL,"ST-HHOL, ICLR 2026",regression,no,,validation,null_val = 0,cells with y ≠ 0 (null_val = 0),,,masked MAE: crime cells only,True,direct: crime code / crime config
+ST-HSL,"Li et al., ICDE 2022",regression,"yes (NYC, CHI)",,best validation RMSE + MAE,,crime cell-days only (y > 0),,,all cell-days,True,direct: crime code / crime config
+ST-SHN,"Xia et al., IJCAI 2021",regression,"yes (NYC, CHI)",,best TEST MAPE,,"crime cell-days only (y > 0), and only cells active on 20–80 % of days",,,crime cell-days only,True,direct: crime code / crime config
+STExplainer,"Tang et al., STExplainer",regression,,no,validation,,cells with y > 0 when mae_thresh = 0.0 (shipped config),mae_thresh = 0.0,,,True,indirect: metric code + shipped (traffic) config; crime pipeline not released

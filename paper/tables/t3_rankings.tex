@@ -1,0 +1,16 @@
+\begin{table}[t]\centering\small
+\setlength{\tabcolsep}{4pt}\caption{The protocol decides the ranking. Mean MAE under the official protocol P1 and Poisson deviance under the full protocol P3 (all cell-days), with ranks among the 11 models (5 seeds for learned models). Kendall's $\tau$ between the two rankings: NYC $\tau=-0.45$ ($p=0.06$), CHI $\tau=0.00$ ($p=1.00$).}\label{tab:rankings}
+\begin{tabular}{lrrrrrrrr}\toprule
+ & \multicolumn{4}{c}{New York} & \multicolumn{4}{c}{Chicago}\\\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+Model & P1 MAE & rank & P3 dev. & rank & P1 MAE & rank & P3 dev. & rank\\\midrule
+GBM-Poisson, XGBoost (ours) & 0.915 & 8 & 0.349 & 1 & 1.016 & 4 & 0.501 & 1 \\
+GBM-Poisson, LightGBM (ours) & 0.920 & 9 & 0.350 & 2 & 1.022 & 6 & 0.502 & 2 \\
+MTGNN & 0.912 & 7 & 0.361 & 3 & 1.019 & 5 & 0.515 & 3 \\
+Graph WaveNet & 0.912 & 6 & 0.373 & 5 & 1.039 & 9 & 0.530 & 5 \\
+30-day mean & 0.928 & 10 & 0.362 & 4 & 1.035 & 8 & 0.518 & 4 \\
+ST-HSL & 0.894 & 5 & 0.480 & 6 & 1.023 & 7 & 0.632 & 6 \\
+ST-SHN & 0.680 & 3 & 1.852 & 9 & 0.933 & 2 & 2.414 & 10 \\
+Zero-truncated median (exploit) & 0.607 & 1 & 1.826 & 8 & 0.866 & 1 & 1.728 & 8 \\
+Constant 1 & 0.806 & 4 & 1.951 & 11 & 1.330 & 10 & 2.262 & 9 \\
+Last day & 1.236 & 11 & 0.931 & 7 & 1.429 & 11 & 1.468 & 7 \\
+\bottomrule\end{tabular}\end{table}

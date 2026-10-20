@@ -1,0 +1,5 @@
+city,protocol_a,protocol_b,kendall_tau,p_value,models
+CHI,P4_hit_rate (higher better),P1_mean_MAE,0.28888888888888886,0.2912483465608466,10
+CHI,P4_hit_rate (higher better),P3_deviance_all,0.8666666666666666,0.00011518959435626102,10
+NYC,P4_hit_rate (higher better),P1_mean_MAE,-0.4666666666666666,0.07255015432098766,10
+NYC,P4_hit_rate (higher better),P3_deviance_all,0.9555555555555554,5.5114638447971785e-06,10

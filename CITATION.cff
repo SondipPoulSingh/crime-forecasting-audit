@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this code or these results, please cite them as below."
+title: "Scoring only where crime happened: an audit of evaluation practice in deep spatio-temporal crime forecasting, and calibrated count forecasts for three U.S. cities"
+type: software
+authors:
+  - family-names: Singh
+    given-names: Sondip Poul
+    email: sondippsingh@gmail.com
+  - family-names: Singh
+    given-names: Susmoy Bless
+    email: susmoyblesssingh@gmail.com
+repository-code: "https://github.com/SondipPoulSingh/crime-forecasting-audit"
+license: MIT
+date-released: 2026-10-20
+keywords:
+  - crime forecasting
+  - evaluation protocol
+  - reproducibility
+  - conformal prediction
+  - spatio-temporal deep learning

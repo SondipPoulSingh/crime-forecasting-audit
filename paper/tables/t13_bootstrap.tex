@@ -1,0 +1,11 @@
+\begin{table}[t]\centering\small\setlength{\tabcolsep}{3.5pt}
+\caption{Full-protocol Poisson deviance of each model minus that of our XGBoost-Poisson forecaster (both averaged over seeds), with a 95\,\% interval from a bootstrap over the 92 test days (2{,}000 resamples), and the number of test days on which our forecaster has the lower deviance. Positive = our forecaster is better.}\label{tab:bootstrap}
+\begin{tabular}{lrrrrrr}\toprule
+ & \multicolumn{3}{c}{New York} & \multicolumn{3}{c}{Chicago}\\\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Compared with & Difference & 95\,\% CI & Days & Difference & 95\,\% CI & Days\\\midrule
+MTGNN & 0.0121 & [0.0107, 0.0136] & 85/92 & 0.0137 & [0.0114, 0.0161] & 83/92 \\
+Graph WaveNet & 0.0237 & [0.0217, 0.0256] & 92/92 & 0.0289 & [0.0263, 0.0314] & 91/92 \\
+ST-HSL & 0.1312 & [0.1290, 0.1335] & 92/92 & 0.1308 & [0.1278, 0.1340] & 92/92 \\
+ST-SHN & 1.5036 & [1.4970, 1.5106] & 92/92 & 1.9131 & [1.9011, 1.9242] & 92/92 \\
+30-day mean & 0.0134 & [0.0115, 0.0153] & 86/92 & 0.0169 & [0.0142, 0.0195] & 84/92 \\
+\bottomrule\end{tabular}\end{table}

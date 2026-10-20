@@ -1,0 +1,10 @@
+{
+ "I.1 benchmark: code, data and protocol audit": "ok (0 min)",
+ "V. equity check (census)": "ok (6 min)",
+ "I.2 benchmark: forecasts, re-runs and protocols (v2)": "ok (430 min)",
+ "I.2b merge v1 and v2 predictions": "ok (0 min)",
+ "I.2c benchmark scores under the three protocols (v2)": "ok (0 min)",
+ "I.3 benchmark: reproduction gap, exploit, rankings, intervals": "ok (0 min)",
+ "I.4 reproduction gap against seed noise (v2)": "ok (0 min)",
+ "VI. hypothesis verdicts and summary": "ok (0 min)"
+}

@@ -1,0 +1,285 @@
+%% Manuscript for Computers, Environment and Urban Systems (Elsevier), elsarticle class.
+%% Overleaf, TeX Live and MiKTeX ship elsarticle; compile with pdflatex + bibtex.
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs,multirow,tabularx,makecell}
+\usepackage[table]{xcolor}
+\usepackage{lineno}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\linenumbers
+\graphicspath{{figures/}}
+\newcommand{\todo}[1]{\textcolor{red!70!black}{[TODO: #1]}}
+\newcommand{\repo}{\url{https://github.com/SondipPoulSingh/crime-forecasting-audit}}
+
+\journal{Computers, Environment and Urban Systems}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{Scoring only where crime happened: an audit of evaluation practice in deep spatio-temporal crime forecasting, and calibrated count forecasts for three U.S.\ cities}
+
+\author[aff1]{Sondip Poul Singh\corref{cor1}}
+\ead{sondippsingh@gmail.com}
+\author[aff1]{Susmoy Bless Singh}
+\ead{susmoyblesssingh@gmail.com}
+\cortext[cor1]{Corresponding author.}
+\affiliation[aff1]{organization={\todo{Department, institution}}, city={\todo{City}}, country={\todo{Country}}}
+
+\begin{abstract}
+Deep spatio-temporal crime-prediction models are compared on a public NYC/Chicago benchmark by MAE and MAPE computed only over cell-days on which crime occurred. We audit this practice. Re-running the official code of four models over five seeds under four protocols, we show that (i) the official metric rewards predictors that never forecast zero: a constant forecast of one beats the published MAPE of the state of the art in all eight city--category cells; (ii) rankings under it are unrelated to rankings on all cell-days and on a hot-spot hit-rate criterion (Kendall's $\tau$ from $-0.47$ to $0.29$), whereas those two agree with each other ($\tau\ge0.87$); (iii) on all cell-days a gradient-boosted Poisson model outperforms every re-run deep model on 83--92 of 92 test days; (iv) the published state of the art is reproduced only with its official seed in New York and not at all in Chicago; and (v) all six public count-forecasting codebases we audited, including one from 2026, score only non-zero cells. On weekly area panels for Chicago, New York and San Francisco (2016--2026), Mondrian conformal intervals never fall more than 1.2 points below 90\,\% coverage in any volume quintile, whereas Poisson and split-conformal intervals under-cover busy places by up to 12 points and zero-inflated intervals, fitted or learned, are conservative and 14--37\,\% wider. An adaptive Mondrian variant stays within 1.3 points through the 2020 shift, and coverage is equal across poorer and richer areas.
+\end{abstract}
+
+\begin{keyword}
+crime forecasting \sep evaluation protocol \sep reproducibility \sep hot spots \sep conformal prediction \sep sparse count data
+\end{keyword}
+
+\end{frontmatter}
+
+%% ===================================================================================
+\section{Introduction}\label{sec:intro}
+
+Forecasting where and when crime will occur is a long-standing problem in urban analytics. Police departments, city agencies and researchers use area-level forecasts to plan patrols, target prevention, and evaluate interventions \citep{mohler2015randomized,kounadi2020systematic}. The problem rests on a robust empirical regularity: crime is concentrated in a small share of places, and that concentration is stable over time \citep{weisburd2015law}. Over the past decade it has also become a standard testbed for spatio-temporal deep learning in urban computing \citep{zheng2014urban}: attentive recurrent networks, hypergraph models and self-supervised architectures are routinely proposed and compared on public crime benchmarks \citep{huang2018deepcrime,xia2021stshn,li2022sthsl,tang2023cl4st}.
+
+Progress in that literature is measured almost entirely on one family of benchmarks: daily counts of four crime categories on regular grids for New York City and Chicago, released with DeepCrime and ST-SHN and reused by ST-HSL and later work. Models are ranked by MAE and MAPE per category. These numbers are computed in a particular way that the papers themselves rarely discuss: only cell-days on which at least one crime occurred enter the metric. Because 68--89\,\% of the test cell-days of the benchmark contain no crime (Table~\ref{tab:sparsity}), the published numbers describe accuracy on a small subset of the forecasting task that is selected by the outcome itself. A forecaster is never penalised for predicting crime where none occurs.
+
+Selecting test cases by the observed outcome is a known pitfall in forecast evaluation. MAPE is undefined at zero, and dropping zeros is a common workaround, but for sparse counts the workaround changes the question \citep{hyndman2006another,kolassa2016evaluating}. In place-based crime prevention, where most places are quiet most of the time and the forecast is used to decide where \emph{not} to send resources as much as where to send them, ignoring the zeros removes the information a planner needs most.
+
+This paper asks two questions. How much does the evaluation protocol, rather than the model, drive the conclusions of the deep crime-prediction literature? And what does a sound evaluation of sparse urban count forecasts look like when it is carried through end to end on current data, at the spatial units that agencies use, and with uncertainty that holds for quiet and busy places alike? We make five contributions.
+
+\begin{enumerate}[leftmargin=*,itemsep=2pt]
+\item \textbf{A benchmark audit under four protocols.} We re-run the official code of ST-HSL, ST-SHN, Graph WaveNet and MTGNN over five seeds and score every model under the official protocol, its ST-SHN variant, a full protocol over all cell-days, and a decision protocol that measures the share of crimes captured by a daily top-10\,\% hot-spot list. Trivial predictors win the official metric; rankings under it carry over neither to the full task nor to hot-spot selection, while the full and decision protocols agree (Sections~\ref{sec:res-exploit}--\ref{sec:res-simple}).
+\item \textbf{A seed-level reproduction study.} The published accuracy of ST-HSL is reproduced in New York only with the official random seed---the other four seeds are 1.7--15.1\,\% worse---and in Chicago by no seed in any category, while baselines re-run through the same pipeline reproduce within a few per cent (Section~\ref{sec:res-repro}).
+\item \textbf{A protocol census.} An automatic audit of seven public crime-prediction codebases (2021--2026) at pinned commits shows that all six count-forecasting codebases score only non-zero cells, so the practice is current (Section~\ref{sec:res-census}).
+\item \textbf{Calibrated weekly count forecasts for three cities.} On weekly area $\times$ crime-type panels for Chicago, New York and San Francisco we evaluate point forecasts on all series and 90\,\% prediction intervals by series volume, over five rolling test years including 2020, and across poorer and richer areas. Ten interval methods are compared, including zero-inflated negative-binomial intervals that are fitted or learned by a deep model (Sections~\ref{sec:res-weekly}--\ref{sec:res-equity}).
+\item \textbf{An evaluation protocol} for sparse urban count forecasts, derived from these results (Section~\ref{sec:protocol}).
+\end{enumerate}
+
+The two parts of the paper play complementary roles. The benchmark audit shows what goes wrong under the prevailing protocol on the data the literature uses. The city panels show the recommended protocol applied to current open data at operational units, where the questions that a planner asks---how accurate is the forecast for every place, and how far can its uncertainty be trusted in busy and quiet, rich and poor places---can be answered. All code, the hypotheses fixed before each run and all outputs are public (Data and code availability).
+
+%% ===================================================================================
+\section{Related work}\label{sec:related}
+
+\subsection{Spatio-temporal deep learning for crime prediction}
+DeepCrime \citep{huang2018deepcrime} introduced attentive hierarchical recurrent networks for category-specific crime prediction on grid cells of New York and Chicago and released the data that became the reference benchmark. ST-SHN \citep{xia2021stshn} modelled dependencies between crime categories and regions with a spatial-temporal sequential hypergraph, and ST-HSL \citep{li2022sthsl} added hypergraph self-supervised learning, reporting the best results on the NYC- and CHI-Crimes data that later work compares against. HAGEN \citep{wang2022hagen} framed crime forecasting as occurrence classification with homophily-aware graph learning. More recent work treats crime as one of several spatio-temporal tasks: contrastive and explainable spatio-temporal graph networks \citep{tang2023cl4st,tang2023stexplainer}, distillation of graph networks into lightweight multi-layer perceptrons \citep{tang2024easyst}, uncertainty-aware models with zero-inflated negative-binomial outputs \citep{wang2024uncertainty}, and online hierarchical hypergraph learning \citep{sthhol2026}. A recent comparative study re-evaluated seven deep crime models under a common setup and found that conclusions depend on spatial and temporal granularity, but compared deep models only with each other \citep{deepcrime2024experiments}. General spatio-temporal architectures such as Graph WaveNet \citep{wu2019graphwavenet} and MTGNN \citep{wu2020mtgnn} serve as standard baselines in this literature.
+
+\subsection{Evaluation and reproducibility in forecasting and machine learning}
+Several fields have found that reported progress shrinks under careful re-evaluation. In recommender systems, most neural methods could not be reproduced or were beaten by tuned simple baselines \citep{dacrema2019progress}; in long-horizon time-series forecasting, a one-layer linear model outperformed a series of Transformer architectures \citep{zeng2023transformers}; and data leakage and evaluation errors have been documented across machine-learning-based science \citep{kapoor2023leakage}. Forecasting competitions repeatedly place gradient-boosted trees on engineered features among the strongest methods for large collections of related count series \citep{makridakis2022m5}. For sparse counts, percentage errors are ill-defined and scale-dependent errors favour biased forecasts; proper scoring of the predictive distribution is preferred \citep{hyndman2006another,czado2009predictive,kolassa2016evaluating,gneiting2007strictly}. To our knowledge no study has examined how the zero-masked protocol of the crime-prediction benchmark affects its conclusions, or audited how widespread it is.
+
+\subsection{Place-based crime forecasting and its uses}
+In criminology, place-based forecasting builds on the concentration of crime in few places and its stability over time \citep{weisburd2015law}. Hot-spot maps, kernel density estimation and self-exciting point processes are established methods \citep{chainey2008utility,mohler2015randomized}, and machine-learning methods such as random forests on risk-terrain features compete with them \citep{wheeler2021mapping}. Aggregate crime counts are modelled with Poisson and negative-binomial regression, because counts are discrete, often small and over-dispersed \citep{osgood2000poisson}. Forecasts are evaluated in this literature by how much crime a small selected area captures---the hit rate and the Predictive Accuracy Index \citep{chainey2008utility}---and reviews stress that forecasts must be judged on the decisions they support \citep{kounadi2020systematic}. Recorded crime reflects reporting and enforcement as well as offending, so forecasts can reproduce and amplify enforcement patterns \citep{lum2016predict,ensign2018runaway,richardson2019dirty}; this motivates checking whether forecast quality is equal across communities.
+
+\subsection{Prediction intervals for counts}
+Parametric intervals from Poisson or negative-binomial assumptions are simple but depend on a correct dispersion model; zero-inflated models add a component for structural zeros \citep{lambert1992zero}. Conformal prediction gives distribution-free finite-sample coverage under exchangeability \citep{vovk2005algorithmic,lei2018distribution,angelopoulos2023gentle}. Conformalised quantile regression adapts the interval width to the input \citep{romano2019cqr}, adaptive conformal inference tracks coverage under distribution shift \citep{gibbs2021aci}, and Mondrian, or category-conditional, conformal prediction guarantees coverage within pre-defined groups \citep{vovk2005algorithmic}. Marginal coverage can hide systematic failure in sub-populations---here, quiet versus busy places---which is why we evaluate coverage by series volume.
+
+%% ===================================================================================
+\section{Data}\label{sec:data}
+
+We use two data sources with different purposes. The public benchmark lets us audit published results on exactly the data they were obtained on. Weekly panels built from current open data let us evaluate forecasts and intervals at the administrative units that agencies plan with, over ten years and through the 2020 shift.
+
+\subsection{The NYC-/CHI-Crimes benchmark}
+We use the benchmark files distributed with the official ST-HSL code; the ST-SHN repository ships byte-identical files (verified by MD5 checksums). The New York data cover 2014--2015 on a $16\times16$ grid and the Chicago data 2016--2017 on a $14\times12$ grid of cells of about 3\,km, with daily counts of four categories (New York: burglary, larceny, robbery, assault; Chicago: theft, battery, assault, damage). Following the official split, the last 92 days form the test period and the preceding 30 days the validation period, leaving 608 (New York) and 609 (Chicago) training days. The test set has $92\times256\times4=94{,}208$ cell-day-category rows in New York and $61{,}824$ in Chicago. Table~\ref{tab:sparsity} shows how sparse the data are: between 68\,\% and 89\,\% of test cell-days contain no crime of the given category, so the official protocol scores 11--32\,\% of the test rows.
+
+\input{tables/t1_benchmark_sparsity}
+
+\subsection{City open data: weekly area panels}
+We built weekly panels from the open-data portals of Chicago (77 community areas, January 2016 -- September 2026, 2.67 million incidents), New York (77 police precincts, January 2016 -- June 2026, 5.19 million) and San Francisco (41 analysis neighbourhoods, January 2018 -- September 2026, 0.97 million). The units are those that the three cities use for reporting and planning; they differ in size and population, so absolute counts are not comparable across cities, but each city's panel is internally consistent. Offence descriptions were mapped to 11 crime types (theft, burglary, vehicle theft, damage, fraud, assault, robbery, sex offences, drugs, weapons, other; the mapping table is in the repository). The newest one to four weeks were dropped because late reports make them incomplete. A series is an area $\times$ type pair; 12\,\% (New York), 23\,\% (Chicago) and 40\,\% (San Francisco) of series-weeks are zero. Weeks up to the end of 2023 are used for training, January--June 2024 for validation and interval calibration, and the weeks after June 2024 for testing.
+
+The two data sets differ in spatial unit and time step (3\,km cells and days versus administrative areas and weeks). Sparsity, and therefore the size of the effect of zero-masking, depends on both choices, a facet of the modifiable areal unit problem. We do not compare numbers across the two data sets; the benchmark is used to audit the published protocol, the panels to demonstrate the recommended one.
+
+\subsection{Census data}
+Area demographics come from the American Community Survey 2018--2022 five-year estimates at tract level: population, poverty status (table B17001), race and ethnicity (B03002) and median household income (B19013). Each tract is assigned to the area that contains the majority of the 25 geolocated incidents of 2024--2025 nearest to its internal point; tracts whose nearest incident lies more than 1\,km away (water, parks, airports) are dropped. Area values are population-weighted means. This links 77 of 77 Chicago community areas, 76 of 77 New York precincts and 40 of 41 San Francisco neighbourhoods. Areas are split within each city into thirds by poverty rate, and into majority-minority areas (non-Hispanic white share below 50\,\%) and others.
+
+%% ===================================================================================
+\section{Methods}\label{sec:methods}
+
+\subsection{Four evaluation protocols}\label{sec:protocols}
+Let $y_{i,t,k}$ be the count of category $k$ in cell $i$ on test day $t$, $\hat y_{i,t,k}$ a forecast, and $\mathcal{S}$ a set of scored rows. Mean absolute error and mean absolute percentage error over $\mathcal{S}$ are
+\begin{equation}
+\mathrm{MAE}_{\mathcal{S}}=\frac{1}{|\mathcal{S}|}\sum_{\mathcal{S}}|y-\hat y|,\qquad \mathrm{MAPE}_{\mathcal{S}}=\frac{1}{|\mathcal{S}|}\sum_{\mathcal{S}}\frac{|y-\hat y|}{y},
+\end{equation}
+and the mean Poisson deviance is $D_{\mathcal{S}}=\frac{1}{|\mathcal{S}|}\sum_{\mathcal{S}}2\left[y\log(y/\hat y)-(y-\hat y)\right]$, with $0\log0=0$ and forecasts floored at 0.01. The deviance is a strictly consistent loss for the mean of a count and is the natural full-task criterion for Poisson-type forecasts. We score every model under four protocols:
+\begin{description}[leftmargin=1em,style=nextline,itemsep=2pt]
+\item[P1 (official, ST-HSL).] MAE and MAPE per category over $\mathcal{S}_1=\{(i,t): y_{i,t,k}>0\}$, as implemented in the official ST-HSL evaluation code.
+\item[P2 (official, ST-SHN).] As P1, restricted further to cells with crime of category $k$ on 20--80\,\% of training days, as in the ST-SHN code. The restriction removes cells that are almost always or almost never active, which the ST-SHN authors regard as uninformative; it is still selected on the test outcome.
+\item[P3 (full).] Poisson deviance and MAE over all cell-days, with MAE also reported separately on zero and non-zero cell-days.
+\item[P4 (decision).] For every test day $t$ and category $k$, the $m=\lceil0.1N\rceil$ cells with the highest forecast form a hot-spot list ($m=26$ of 256 cells in New York, 17 of 168 in Chicago). The hit rate is the share of all crimes of that day and category that occur in listed cells, aggregated over days and categories; the Predictive Accuracy Index is $\mathrm{PAI}=\text{hit rate}/(m/N)$, so a random list has $\mathrm{PAI}=1$ \citep{chainey2008utility}. Forecasts tied at the threshold share the remaining list slots fractionally, so a constant forecast has a hit rate equal to the listed area share.
+\end{description}
+The lines of each official code base that implement P1 and P2, and the training loss and model-selection rule of each, were located and recorded automatically (repository table b03).
+
+\subsection{Re-running the official code}\label{sec:reruns}
+We cloned ST-HSL, ST-SHN, Graph WaveNet and MTGNN at fixed commits (repository table b01) and changed only what was necessary to run them on current software: storing the running loss with \texttt{.item()} and reading the device and the random seed from arguments (ST-HSL); running the TensorFlow~1 code under \texttt{tf.compat.v1}, writing out a numerically identical softmax for 6-D tensors, setting a random seed (the official code sets none) and logging predictions and validation metrics every epoch (ST-SHN); and replacing a 1-D convolution with 2-D kernels by its 2-D equivalent, which older PyTorch accepted silently (Graph WaveNet). Graph WaveNet and MTGNN have no crime pipeline, so their official model code is trained with ST-HSL's input window (30 days), squared-error loss and model-selection rule (best validation RMSE + MAE on crime days), up to 100 epochs with a patience of 10. ST-HSL selects the reported epoch on validation. The ST-SHN code reports the epoch with the best \emph{test} MAPE; we record both that epoch and the validation-selected one. ST-SHN's default budget is 10 epochs; because one run reached its best validation epoch at the end of the budget, we trained all ST-SHN runs for 25 epochs and report both budgets, the first 10 epochs of a 25-epoch run being identical to a 10-epoch run because its learning-rate schedule depends on steps, not on the epoch total. Every model was run with five seeds; ST-HSL's official seed 523 is our seed 0. All runs used one NVIDIA T4 GPU on Kaggle (Python 3.13, PyTorch 2.11, TensorFlow~2 in compatibility mode, LightGBM 4.6, XGBoost 3.4).
+
+\subsection{Our forecaster and two protocol-aware predictors}\label{sec:ours}
+Our benchmark forecaster is a single global gradient-boosted Poisson model, LightGBM \citep{ke2017lightgbm} or XGBoost \citep{chen2016xgboost}, fitted to all cell-day-category rows. Its features are the counts of the last 1--7 days, rolling means over 7, 14 and 30 days, the mean of the same weekday over the past four weeks, sums over the eight neighbouring cells (previous day, 7- and 30-day means), the cell's all-category total of the last 7 days, the city total of the previous day, the day of week, and cell and category identifiers. It is trained by Poisson likelihood on all cell-days, early-stopped on the 30 validation days, and the better of LightGBM and XGBoost by validation deviance is reported---XGBoost in both cities. The same model, without any change, is used under all four protocols.
+
+Two predictors probe P1. \emph{Constant 1} forecasts one crime in every cell, every day. The \emph{zero-truncated median} takes our Poisson forecast $\mu$ and returns the median of the Poisson distribution conditioned on $y>0$, which is the optimal point forecast for absolute error if only positive days are scored. Neither is a sensible forecast. Both are designed to show what P1 rewards.
+
+\subsection{Weekly forecasting setup}\label{sec:weekly-setup}
+For the city panels, every series is forecast $H=1,\dots,4$ weeks ahead from origin week $o$. Features are the counts of weeks $o-7,\dots,o$, rolling means over 4, 13 and 52 weeks, the count of the target week one year earlier and its five-week mean, the area total and the city-type total of the last four weeks, and week-of-year harmonics; area, crime type and city enter as categorical variables. One global model is trained for all three cities. Learned forecasters are LightGBM- and XGBoost-Poisson, a Poisson GLM with area, type and city effects, a global GRU over the last 52 weeks, and an ST-GRU that adds a five-nearest-neighbour graph-diffusion input; baselines are the last week, the four-week mean, exponential smoothing ($\alpha=0.3$), the 52-week mean and the seasonal naive forecast. Learned models were run with three seeds (GRU and ST-GRU at $H=1$ and 4). The forecaster used for intervals was selected by validation deviance averaged over seeds, cities and horizons (LightGBM-Poisson). Skill relative to a baseline is the mean difference in Poisson deviance with a 95\,\% week-block bootstrap interval (1{,}000 resamples), computed separately for each seed; a gain is called significant when the interval excludes zero in every seed.
+
+\subsection{Prediction intervals}\label{sec:intervals}
+All intervals are central 90\,\% intervals ($\alpha=0.1$) around the LightGBM forecast $\mu$ and are calibrated on the January--June 2024 block only. \emph{Poisson} and \emph{negative-binomial} (NB; size estimated by moments on the calibration block) intervals use the parametric quantiles. \emph{Split conformal} prediction (CP) uses the score $s=|y-\mu|/\sqrt{\mu+0.5}$, takes its $\lceil(n+1)(1-\alpha)\rceil/n$ empirical quantile $q$ on the $n$ calibration rows, and forms $[\lceil\mu-q\sqrt{\mu+0.5}\rceil,\lfloor\mu+q\sqrt{\mu+0.5}\rfloor]$, rounded inward to integers. \emph{Mondrian CP} applies the same construction separately within five bins defined by calibration quintiles of $\mu$, which guarantees coverage of at least $1-\alpha$ within each bin under exchangeability; $k=3$ and $k=10$ bins are a sensitivity check. \emph{ACI} \citep{gibbs2021aci} updates the working miscoverage level week by week from observed errors with step $\gamma=0.05$ and a delay of $H$ weeks; \emph{Mondrian-ACI} does so separately per bin. \emph{CQR} \citep{romano2019cqr} conformalises LightGBM 5\,\% and 95\,\% quantile models, and \emph{locally weighted CP} scales the residual by a LightGBM model of $|y-\mu|$.
+
+Three zero-inflated negative-binomial baselines \citep{lambert1992zero} test whether a distribution built for excess zeros already gives calibrated intervals. In \emph{ZINB (fitted)} the count is zero with probability $\pi$ and otherwise negative-binomial with size $r$ and mean $m$, with $(1-\pi)m=\mu$ so that the forecast mean is kept; $(\pi,r)$ are fitted by maximum likelihood on the calibration block, and the interval runs from the 5\,\% to the 95\,\% quantile of the resulting distribution. \emph{ZINB (fitted per volume bin)} fits $(\pi,r)$ separately in the five Mondrian bins. \emph{GRU-ZINB (learned)} replaces the Poisson head of the global GRU by a head that outputs $(\log m,\operatorname{logit}\pi,\log r)$ and is trained by ZINB likelihood with the same early stopping; its interval is taken directly from its predictive distribution, without a calibration step, as in distributional deep crime models \citep{wang2024uncertainty}.
+
+Intervals are evaluated by overall coverage, mean width, and the interval score \citep{gneiting2007strictly}
+\begin{equation}
+\mathrm{IS}_\alpha(l,u;y)=(u-l)+\tfrac{2}{\alpha}(l-y)\,\mathbb{1}\{y<l\}+\tfrac{2}{\alpha}(y-u)\,\mathbb{1}\{y>u\},
+\end{equation}
+a proper score that rewards narrow intervals and penalises misses. Our main criterion is coverage within quintiles of series volume, defined by each series' mean weekly count in the training period. Volume quintiles and Mondrian bins are related---busy series have large forecasts---but not identical, since bins are defined on the forecast of each week and quintiles on the series' history, so good quintile coverage is not guaranteed by construction. We report the worst deviation from 90\,\% over the quintiles and, separately, the worst \emph{under}-coverage, because under-coverage of busy places is the operationally harmful failure. For discrete counts no interval can have coverage of exactly 90\,\% for every forecast; randomised intervals could achieve it but are unattractive in practice, so all intervals here are deterministic integer intervals.
+
+\subsection{Rolling origins and equity}\label{sec:rolling-equity}
+For each test year 2020--2024 the LightGBM forecaster ($H=1$, seed 0) is re-trained on all data up to 26 weeks before the year, early-stopped on the next 13 weeks, calibrated on the last 26 weeks before the year, and every interval method is applied to the test year; the GRU-ZINB is re-trained for each fold in the same way. The 2020 fold tests behaviour under an abrupt shift in crime levels and patterns. San Francisco enters from 2021 because its panel starts in 2018. For equity we compare, between the poverty and majority-minority groups of Section~3.3, interval coverage, forecast skill relative to the four-week mean, and the composition and precision of weekly top-10 risk lists per crime type.
+
+\subsection{Protocol census}\label{sec:census}
+To test whether the zero-masked protocol is current practice, we audited seven public crime-prediction repositories---ST-SHN, ST-HSL, HAGEN, CL4ST, STExplainer, EasyST and ST-HHOL, published 2021--2026---at pinned commits. For each, the released code was searched automatically for the lines that determine which cells the test metric scores, which cells the training loss uses and which split chooses the reported epoch, and we recorded whether crime data and a crime pipeline are released. Evidence is \emph{direct} when it comes from crime-specific code or a crime configuration and \emph{indirect} when the crime pipeline was not released and the finding follows from the shared metric code with the shipped configuration. The search patterns are part of the released code.
+
+\subsection{Pre-specified hypotheses and statistics}\label{sec:prereg}
+The study was run in three stages. Hypotheses A1--A8 and their thresholds were written into the analysis notebook before the first run and judged automatically from the saved tables; the second stage added seeds, a longer ST-SHN budget and census data; the third added the zero-inflated baselines and the protocol census, with hypotheses A9, A9b, A10 and G1 fixed beforehand. Hypotheses added after seeing results (A1b, A6b, A7b) and the decision protocol P4, added at revision, are marked \emph{post hoc}. The hypotheses were not registered with a third party; the run logs carry their timestamps. The third stage rebuilt the weekly panels, cut at the first stage's last week, and reproduced them within 0.01\,\% of incidents and the first stage's interval coverage within 0.2 points (repository tables c02b, d06). Seed variation is summarised by mean $\pm$ sd and, for the reproduction gap, by a one-sample 95\,\% $t$-interval over five seeds; uncertainty over test days by a day-block bootstrap (2{,}000 resamples); rank agreement by Kendall's $\tau$.
+
+%% ===================================================================================
+\section{Results}\label{sec:results}
+
+\subsection{The official metric can be won without forecasting}\label{sec:res-exploit}
+Table~\ref{tab:official} reproduces the official comparison. Under P1 the constant forecast of one has a lower MAPE than published ST-HSL in all eight city--category cells and a lower MAE in four of them (three in New York, one in Chicago). The zero-truncated median has a lower MAE than each of the 12 (New York) and 13 (Chicago) published models in every cell; its mean MAE (0.607 in New York, 0.866 in Chicago) is 29\,\% and 11\,\% below that of published ST-HSL (0.851 and 0.977). Our Poisson forecaster, by contrast, sits in the middle of the published table, close to Graph WaveNet and MTGNN.
+
+\input{tables/t2_official_protocol}
+
+The reason is mechanical. When only $y>0$ is scored, every forecast below one is penalised, and no forecast is ever penalised for being too high on a day without crime. The optimal P1 forecast is therefore not the expected count but a central value of the count distribution \emph{conditional on crime occurring}, which is always at least one. Models trained on positive days only inherit this advantage. The ST-SHN code trains its regression loss on crime days only (repository table b03), and our re-run of it is 18\,\% \emph{better} than its published P1 numbers (Appendix Table~\ref{tab:repro}), the best of all re-run deep models under P1.
+
+\subsection{Rankings under the official metric do not carry over}\label{sec:res-rank}
+Figure~\ref{fig:ranks} and Table~\ref{tab:rankings} compare ranks under P1 and under P3. The zero-truncated median and ST-SHN rank first and second under P1 in both cities, and the constant forecast third in New York; under P3 these three models occupy the bottom three places in both cities. ST-SHN's full-protocol deviance (1.85 in New York, 2.41 in Chicago) is five times that of our model (0.349, 0.501), because it predicts crime on many days without any. Kendall's $\tau$ between the P1 and P3 rankings is $-0.45$ ($p=0.06$) in New York and $0.00$ in Chicago; for MAE on all cell-days instead of deviance it is $-0.60$ ($p=0.01$) and $-0.04$. The best model under P1 is the zero-truncated median in both cities; under P3 it is our XGBoost-Poisson model.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{fig1_rank_change}
+\caption{Ranks of the 10 models (ST-SHN validation-selected) under the official protocol P1 (mean MAE over crime cell-days) and the full protocol P3 (Poisson deviance over all cell-days). Blue: our gradient-boosted Poisson models; orange: the constant-1 and zero-truncated-median (ZT) predictors; dark gray: re-run deep models; light gray: naive forecasts. Rank 1 is best.}\label{fig:ranks}
+\end{figure}
+
+\input{tables/t3_rankings}
+
+\subsection{The decision protocol agrees with the full protocol, not with the official one}\label{sec:res-decision}
+A planner who uses the forecast to choose the 10\,\% of cells to watch each day cares about the share of crime those cells capture. Table~\ref{tab:decision} reports this hit rate (post hoc). Our forecasters capture 67.7--67.8\,\% of crimes in New York and 51.4\,\% in Chicago in 10\,\% of the area (PAI 6.7 and 5.1), closely followed by MTGNN (67.5\,\%, 51.3\,\%) and the 30-day mean (67.5\,\%, 51.1\,\%). ST-SHN, second under P1, captures only 47.3\,\% and 36.2\,\%, with large variation over seeds, and the zero-truncated median 55.1\,\% and 49.0\,\%. The P4 ranking agrees almost perfectly with the P3 ranking ($\tau=0.96$ in New York, $0.87$ in Chicago, both $p<0.001$) and not with the P1 ranking ($\tau=-0.47$, $p=0.07$, and $0.29$, $p=0.29$). The official metric therefore misleads not only on a statistical loss but on the operational criterion used in place-based policing. Differences among the best models are small under P4: the protocol separates sound from unsound forecasts more than it separates sound forecasts from each other.
+
+\input{tables/t12_decision}
+
+\subsection{Gradient-boosted Poisson beats every re-run deep model on all cell-days}\label{sec:res-simple}
+Under P3 our forecaster has a lower deviance than ST-HSL, ST-SHN, Graph WaveNet and MTGNN in both cities, and its worst seed is better than the best seed of each deep model (repository table b14). The margins over MTGNN are small---0.349 vs.\ 0.361 in New York and 0.501 vs.\ 0.515 in Chicago, about 3\,\%---but consistent over test days: the day-block bootstrap interval of the difference excludes zero, and our forecaster has the lower deviance on 85 (New York) and 83 (Chicago) of the 92 test days (Table~\ref{tab:bootstrap}). Against Graph WaveNet it is better on 92 and 91 days, against ST-HSL and ST-SHN on all days. A 30-day mean is itself competitive under P3 (0.362 and 0.518), better than Graph WaveNet and ST-HSL. The claim is therefore not that boosting is much better than the best deep model, but that the large deep-model advantage reported under P1 does not exist on the full task.
+
+\input{tables/t13_bootstrap}
+
+\subsection{The published state of the art is reproduced only with its official seed}\label{sec:res-repro}
+Figure~\ref{fig:repro} compares published P1 numbers with our re-runs (per-cell values in Appendix Table~\ref{tab:repro}). Averaged over five seeds, ST-HSL is worse than published in all eight cells (mean $+5.3$\,\%), and the 95\,\% interval of the gap lies above zero in six of them (post hoc A1b). The seed-level picture is more informative. In New York, the official seed 523 reproduces the published numbers ($-3.5$ to $+0.4$\,\% across categories), but each of the other four seeds is worse in every category, by 1.7 to 15.1\,\%: the published figures are consistent with a favourable draw from a wide seed distribution. In Chicago no seed reaches the published value in any category; the official seed is 1.0--12.6\,\% worse, and the largest gap is assault (published 0.667, five-seed mean $0.734\pm0.019$). Through the same pipeline, MTGNN reproduces its published numbers within $-2.4$ to $+2.0$\,\% and Graph WaveNet within $-0.1$ to $+3.4$\,\% in New York, but $+1.7$ to $+4.2$\,\% in Chicago. Part of the Chicago gap may therefore be common to our setup; the ST-HSL gap there is about twice that of the baselines. The published baseline numbers were produced by the ST-HSL authors under the same protocol, which makes them a fair reference.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{fig2_reproduction_gap}
+\caption{Reproduction gap under the official protocol: re-run minus published MAE in per cent of the published value, with 95\,\% $t$-intervals over five seeds. Hollow circles: ST-HSL with its official seed (523) alone.}\label{fig:repro}
+\end{figure}
+
+ST-SHN behaves differently: its re-run is better than published in every cell (mean $-18.2$\,\%). The longer budget changes little (P1 MAE 0.713 vs.\ 0.710 in New York and 0.984 vs.\ 0.980 in Chicago for 10 vs.\ 25 epochs), and selecting the epoch on test or on validation MAPE gives practically identical results (repository table b16). Choosing the reported epoch on the test set is unsound practice, but on this benchmark its optimism is negligible; ST-SHN's large P1 advantage comes from training on crime days only (Section~\ref{sec:res-exploit}).
+
+\subsection{The protocol is current practice}\label{sec:res-census}
+Table~\ref{tab:census} summarises the census. All six count-forecasting codebases score only non-zero cells in their test metric: ST-SHN and ST-HSL through explicit masks; CL4ST, STExplainer and EasyST through a shared metric module that drops cells with $y\le$ \texttt{mae\_thresh} $=0$; and ST-HHOL (ICLR 2026) through a masked MAE with \texttt{null\_val} $=0$, which it also uses as its training loss. The evidence is direct for four codebases; for CL4ST and STExplainer, which do not release a crime pipeline, it follows from the shared metric code and the shipped configuration. The one exception, HAGEN, is a classification model scored by F1 over all cells. The census also records two obstacles to replication: ST-HHOL does not release its data, and three of the codebases release no pipeline for the NYC/CHI benchmark on which they report crime results. This is why we could audit, but not re-run, the most recent models.
+
+\input{tables/t9_census}
+
+\subsection{Weekly forecasts on current city data}\label{sec:res-weekly}
+Table~\ref{tab:weekly} reports test deviances for the weekly panels. LightGBM-Poisson, the GRU and the ST-GRU are statistically indistinguishable: their deviance differences lie between $-0.016$ and $+0.037$ and none is significant in every seed. XGBoost-Poisson is close behind (significantly worse only in New York), and the Poisson GLM is clearly worse, by 0.05--0.16. The selected forecaster beats every naive and statistical baseline at every horizon in every city and seed (60 of 60 comparisons significant; A5), for example by 0.10--0.12 deviance over exponential smoothing at $H=1$. Graph-diffusion input does not improve on the plain GRU at the area level. On current data, then, a well-specified boosted Poisson model matches the neural forecasters at a fraction of the computational cost.
+
+\input{tables/t5_weekly_forecasts}
+
+\subsection{Interval calibration by series volume}\label{sec:res-intervals}
+Figure~\ref{fig:coverage} and Table~\ref{tab:intervals} show coverage by volume quintile at $H=1$. Every method reaches about 90\,\% coverage overall, but the Poisson and split-conformal intervals do so by over-covering quiet series and under-covering busy ones: split CP covers 84.3\,\% (Chicago), 83.1\,\% (New York) and 78.9\,\% (San Francisco) of the busiest quintile, Poisson intervals 87.7\,\%, 82.5\,\% and 85.5\,\%. A single global calibration, or a Poisson assumption, fits the many quiet series and leaves the busy, over-dispersed ones under-covered. Mondrian CP removes this pattern: every quintile in Chicago and New York lies within 2.0 points of 90\,\% at every horizon, and over all cities and horizons its worst under-coverage is 0.9 points (post hoc A6b; 1.2 points in the third stage). The pre-specified criterion A6---all quintiles within 3 points---fails only because the quietest San Francisco quintile is over-covered by 5.1 points: 40\,\% of its series-weeks are zero, and an integer interval around a forecast close to zero cannot be narrower than $[0,0]$ or $[0,1]$. CQR is competitive at $H=1$ but less stable over time (Section~\ref{sec:res-rolling}).
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{fig3_coverage_by_quintile}
+\caption{Coverage of 90\,\% intervals by series-volume quintile ($H=1$, test period, seed 0; third stage, which includes the zero-inflated baselines and matches the first stage within 0.2 points).}\label{fig:coverage}
+\end{figure}
+
+\input{tables/t6_intervals_h1}
+
+\paragraph{Zero-inflated intervals} Table~\ref{tab:zinb} adds the three zero-inflated baselines. The fitted zero-inflation is essentially zero in every city ($\hat\pi\le0.001$ globally and $\le0.009$ in any volume bin): once the forecast mean captures the many quiet series, the zeros are explained by the mean, and the ZINB reduces to the negative binomial. The learned GRU-ZINB is an equally good point forecaster (test deviance 1.280 vs.\ 1.284 for LightGBM in Chicago, 1.426 vs.\ 1.422 in New York, 1.177 vs.\ 1.186 in San Francisco) and learns a small zero-inflation (mean $\pi\approx0.06$). None of the three under-covers any volume quintile, but all over-cover by 7--10 points: overall coverage is 94--97\,\%, and the intervals are 14--37\,\% wider than Mondrian CP (mean width 7.24 vs.\ 6.01 in Chicago, 11.67 vs.\ 10.28 in New York, 5.82 vs.\ 4.24 in San Francisco for the fitted ZINB). Their interval score is nonetheless 3--9\,\% lower (better) than Mondrian's in every city, so the pre-specified A9b is not supported. The reason is discreteness: for small counts the 5--95\,\% interval of a well-specified predictive distribution covers more than 90\,\% of outcomes, and the interval score, which is minimised by the true quantiles, rewards it; Mondrian reaches 90\,\% by rounding inward, which costs score when it misses. A9 holds in its own terms---Mondrian's worst under-coverage is 1.2 points and every zero-inflated baseline misses 90\,\% by more than 3 points in some quintile---but those misses are over-coverage, not under-coverage.
+
+The choice between the two families is therefore one of guarantee. Mondrian gives nominal coverage, with the narrowest intervals, in every volume group; a well-dispersed negative binomial gives conservative coverage and a slightly better proper score; zero-inflation adds nothing over the negative binomial when the forecast mean is good. On the daily benchmark the same pattern holds: the fitted ZINB coincides with the NB (98.7--99.0\,\% coverage), while Mondrian covers 95.6--95.9\,\%---most test cell-days are zeros predicted near zero, which any interval containing 0 covers---with intervals about half as wide (1.03 vs.\ 1.52 in Chicago, 0.41 vs.\ 0.78 in New York; repository table b17).
+
+\input{tables/t10_zinb}
+
+\subsection{Calibration over time and under the 2020 shift}\label{sec:res-rolling}
+Table~\ref{tab:rolling} and Figure~\ref{fig:rolling} give the worst-quintile deviation for each rolling test year. In 2020, split CP deviates by 12.3 (Chicago) and 9.8 points (New York) and plain Mondrian by 4.0 and 4.5 points, mostly by under-covering as crime levels shifted. Mondrian-ACI, which adapts each bin's level week by week, stays within 1.3 points in 2020 and within 1.9 points in every year in both cities (post hoc A7b). Global ACI restores overall coverage (89.4--89.5\,\% in 2020; A7) but not coverage by volume (worst deviation 8.0--10.6 points), because a single level cannot correct errors of opposite sign in quiet and busy series. In San Francisco, from 2021, the Mondrian variants deviate by 4.1--4.8 points, again by over-covering the quietest quintile.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{fig4_rolling_origins}
+\caption{Worst deviation from 90\,\% coverage over the five volume quintiles, per rolling test year ($H=1$). Dotted line: the 3-point threshold of hypothesis A6.}\label{fig:rolling}
+\end{figure}
+
+\input{tables/t7_rolling}
+
+Under the 2020 shift (Table~\ref{tab:shift}) the zero-inflated intervals, calibrated on pre-shift data, under-cover the busiest series by 1.9--3.5 points while still over-covering the quiet ones; their worst-quintile deviation is 6.1--7.8 points, against 1.1 (Chicago) and 1.3 (New York) for Mondrian-ACI (A10). The learned GRU-ZINB under-covers least among the parametric methods ($-1.2$ and $0.6$ points) and again has the lowest interval score, at 93--95\,\% coverage.
+
+\input{tables/t11_shift2020}
+
+\subsection{Equity across communities}\label{sec:res-equity}
+Table~\ref{tab:equity} and Figure~\ref{fig:equity} compare coverage in the poorest and richest thirds of areas. Mondrian CP covers 90.1--90.3\,\% in the poorest areas of all three cities, with gaps of $+0.1$, $-0.6$ and $-1.7$ points; the last is driven by over-coverage of rich San Francisco areas, not by under-coverage of poor ones. Split CP under-covers poor areas (89.3\,\%, 89.4\,\%, 88.6\,\%), with gaps up to $-4.8$ points, because poorer areas have higher counts and fall in the under-covered busy quintiles. Mondrian has a smaller poverty gap than split CP in every city (A8). In New York a weak association between an area's coverage and its minority share remains ($\rho=-0.32$, $p=0.005$; split CP $\rho=-0.56$). Forecast skill over the four-week mean is similar across groups (0.21--0.24 deviance, with overlapping intervals). Top-10 risk lists give the poorest third of areas slightly more of the list slots than of the true top places (49\,\% vs.\ 46\,\% in Chicago, 50\,\% vs.\ 48\,\% in New York, 58\,\% vs.\ 57\,\% in San Francisco), and in Chicago the lists are less precise in poor areas (precision 0.57 vs.\ 0.74--0.83), i.e.\ they raise more false alarms there. These comparisons involve 40--77 areas per city and several groupings; they are descriptive, ecological, and do not establish causes.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{fig5_equity}
+\caption{Coverage of 90\,\% intervals in the poorest (blue) and richest (gray) thirds of areas by ACS poverty rate ($H=1$, test).}\label{fig:equity}
+\end{figure}
+
+\input{tables/t8_equity}
+
+%% ===================================================================================
+\section{Discussion}\label{sec:discussion}
+
+\subsection{What the benchmark measures}
+The official crime-prediction metric answers the question ``given that crime occurred here today, how many crimes were there?''. That is a legitimate question, but it is not forecasting: the conditioning event is the outcome being forecast. Optimising for it favours models that rarely predict low counts, and our results show that the rankings it produces are unrelated to, or the reverse of, rankings on the full task and on the hot-spot criterion that place-based policing uses. The finding does not depend on a particular model. It follows from the metric, it is reproduced by two trivial predictors, and it is shared by every count-forecasting codebase in our census, including recent ones. Claims of state-of-the-art crime prediction made under this protocol should therefore be read as claims about a different task, and comparisons with them should be re-scored on all cell-days before conclusions are drawn.
+
+The seed-level reproduction result points to a second, independent problem. A single run with a fixed seed is a draw from a distribution whose spread---up to 15\,\% of MAE on this benchmark---is larger than most of the improvements that the literature reports between successive models. Reporting several seeds with their spread would make such comparisons interpretable.
+
+\subsection{A protocol for sparse urban count forecasts}\label{sec:protocol}
+We suggest five rules for evaluating forecasts of sparse urban counts.
+\begin{enumerate}[leftmargin=*,itemsep=2pt]
+\item \textbf{Score all space-time units.} Use a proper loss for counts---Poisson deviance, or a proper score for the predictive distribution \citep{czado2009predictive}---and add the decision criterion the forecast serves, such as the hit rate or PAI of a hot-spot list. Errors on zero and non-zero units may be reported separately, but never only the latter.
+\item \textbf{Include strong simple baselines}: a recent mean, a seasonal mean and a boosted Poisson model, alongside deep baselines.
+\item \textbf{Select epochs and hyper-parameters on validation data only}, and report several seeds with their spread.
+\item \textbf{Evaluate uncertainty by series volume and over time}, not only marginally. Mondrian conformal calibration with an adaptive update is a simple default when nominal coverage in every group is the goal; a well-dispersed negative binomial is a strong alternative when conservative intervals are acceptable. Compare intervals by a proper score as well as by coverage.
+\item \textbf{Check error and calibration across communities, and release data, code and the exact evaluation script.}
+\end{enumerate}
+
+\subsection{Threats to validity}
+\emph{Re-implementation.} Our patches to the official codes are minimal and logged, and baselines re-run through the same pipeline reproduce closely. Differences in hardware, library versions and non-deterministic GPU kernels can still shift results by a few per cent, which is why we report the reproduction gap with seed intervals, per seed, and relative to baselines. \emph{Scope of the audit.} We re-ran four models; recent models could not be re-run because their crime pipelines or data are not released, so for them we audit the protocol in code rather than the accuracy. The census covers public code only; unpublished pipelines may differ. \emph{Spatial units.} Sparsity, and with it the size of the zero-masking effect, depends on cell size and time step; we show the effect for the benchmark's own units and do not claim a particular magnitude at other units. \emph{City data.} Recorded crime depends on reporting and recording practice, and portals revise records; the San Francisco panel is shorter and sparser. \emph{Decision protocol.} P4 was added after the main runs; it uses saved predictions and introduces no new model fitting, but its 10\,\% list size is one choice among many. \emph{Post hoc analyses.} A1b, A6b, A7b and P4 were added after results were seen and are labelled as such; the pre-specified A6 and A9b are not supported, and we report them. \emph{Equity.} Census variables are area-level aggregates assigned to areas through incident locations; the analysis concerns forecast quality, not the fairness of how forecasts are used.
+
+\subsection{Ethical considerations}
+All models forecast counts for places and weeks, never for individuals, and use no individual-level data. Forecasts of recorded crime can entrench enforcement patterns \citep{lum2016predict,ensign2018runaway,richardson2019dirty}; calibrated intervals and equity checks are necessary but not sufficient safeguards. We report the lower risk-list precision in poor Chicago areas because it is the kind of disparity that should be examined before any operational use.
+
+%% ===================================================================================
+\section{Conclusion}\label{sec:conclusion}
+The standard crime-prediction benchmark scores models only where crime occurred. Under that protocol trivial predictors beat the published state of the art, rankings are unrelated to performance on all cell-days and on hot-spot selection, and the published state of the art is reproduced only with its official seed in one of two cities. On all cell-days a gradient-boosted Poisson model outperforms the re-run deep models. On current weekly data from three cities, the same simple forecaster matches neural alternatives, and Mondrian conformal intervals---adaptive under shift---keep nominal coverage across quiet and busy places and across poorer and richer areas, where Poisson and split-conformal intervals under-cover busy places and zero-inflated intervals are conservative and wider. Evaluating sparse urban count forecasts on all units, with proper losses, decision criteria, strong baselines, several seeds and calibration by volume would make progress in this field measurable.
+
+%% ===================================================================================
+\section*{Data and code availability}
+All data are public: the benchmark files from the ST-HSL repository, incident data from the Chicago, New York City and San Francisco open-data portals, and American Community Survey data from the U.S.\ Census Bureau. The three analysis notebooks (with the hypotheses fixed before each run), the scripts that build every table and figure of this paper, and all result tables, figures and run logs are available at \repo{} \todo{and archived at Zenodo, DOI to be added on acceptance}.
+
+\section*{CRediT authorship contribution statement}
+\textbf{Sondip Poul Singh}: Conceptualization, Methodology, Software, Formal analysis, Investigation, Data curation, Writing -- original draft, Visualization. \textbf{Susmoy Bless Singh}: Validation, Investigation, Writing -- review \& editing. \todo{confirm roles}
+
+\section*{Declaration of competing interest}
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+\section*{Declaration of generative AI and AI-assisted technologies in the writing process}
+During the preparation of this work the authors used Claude (Anthropic) to assist with code development and with drafting and editing the manuscript. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
+
+\section*{Funding}
+This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{references}
+
+%% ===================================================================================
+\appendix
+\section{Reproduction gap per city and category}\label{app:repro}
+\input{tables/t4_reproduction_gap}
+
+\end{document}

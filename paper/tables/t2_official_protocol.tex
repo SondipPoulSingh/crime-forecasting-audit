@@ -1,0 +1,33 @@
+\begin{table*}[t]\centering\scriptsize\setlength{\tabcolsep}{3.5pt}
+\caption{Official protocol P1 (only cell-days with at least one crime are scored): published numbers (ST-HSL paper, Table III), our re-runs of the official code (mean over 5 seeds), our forecaster, and two trivial predictors. Lower is better. Category columns follow the benchmark order (NYC: Burglary, Larceny, Robbery, Assault; CHI: Theft, Battery, Assault, Damage).}\label{tab:official}
+\begin{tabular}{l*{8}{r}r}\toprule
+ & \multicolumn{2}{c}{Category 1} & \multicolumn{2}{c}{Category 2} & \multicolumn{2}{c}{Category 3} & \multicolumn{2}{c}{Category 4} & \\
+Model & MAE & MAPE & MAE & MAPE & MAE & MAPE & MAE & MAPE & Mean MAE\\\midrule
+\multicolumn{10}{l}{\textit{New York}}\\
+ST-HSL, published & 0.733 & 0.479 & 1.032 & 0.504 & 0.791 & 0.460 & 0.848 & 0.503 & 0.851 \\
+ST-SHN, published & 0.801 & 0.520 & 1.043 & 0.529 & 0.872 & 0.536 & 0.917 & 0.568 & 0.908 \\
+Graph WaveNet, published & 0.799 & 0.523 & 1.049 & 0.540 & 0.868 & 0.535 & 0.887 & 0.565 & 0.901 \\
+MTGNN, published & 0.833 & 0.544 & 1.047 & 0.533 & 0.876 & 0.546 & 0.909 & 0.571 & 0.916 \\
+ST-HSL, re-run (5 seeds) & 0.782 & 0.510 & 1.072 & 0.535 & 0.835 & 0.497 & 0.886 & 0.532 & 0.894 \\
+ST-SHN, re-run (5 seeds) & 0.527 & 0.316 & 0.910 & 0.431 & 0.619 & 0.329 & 0.664 & 0.375 & 0.680 \\
+Graph WaveNet, re-run (5 seeds) & 0.799 & 0.527 & 1.064 & 0.556 & 0.867 & 0.542 & 0.917 & 0.573 & 0.912 \\
+MTGNN, re-run (5 seeds) & 0.813 & 0.535 & 1.053 & 0.543 & 0.873 & 0.549 & 0.910 & 0.574 & 0.912 \\
+GBM-Poisson (ours) & 0.825 & 0.539 & 1.041 & 0.527 & 0.881 & 0.547 & 0.910 & 0.552 & 0.915 \\
+30-day mean & 0.836 & 0.553 & 1.051 & 0.534 & 0.893 & 0.564 & 0.935 & 0.573 & 0.928 \\
+Constant 1 (trivial) & 0.484 & 0.179 & 1.345 & 0.315 & 0.673 & 0.231 & 0.720 & 0.245 & 0.806 \\
+Zero-truncated median (exploit) & 0.443 & 0.210 & 0.839 & 0.363 & 0.552 & 0.274 & 0.593 & 0.288 & 0.607 \\
+\midrule
+\multicolumn{10}{l}{\textit{Chicago}}\\
+ST-HSL, published & 1.295 & 0.493 & 1.102 & 0.523 & 0.666 & 0.400 & 0.845 & 0.464 & 0.977 \\
+ST-SHN, published & 1.323 & 0.531 & 1.135 & 0.554 & 0.776 & 0.457 & 0.874 & 0.475 & 1.027 \\
+Graph WaveNet, published & 1.321 & 0.550 & 1.133 & 0.550 & 0.749 & 0.458 & 0.858 & 0.485 & 1.015 \\
+MTGNN, published & 1.305 & 0.538 & 1.131 & 0.560 & 0.757 & 0.457 & 0.867 & 0.486 & 1.015 \\
+ST-HSL, re-run (5 seeds) & 1.326 & 0.530 & 1.154 & 0.568 & 0.734 & 0.457 & 0.879 & 0.493 & 1.023 \\
+ST-SHN, re-run (5 seeds) & 1.277 & 0.503 & 1.062 & 0.514 & 0.600 & 0.356 & 0.792 & 0.459 & 0.933 \\
+Graph WaveNet, re-run (5 seeds) & 1.343 & 0.553 & 1.155 & 0.574 & 0.781 & 0.473 & 0.877 & 0.487 & 1.039 \\
+MTGNN, re-run (5 seeds) & 1.302 & 0.537 & 1.153 & 0.589 & 0.748 & 0.459 & 0.874 & 0.492 & 1.019 \\
+GBM-Poisson (ours) & 1.297 & 0.528 & 1.115 & 0.538 & 0.774 & 0.463 & 0.876 & 0.468 & 1.016 \\
+30-day mean & 1.316 & 0.540 & 1.138 & 0.557 & 0.786 & 0.476 & 0.901 & 0.490 & 1.035 \\
+Constant 1 (trivial) & 2.316 & 0.453 & 1.552 & 0.415 & 0.588 & 0.223 & 0.863 & 0.291 & 1.330 \\
+Zero-truncated median (exploit) & 1.191 & 0.455 & 0.998 & 0.453 & 0.540 & 0.285 & 0.735 & 0.383 & 0.866 \\
+\bottomrule\end{tabular}\end{table*}

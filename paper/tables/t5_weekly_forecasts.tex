@@ -1,4 +1,4 @@
-\begin{table*}[t]\centering\scriptsize\setlength{\tabcolsep}{3.5pt}
+\begin{table}[!htbp]\centering\scriptsize\setlength{\tabcolsep}{3.5pt}
 \caption{Weekly area $\times$ crime-type forecasts, test period (July 2024 onwards): mean Poisson deviance (lower is better; $\pm$ sd over 3 seeds for learned models) at horizons of 1 and 4 weeks. The forecaster selected on validation deviance is LightGBM-Poisson.}\label{tab:weekly}
 \begin{tabular}{lrrrrrr}\toprule
  & \multicolumn{3}{c}{$H=1$} & \multicolumn{3}{c}{$H=4$}\\\cmidrule(lr){2-4}\cmidrule(lr){5-7}
@@ -13,4 +13,4 @@ Exp. smoothing (0.3) & 1.405 & 1.522 & 1.282 & 1.470 & 1.626 & 1.323 \\
 Moving average (4 w) & 1.515 & 1.636 & 1.395 & 1.583 & 1.744 & 1.432 \\
 Last week & 2.688 & 2.872 & 2.405 & 2.795 & 3.067 & 2.484 \\
 Seasonal naive (52 w) & 2.964 & 3.395 & 2.686 & 2.964 & 3.395 & 2.686 \\
-\bottomrule\end{tabular}\end{table*}
+\bottomrule\end{tabular}\end{table}

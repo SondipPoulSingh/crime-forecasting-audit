@@ -1,4 +1,4 @@
-\begin{table*}[t]\centering\scriptsize\setlength{\tabcolsep}{3.5pt}
+\begin{table}[!htbp]\centering\scriptsize\setlength{\tabcolsep}{3.5pt}
 \caption{Official protocol P1 (only cell-days with at least one crime are scored): published numbers (ST-HSL paper, Table III), our re-runs of the official code (mean over 5 seeds), our forecaster, and two trivial predictors. Lower is better. Category columns follow the benchmark order (NYC: Burglary, Larceny, Robbery, Assault; CHI: Theft, Battery, Assault, Damage).}\label{tab:official}
 \begin{tabular}{l*{8}{r}r}\toprule
  & \multicolumn{2}{c}{Category 1} & \multicolumn{2}{c}{Category 2} & \multicolumn{2}{c}{Category 3} & \multicolumn{2}{c}{Category 4} & \\
@@ -30,4 +30,4 @@ GBM-Poisson (ours) & 1.297 & 0.528 & 1.115 & 0.538 & 0.774 & 0.463 & 0.876 & 0.4
 30-day mean & 1.316 & 0.540 & 1.138 & 0.557 & 0.786 & 0.476 & 0.901 & 0.490 & 1.035 \\
 Constant 1 (trivial) & 2.316 & 0.453 & 1.552 & 0.415 & 0.588 & 0.223 & 0.863 & 0.291 & 1.330 \\
 Zero-truncated median (exploit) & 1.191 & 0.455 & 0.998 & 0.453 & 0.540 & 0.285 & 0.735 & 0.383 & 0.866 \\
-\bottomrule\end{tabular}\end{table*}
+\bottomrule\end{tabular}\end{table}

@@ -1,0 +1,4 @@
+city,dataset_id,url,features,key,areas_matched,areas_expected,unmatched
+CHI,igwz-8jzy,https://data.cityofchicago.org/api/geospatial/igwz-8jzy?method=export&format=GeoJSON,77,area_num_1,77,77,
+NYC,y76i-bdw7,https://data.cityofnewyork.us/api/geospatial/y76i-bdw7?method=export&format=GeoJSON,78,precinct,77,77,
+SF,j2bu-swwd,https://data.sfgov.org/api/geospatial/j2bu-swwd?method=export&format=GeoJSON,41,nhood,41,41,

@@ -1,0 +1,18 @@
+\begin{table}[!htbp]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\caption{Deep baselines trained in the literature setting (squared error, epoch chosen on crime days) and in the Poisson setting (Poisson likelihood on all cell-days, epoch chosen on the validation deviance, the rule of our forecaster); 5 seeds each. P1: mean MAE on crime cell-days; P3: Poisson deviance on all cell-days ($\pm$ sd over seeds); P4: hit rate of the daily top-10\,\% list; Moran's $I$ of the per-cell mean Pearson residual ($^{*}$ significant at 5\,\% in every seed); P3 deviance minus that of our forecaster with a 95\,\% day-block bootstrap interval, and the test days on which our forecaster is better.}\label{tab:poisson}
+\begin{tabular}{llrrrrlr}\toprule
+Model & Training & P1 MAE & P3 deviance & P4 hit (\%) & Moran's $I$ & P3 minus ours [95\,\% CI] & Days\\\midrule
+\multicolumn{8}{l}{\textit{New York}}\\
+GBM-Poisson (ours) & Poisson & 0.915 & 0.349\,{\tiny$\pm$0.000} & 67.7 & 0.01 & -- & -- \\
+Graph WaveNet & Literature & 0.912 & 0.373\,{\tiny$\pm$0.002} & 66.9 & 0.40$^{*}$ & +0.0237 [+0.0217, +0.0256] & 92/92 \\
+Graph WaveNet & Poisson & 0.942 & 0.362\,{\tiny$\pm$0.001} & 67.0 & -0.02 & +0.0128 [+0.0110, +0.0144] & 87/92 \\
+MTGNN & Literature & 0.912 & 0.361\,{\tiny$\pm$0.005} & 67.5 & 0.33$^{*}$ & +0.0121 [+0.0107, +0.0136] & 85/92 \\
+MTGNN & Poisson & 0.928 & 0.353\,{\tiny$\pm$0.000} & 67.7 & 0.08 & +0.0039 [+0.0027, +0.0051] & 74/92 \\
+\midrule
+\multicolumn{8}{l}{\textit{Chicago}}\\
+GBM-Poisson (ours) & Poisson & 1.016 & 0.501\,{\tiny$\pm$0.000} & 51.4 & 0.06 & -- & -- \\
+Graph WaveNet & Literature & 1.039 & 0.530\,{\tiny$\pm$0.003} & 50.8 & 0.27$^{*}$ & +0.0289 [+0.0263, +0.0315] & 91/92 \\
+Graph WaveNet & Poisson & 1.031 & 0.511\,{\tiny$\pm$0.001} & 50.8 & 0.14 & +0.0106 [+0.0086, +0.0126] & 81/92 \\
+MTGNN & Literature & 1.019 & 0.515\,{\tiny$\pm$0.003} & 51.3 & 0.37$^{*}$ & +0.0137 [+0.0114, +0.0162] & 83/92 \\
+MTGNN & Poisson & 1.020 & 0.508\,{\tiny$\pm$0.002} & 51.3 & 0.12 & +0.0069 [+0.0051, +0.0089] & 72/92 \\
+\bottomrule\end{tabular}\end{table}

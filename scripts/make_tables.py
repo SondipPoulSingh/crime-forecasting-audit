@@ -282,3 +282,51 @@ Compared with & Difference & 95\,\% CI & Days & Difference & 95\,\% CI & Days\\\
 """ + "\n".join(rows) + r"""
 \bottomrule\end{tabular}\end{table}
 """)
+
+# ---------------------------------------------------------------- T14 spatial and temporal scale (benchmark aggregated)
+if (T / "s03_bench_scale_rank_agreement.csv").exists():
+    ta = rd("s03_bench_scale_rank_agreement"); sc = rd("s02_bench_scale_sensitivity")
+    short = {"Ours: GBM-Poisson (XGBoost)": "GBM-Poisson", "Ours: GBM-Poisson (LightGBM)": "GBM-Poisson", "Ours – zero-truncated median": "ZT median",
+             "ST-SHN": "ST-SHN", "MTGNN": "MTGNN", "Graph WaveNet": "Graph WaveNet", "ST-HSL": "ST-HSL", "Naive: 30-day mean": "30-day mean",
+             "Naive: last day": "Last day", "Trivial: constant 1": "Constant 1"}
+    rows = []
+    for c in ("NYC", "CHI"):
+        rows.append(rf"\multicolumn{{7}}{{l}}{{\textit{{{CITY[c]}}}}}\\")
+        for s in sorted(ta[ta.city == c].scale.unique(), key=lambda x: int(x.split()[0])):
+            g = ta[(ta.city == c) & (ta.scale == s)]; tau = lambda a, b: g[(g.protocol_a == a) & (g.protocol_b == b)].iloc[0]
+            t13, t43 = tau("P1_mean_MAE", "P3_deviance_all"), tau("P4_hit_rate", "P3_deviance_all")
+            q = sc[(sc.city == c) & (sc.scale == s)]
+            w1 = short[q.loc[q.P1_mean_MAE.idxmin(), "model"]]; w3 = short[q.loc[q.P3_deviance_all.idxmin(), "model"]]
+            star = lambda t: f"{t.kendall_tau:+.2f}" + ("$^{*}$" if t.p_value < 0.05 else "")
+            rows.append(f"{s} & {int(q.units.iloc[0])} & {pts(q.share_zero.iloc[0], 0)} & "
+                        f"{star(t13)} & {star(t43)} & {w1} & {w3} \\\\")
+        rows.append(r"\midrule")
+    write("t14_scale", r"""\begin{table}[!htbp]\centering\small\setlength{\tabcolsep}{4pt}
+\caption{Spatial scale. The benchmark's 3-km grid aggregated to 2$\times$2 blocks (about 6\,km) and, in New York, 4$\times$4 blocks (about 12\,km); daily counts, expected counts summed over the block, the constant-1 and zero-truncated-median predictors re-derived at each scale. Share of zero units, Kendall's $\tau$ between model rankings under the official protocol P1 and the full protocol P3 and between the decision protocol P4 and P3 (10 models; $^{*}$\,$p<0.05$), and the best model under P1 and P3.}\label{tab:scale}
+\begin{tabular}{lrrrrll}\toprule
+Scale & Units & Zero (\%) & $\tau$(P1, P3) & $\tau$(P4, P3) & Best under P1 & Best under P3\\\midrule
+""" + "\n".join(rows[:-1]) + r"""
+\bottomrule\end{tabular}\end{table}
+""")
+
+# ---------------------------------------------------------------- T15 literature vs Poisson setting for the deep baselines (stage 4)
+if (T / "s07_poisson_vs_literature.csv").exists():
+    q = rd("s07_poisson_vs_literature")
+    rows = []
+    for c in ("NYC", "CHI"):
+        rows.append(rf"\multicolumn{{8}}{{l}}{{\textit{{{CITY[c]}}}}}\\")
+        for _, r in q[q.city == c].iterrows():
+            setting = "Poisson" if r.setting.startswith("Poisson") else "Literature"
+            lab = r.model if r.model != "GBM-Poisson (ours)" else "GBM-Poisson (ours)"
+            dd = "--" if r.model == "GBM-Poisson (ours)" else f"{r.dev_minus_ours:+.4f} [{r.ci_lo:+.4f}, {r.ci_hi:+.4f}]"
+            days = "--" if pd.isna(r.days_ours_better) else f"{int(r.days_ours_better)}/{int(r.days)}"
+            star = "$^{*}$" if r.morans_I_max_p < 0.05 else ""
+            rows.append(f"{lab} & {setting} & {f(r.P1_mean_MAE)} & {f(r.P3_deviance)}\\,{{\\tiny$\\pm${r.P3_deviance_sd:.3f}}} & {pts(r.P4_hit_rate)} & {f(r.morans_I, 2)}{star} & {dd} & {days} \\\\")
+        rows.append(r"\midrule")
+    write("t15_poisson", r"""\begin{table}[!htbp]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\caption{Deep baselines trained in the literature setting (squared error, epoch chosen on crime days) and in the Poisson setting (Poisson likelihood on all cell-days, epoch chosen on the validation deviance, the rule of our forecaster); 5 seeds each. P1: mean MAE on crime cell-days; P3: Poisson deviance on all cell-days ($\pm$ sd over seeds); P4: hit rate of the daily top-10\,\% list; Moran's $I$ of the per-cell mean Pearson residual ($^{*}$ significant at 5\,\% in every seed); P3 deviance minus that of our forecaster with a 95\,\% day-block bootstrap interval, and the test days on which our forecaster is better.}\label{tab:poisson}
+\begin{tabular}{llrrrrlr}\toprule
+Model & Training & P1 MAE & P3 deviance & P4 hit (\%) & Moran's $I$ & P3 minus ours [95\,\% CI] & Days\\\midrule
+""" + "\n".join(rows[:-1]) + r"""
+\bottomrule\end{tabular}\end{table}
+""")

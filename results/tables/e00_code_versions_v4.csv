@@ -1,0 +1,4 @@
+repository,url,commit_v1,commit_v4,identical
+STHSL,https://github.com/LZH-YS1998/STHSL,6f3429c07f88ada44b5c34a0a098e95eedf9cbd6,6f3429c07f88ada44b5c34a0a098e95eedf9cbd6,True
+Graph-WaveNet,https://github.com/nnzhan/Graph-WaveNet,6b162e80c59a1d494809252eca055cff93dc66b1,6b162e80c59a1d494809252eca055cff93dc66b1,True
+MTGNN,https://github.com/nnzhan/MTGNN,f811746fa7022ebf336f9ecd2434af5f365ecbf6,f811746fa7022ebf336f9ecd2434af5f365ecbf6,True

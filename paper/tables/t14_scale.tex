@@ -1,0 +1,13 @@
+\begin{table}[!htbp]\centering\small\setlength{\tabcolsep}{4pt}
+\caption{Spatial scale. The benchmark's 3-km grid aggregated to 2$\times$2 blocks (about 6\,km) and, in New York, 4$\times$4 blocks (about 12\,km); daily counts, expected counts summed over the block, the constant-1 and zero-truncated-median predictors re-derived at each scale. Share of zero units, Kendall's $\tau$ between model rankings under the official protocol P1 and the full protocol P3 and between the decision protocol P4 and P3 (10 models; $^{*}$\,$p<0.05$), and the best model under P1 and P3.}\label{tab:scale}
+\begin{tabular}{lrrrrll}\toprule
+Scale & Units & Zero (\%) & $\tau$(P1, P3) & $\tau$(P4, P3) & Best under P1 & Best under P3\\\midrule
+\multicolumn{7}{l}{\textit{New York}}\\
+3 km (original) & 256 & 87 & -0.42 & +0.96$^{*}$ & ZT median & GBM-Poisson \\
+6 km & 64 & 70 & +0.56$^{*}$ & +0.82$^{*}$ & ZT median & GBM-Poisson \\
+12 km & 16 & 41 & +0.78$^{*}$ & +0.76$^{*}$ & ZT median & GBM-Poisson \\
+\midrule
+\multicolumn{7}{l}{\textit{Chicago}}\\
+3 km (original) & 168 & 74 & +0.16 & +0.87$^{*}$ & ZT median & GBM-Poisson \\
+6 km & 42 & 53 & +0.69$^{*}$ & +0.64$^{*}$ & ZT median & GBM-Poisson \\
+\bottomrule\end{tabular}\end{table}

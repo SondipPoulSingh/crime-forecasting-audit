@@ -1,0 +1,204 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}\usepackage[margin=2.2cm]{geometry}\usepackage{booktabs,tabularx,float}\usepackage[hidelinks]{hyperref}
+\renewcommand{\thetable}{S\arabic{table}}
+\title{Supplementary Material\\[4pt]\large Scoring only where crime happened: evaluation, spatial scale and calibration of sparse urban crime forecasts}
+\author{Sondip Poul Singh \and Susmoy Bless Singh}\date{}
+\begin{document}\maketitle
+All tables are generated from the result files of the repository (\url{https://github.com/SondipPoulSingh/crime-forecasting-audit}; Zenodo doi:10.5281/zenodo.23491403); the file name of each source table is given in its caption.
+\begin{table}[H]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\caption{Official code: repositories, pinned commits and the patches applied (\texttt{b01}).}\label{tab:s1}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}X}\toprule
+Repository & Commit & Patches\\\midrule
+STHSL & 6f3429c07f88ada44b5c34a0a098e95eedf9cbd6 & engine.py: running loss stored with .item() (memory only); train.py: device and seed read from arguments/environment (official default seed 523 = our seed 0) \\
+ST-SHN & 0a5f1adf907e91212a0b0e252a59fb3e379a975b & TensorFlow 1 code run with tf.compat.v1; xavier\_initializer $\rightarrow$ glorot\_uniform (same initialiser); softmax on 6-D tensor written out (numerically identical); seed from environment; predictions and validation metrics logged every epoch \\
+Graph-WaveNet & 6b162e80c59a1d494809252eca055cff93dc66b1 & nn.Conv1d with 2-D kernels replaced by nn.Conv2d (old PyTorch accepted this silently; identical computation) \\
+MTGNN & f811746fa7022ebf336f9ecd2434af5f365ecbf6 & none \\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\caption{Automatic audit of the official evaluation code, run on the untouched clones (\texttt{b03}).}\label{tab:s2}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{1.6cm}>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{1.4cm}}\toprule
+Code & Aspect & What the official code does & Verified in code\\\midrule
+ST-HSL & scored cell-days & only cell-days with at least one crime (mask = label $>$ 0) & yes \\
+ST-HSL & training loss & squared error on every cell-day (mask = label >= 0) & yes \\
+ST-HSL & reported epoch & best validation RMSE + MAE & yes \\
+ST-HSL & random seed & fixed (seed\_torch, 523) & yes \\
+ST-SHN & scored cell-days & crime days only, and only cells with crime on 20--80 \% of training days & yes \\
+ST-SHN & training loss & squared error on crime days only (regression: negRate = 0) & yes \\
+ST-SHN & reported epoch & epoch with the best TEST MAPE (the test set chooses the epoch) & yes \\
+ST-SHN & random seed & none set & yes \\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\caption{Full protocol P3, literature setting: best and mean deviance of each deep model over 5 seeds against the worst and mean seed of our XGBoost-Poisson forecaster (\texttt{b14}).}\label{tab:s3}
+\begin{tabularx}{\linewidth}{llrrrrrr}\toprule
+City & Deep model & Seeds & Deep, best seed & Deep, mean & Ours, worst seed & Ours, mean & Ours better in every seed\\\midrule
+NYC & ST-HSL & 5 & 0.425 & 0.480 & 0.349 & 0.349 & yes \\
+NYC & Graph WaveNet & 5 & 0.370 & 0.373 & 0.349 & 0.349 & yes \\
+NYC & MTGNN & 5 & 0.358 & 0.361 & 0.349 & 0.349 & yes \\
+NYC & ST-SHN & 5 & 0.845 & 1.852 & 0.349 & 0.349 & yes \\
+CHI & ST-HSL & 5 & 0.587 & 0.632 & 0.501 & 0.501 & yes \\
+CHI & Graph WaveNet & 5 & 0.527 & 0.530 & 0.501 & 0.501 & yes \\
+CHI & MTGNN & 5 & 0.512 & 0.515 & 0.501 & 0.501 & yes \\
+CHI & ST-SHN & 5 & 1.010 & 2.414 & 0.501 & 0.501 & yes \\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\caption{ST-SHN: epoch budget (10 = official, 25 = extended) and epoch selection (validation vs.\ test MAPE, as the official code reports), mean over 5 seeds (\texttt{b16}).}\label{tab:s4}
+\begin{tabularx}{\linewidth}{lrlrrrr}\toprule
+City & Budget & Epoch selected by & Epoch & P1 MAE & P1 MAPE & P3 deviance\\\midrule
+CHI & 10 & test (as the code reports) & 5.600 & 0.984 & 0.470 & 2.414 \\
+CHI & 10 & validation & 5.600 & 0.984 & 0.470 & 2.414 \\
+CHI & 25 & test (as the code reports) & 10.000 & 0.982 & 0.468 & 2.364 \\
+CHI & 25 & validation & 12.000 & 0.980 & 0.464 & 2.334 \\
+NYC & 10 & test (as the code reports) & 4.400 & 0.713 & 0.373 & 1.854 \\
+NYC & 10 & validation & 4.600 & 0.713 & 0.373 & 1.852 \\
+NYC & 25 & test (as the code reports) & 7.800 & 0.710 & 0.367 & 1.776 \\
+NYC & 25 & validation & 7.800 & 0.710 & 0.367 & 1.776 \\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\caption{Benchmark intervals (90\,\%; 30 validation days as calibration; seed 0), including the zero-inflated baselines (\texttt{b17}). Q1/Q5: quietest/busiest volume quintile of cells.}\label{tab:s5}
+\begin{tabularx}{\linewidth}{llrrrrrr}\toprule
+City & Method & Coverage & Width & Interval score & Q1 & Q5 & Worst under\\\midrule
+NYC & Poisson & 0.989 & 0.744 & 1.039 & 1.000 & 0.969 & -0.069 \\
+NYC & Neg. binomial & 0.989 & 0.767 & 1.036 & 1.000 & 0.973 & -0.073 \\
+NYC & Split conformal & 0.904 & 0.145 & 2.562 & 1.000 & 0.639 & 0.261 \\
+NYC & Mondrian conformal & 0.959 & 0.408 & 1.424 & 1.000 & 0.904 & 0.001 \\
+NYC & ZINB (fitted) & 0.990 & 0.779 & 1.035 & 1.000 & 0.975 & -0.075 \\
+NYC & ZINB (fitted per volume bin) & 0.990 & 0.787 & 1.037 & 1.000 & 0.975 & -0.075 \\
+CHI & Poisson & 0.985 & 1.450 & 1.894 & 1.000 & 0.956 & -0.056 \\
+CHI & Neg. binomial & 0.987 & 1.512 & 1.881 & 1.000 & 0.965 & -0.065 \\
+CHI & Split conformal & 0.906 & 0.661 & 3.205 & 1.000 & 0.672 & 0.228 \\
+CHI & Mondrian conformal & 0.955 & 1.030 & 2.253 & 1.000 & 0.904 & -0.004 \\
+CHI & ZINB (fitted) & 0.987 & 1.520 & 1.883 & 1.000 & 0.966 & -0.066 \\
+CHI & ZINB (fitted per volume bin) & 0.987 & 1.522 & 1.886 & 1.000 & 0.965 & -0.065 \\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\tiny\setlength{\tabcolsep}{3pt}
+\caption{Hypotheses fixed before the runs, with the automatic verdicts (\texttt{z01}); rows marked \emph{post hoc} were added after results were seen.}\label{tab:s6}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{1.6cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}X}\toprule
+Hypothesis & Claim & Verdict & Evidence\\\midrule
+A1 & re-runs of ST-HSL and ST-SHN are worse than published in $\geq$ 6/8 cells & partly supported & ST-HSL (re-run): re-run worse in 8/8 cells, mean gap +5.3 \% (5 seeds); ST-SHN (re-run, epoch chosen on validation): re-run worse in 0/8 cells, mean gap -18.2 \% (5 seeds) \\
+A1b (post hoc) & ST-HSL re-run worse than published beyond seed noise (95 \% t-interval above 0) in $\geq$ 6/8 cells & supported & NYC: 2/4 cells; CHI: 4/4 cells (5 seeds) \\
+A2 & a constant 1 beats published ST-HSL MAPE, and the protocol-aware forecast beats its MAE, in $\geq$ 1 category per city & supported & NYC: constant-1 beats MAPE in 4/4, protocol-aware beats MAE in 4/4; CHI: constant-1 beats MAPE in 4/4, protocol-aware beats MAE in 4/4 \\
+A3 & rankings disagree between the official and the full protocol ($\tau$ $<$ 0.8 or a different winner) & supported & NYC: $\tau$ = -0.45, best official = Ours -- protocol-aware (zero-truncated median), best full = Ours: GBM-Poisson (XGBoost); CHI: $\tau$ = 0.00, best official = Ours -- protocol-aware (zero-truncated median), best full = Ours: GBM-Poisson (XGBoost) \\
+A4 & our forecaster has lower full-protocol deviance than every re-run deep model, in every seed & supported & NYC vs ST-HSL: 0.349 vs 0.480 (5 seeds); NYC vs Graph WaveNet: 0.349 vs 0.373 (5 seeds); NYC vs MTGNN: 0.349 vs 0.361 (5 seeds); NYC vs ST-SHN: 0.349 vs 1.852 (5 seeds); CHI vs ST-HSL: 0.501 vs 0.632 (5 seeds); CHI vs Graph WaveNet: 0.501 vs 0.530 (5 seeds); CHI vs MTGNN: 0.501 vs 0.515 (5 seeds); CHI vs ST-SHN: 0.501 vs 2.414 (5 seeds) \\
+A5 & the selected forecaster beats every naive/statistical baseline at H = 1--4 in all cities and seeds & supported & 60/60 horizon $\times$ city $\times$ baseline cells significant in every seed; selected = LightGBM-Poisson (v1) \\
+A6 & Mondrian keeps every volume quintile within 3 points of 90 \% (all cities, horizons); CP, Poisson, NB do not & not supported & Mondrian worst deviation 5.1 pts; Split conformal (CP) worst 12.2 pts; Poisson worst 9.9 pts; Neg. binomial worst 9.5 pts (v1) \\
+A6b (post hoc) & Mondrian never under-covers a volume quintile by more than 3 points (all cities, horizons); deviations above 3 points are over-coverage only & supported & Mondrian CP: worst under-coverage 0.9, worst over-coverage 5.1 pts; Mondrian-ACI: worst under-coverage 0.8, worst over-coverage 5.1 pts; CQR: worst under-coverage 1.6, worst over-coverage 7.1 pts; Split conformal (CP): worst under-coverage 12.2, worst over-coverage 9.5 pts; Poisson: worst under-coverage 9.9, worst over-coverage 9.5 pts; Neg. binomial: worst under-coverage -0.3, worst over-coverage 9.5 pts (v1) \\
+A7 & A6 holds in every rolling test year; in 2020 ACI brings coverage within 2 points of 90 \% & partly supported & Mondrian worst deviation over folds 4.8 pts (years [2020, 2021, 2022, 2023, 2024]); 2020 ACI coverage: CHI ACI 89.5 \%, CHI Mondrian-ACI 89.4 \%, NYC ACI 89.4 \%, NYC Mondrian-ACI 89.5 \% (v1) \\
+A7b (post hoc) & Mondrian-ACI keeps every volume quintile within 3 points of 90 \% in every rolling test year (incl. 2020) & partly supported & worst quintile deviation over folds: CHI 1.6 pts, NYC 1.9 pts, SF 4.8 pts (v1) \\
+A8 & Mondrian has a smaller high- vs low-poverty coverage gap than CP in every city & supported & CHI: Mondrian +0.1 vs CP -2.0 pts, Mondrian-ACI -0.0; NYC: Mondrian -0.6 vs CP -1.7 pts, Mondrian-ACI -0.5; SF: Mondrian -1.7 vs CP -4.8 pts, Mondrian-ACI -1.9 \\
+A9 (v3) & Mondrian CP keeps worst-quintile under-coverage $\leq$ 3 points in every city and horizon, while each ZINB baseline (fitted, fitted per volume bin, learned GRU-ZINB) misses 90 \% by more than 3 points (either direction) in some volume quintile & supported & Mondrian CP worst under-coverage 1.2 pts; ZINB (fitted): worst deviation 9.5 pts (under -0.8, over 9.5); ZINB (fitted per volume bin): worst deviation 9.6 pts (under -1.0, over 9.6); GRU-ZINB (learned): worst deviation 8.1 pts (under 0.0, over 8.1) \\
+A9b (v3) & at H = 1 Mondrian CP has a lower (better) interval score than each ZINB baseline in every city & not supported & Mondrian $\leq$ ZINB (fitted) in 0/3 cities; Mondrian $\leq$ ZINB (fitted per volume bin) in 0/3 cities; Mondrian $\leq$ GRU-ZINB (learned) in 0/3 cities \\
+A10 (v3) & in the 2020 fold Mondrian-ACI has a smaller worst-quintile deviation than every ZINB baseline, in Chicago and New York & supported & CHI: Mondrian-ACI 1.1, ZINB (fitted) 7.4, ZINB (fitted per volume bin) 7.8, GRU-ZINB (learned) 7.5 pts; NYC: Mondrian-ACI 1.3, ZINB (fitted) 6.1, ZINB (fitted per volume bin) 6.7, GRU-ZINB (learned) 6.7 pts \\
+G1 (v3) & every audited public crime-count (regression) codebase scores only non-zero cells in its test metric & supported & 6/6 regression codebases (CL4ST, EasyST, ST-HHOL, ST-HSL, ST-SHN, STExplainer); direct evidence for 4, indirect for the rest \\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\caption{Moran's $I$ of the per-cell mean Pearson residual on the benchmark (queen contiguity among cells with test-period crime, 999 permutations), mean and sd over seeds, and the largest permutation $p$-value over the seeds (\texttt{s01}). Raw: the same for the unstandardised residual.}\label{tab:s7}
+\begin{tabularx}{\linewidth}{llrrrrr}\toprule
+City & Model & Seeds & Moran's I & sd & max p & Moran's I (raw)\\\midrule
+CHI & Graph WaveNet & 5 & 0.271 & 0.104 & 0.039 & 0.376 \\
+CHI & MTGNN & 5 & 0.372 & 0.026 & 0.001 & 0.526 \\
+CHI & Naive: 30-day mean & 1 & 0.340 & -- & 0.001 & 0.382 \\
+CHI & Naive: last day & 1 & 0.355 & -- & 0.001 & 0.036 \\
+CHI & Ours: GBM-Poisson (LightGBM) & 5 & 0.048 & 0.012 & 0.474 & 0.148 \\
+CHI & Ours: GBM-Poisson (XGBoost) & 5 & 0.063 & 0.007 & 0.248 & 0.208 \\
+CHI & ST-HSL & 5 & 0.091 & 0.089 & 0.803 & 0.331 \\
+CHI & ST-SHN & 5 & 0.530 & 0.022 & 0.001 & 0.400 \\
+NYC & Graph WaveNet & 5 & 0.404 & 0.111 & 0.001 & 0.341 \\
+NYC & MTGNN & 5 & 0.334 & 0.142 & 0.041 & 0.405 \\
+NYC & Naive: 30-day mean & 1 & 0.270 & -- & 0.001 & 0.220 \\
+NYC & Naive: last day & 1 & 0.460 & -- & 0.001 & 0.059 \\
+NYC & Ours: GBM-Poisson (LightGBM) & 5 & 0.001 & 0.016 & 0.987 & -0.011 \\
+NYC & Ours: GBM-Poisson (XGBoost) & 5 & 0.014 & 0.005 & 0.739 & 0.020 \\
+NYC & ST-HSL & 5 & 0.230 & 0.106 & 0.069 & 0.140 \\
+NYC & ST-SHN & 5 & 0.429 & 0.043 & 0.001 & 0.311 \\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\caption{Consistency of the third stage with the first: weekly panels rebuilt months later (\texttt{c02b}).}\label{tab:s8a}
+\begin{tabularx}{\linewidth}{lrrrrrrr}\toprule
+City & Weeks & First week & Last week & Areas & Incidents (stage 1) & Incidents (stage 3) & Change (\%)\\\midrule
+CHI & 561 & 2016-01-04 & 2026-09-28 & 77 & 2668250 & 2668345 & 0.004 \\
+NYC & 544 & 2016-01-04 & 2026-06-01 & 77 & 5192833 & 5192833 & 0.000 \\
+SF & 456 & 2018-01-08 & 2026-09-28 & 41 & 972359 & 972455 & 0.010 \\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\caption{Consistency of the third stage with the first: largest absolute difference in overall coverage and in worst-quintile deviation over all methods and horizons, in points (\texttt{d06}).}\label{tab:s8b}
+\begin{tabularx}{\linewidth}{lrr}\toprule
+City & Max |coverage difference| & Max |worst-quintile deviation difference|\\\midrule
+CHI & 0.635 & 2.348 \\
+NYC & 0.307 & 1.281 \\
+SF & 0.842 & 0.438 \\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\caption{Area boundaries used for the maps and the spatial weights (fourth stage, \texttt{e03}).}\label{tab:s9}
+\begin{tabularx}{\linewidth}{lllrrr}\toprule
+City & Portal dataset & Features & Area key & Areas matched & Areas in panel\\\midrule
+CHI & igwz-8jzy & 77 & area\_num\_1 & 77 & 77 \\
+NYC & y76i-bdw7 & 78 & precinct & 77 & 77 \\
+SF & j2bu-swwd & 41 & nhood & 41 & 41 \\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\caption{Graph WaveNet and MTGNN in the Poisson setting, per seed (\texttt{e01}).}\label{tab:s10}
+\begin{tabularx}{\linewidth}{llrrrrr}\toprule
+City & Model & Seed & Epoch & P1 MAE & P3 deviance & P4 hit rate\\\midrule
+NYC & Graph WaveNet & 0 & 27 & 0.959 & 0.362 & 0.670 \\
+NYC & Graph WaveNet & 1 & 36 & 0.958 & 0.361 & 0.670 \\
+NYC & Graph WaveNet & 2 & 25 & 0.959 & 0.361 & 0.671 \\
+NYC & Graph WaveNet & 3 & 18 & 0.957 & 0.362 & 0.670 \\
+NYC & Graph WaveNet & 4 & 24 & 0.963 & 0.362 & 0.671 \\
+NYC & MTGNN & 0 & 54 & 0.953 & 0.352 & 0.677 \\
+NYC & MTGNN & 1 & 36 & 0.946 & 0.353 & 0.678 \\
+NYC & MTGNN & 2 & 44 & 0.942 & 0.352 & 0.677 \\
+NYC & MTGNN & 3 & 53 & 0.943 & 0.353 & 0.677 \\
+NYC & MTGNN & 4 & 29 & 0.947 & 0.353 & 0.676 \\
+CHI & Graph WaveNet & 0 & 25 & 1.077 & 0.514 & 0.508 \\
+CHI & Graph WaveNet & 1 & 49 & 1.078 & 0.511 & 0.510 \\
+CHI & Graph WaveNet & 2 & 38 & 1.068 & 0.510 & 0.509 \\
+CHI & Graph WaveNet & 3 & 30 & 1.069 & 0.510 & 0.507 \\
+CHI & Graph WaveNet & 4 & 37 & 1.073 & 0.511 & 0.507 \\
+CHI & MTGNN & 0 & 50 & 1.065 & 0.507 & 0.512 \\
+CHI & MTGNN & 1 & 19 & 1.066 & 0.510 & 0.514 \\
+CHI & MTGNN & 2 & 33 & 1.060 & 0.508 & 0.513 \\
+CHI & MTGNN & 3 & 23 & 1.059 & 0.505 & 0.514 \\
+CHI & MTGNN & 4 & 15 & 1.058 & 0.508 & 0.512 \\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\caption{Weekly panels, test period, $H=1$: per-area coverage of the 90\,\% intervals and per-area mean Pearson residual of the forecaster. Moran's $I$ with queen contiguity of the area polygons (areas without a land neighbour get their two nearest neighbours; 999 permutations), lowest area coverage (\%) and share of areas below 85\,\% (\%) (\texttt{s05}).}\label{tab:s12}
+\begin{tabularx}{\linewidth}{ll>{\raggedright\arraybackslash}Xrrrrr}\toprule
+City & Method & Variable & Areas & Moran's I & p & Lowest area & Areas below 85\\\midrule
+CHI & Poisson & area coverage & 77 & 0.338 & 0.001 & 86.133 & 0.000 \\
+CHI & Neg. binomial & area coverage & 77 & 0.242 & 0.002 & 91.063 & 0.000 \\
+CHI & Split conformal (CP) & area coverage & 77 & 0.344 & 0.001 & 82.666 & 6.494 \\
+CHI & Mondrian CP & area coverage & 77 & 0.096 & 0.069 & 86.441 & 0.000 \\
+CHI & Mondrian-ACI & area coverage & 77 & 0.117 & 0.035 & 85.978 & 0.000 \\
+CHI & CQR & area coverage & 77 & 0.183 & 0.007 & 86.826 & 0.000 \\
+CHI & Locally weighted CP & area coverage & 77 & 0.163 & 0.004 & 76.888 & 1.299 \\
+CHI & LightGBM-Poisson forecast & mean Pearson residual & 77 & 0.329 & 0.001 & -- & -- \\
+NYC & Poisson & area coverage & 77 & 0.176 & 0.015 & 84.338 & 3.896 \\
+NYC & Neg. binomial & area coverage & 77 & 0.119 & 0.059 & 90.099 & 0.000 \\
+NYC & Split conformal (CP) & area coverage & 77 & 0.132 & 0.045 & 84.788 & 1.299 \\
+NYC & Mondrian CP & area coverage & 77 & -0.075 & 0.228 & 87.039 & 0.000 \\
+NYC & Mondrian-ACI & area coverage & 77 & -0.045 & 0.372 & 86.769 & 0.000 \\
+NYC & CQR & area coverage & 77 & 0.093 & 0.076 & 86.319 & 0.000 \\
+NYC & Locally weighted CP & area coverage & 77 & 0.087 & 0.101 & 81.998 & 2.597 \\
+NYC & LightGBM-Poisson forecast & mean Pearson residual & 77 & -0.044 & 0.379 & -- & -- \\
+SF & Poisson & area coverage & 41 & 0.405 & 0.001 & 82.512 & 2.439 \\
+SF & Neg. binomial & area coverage & 41 & 0.367 & 0.001 & 90.293 & 0.000 \\
+SF & Split conformal (CP) & area coverage & 41 & 0.421 & 0.001 & 76.965 & 9.756 \\
+SF & Mondrian CP & area coverage & 41 & 0.255 & 0.010 & 86.364 & 0.000 \\
+SF & Mondrian-ACI & area coverage & 41 & 0.257 & 0.004 & 86.441 & 0.000 \\
+SF & CQR & area coverage & 41 & 0.231 & 0.011 & 82.589 & 2.439 \\
+SF & Locally weighted CP & area coverage & 41 & 0.213 & 0.020 & 82.666 & 2.439 \\
+SF & LightGBM-Poisson forecast & mean Pearson residual & 41 & 0.267 & 0.006 & -- & -- \\
+\bottomrule\end{tabularx}\end{table}
+
+\end{document}

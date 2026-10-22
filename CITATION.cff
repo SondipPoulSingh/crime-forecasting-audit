@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this code or these results, please cite them as below."
-title: "Scoring only where crime happened: an audit of evaluation practice in deep spatio-temporal crime forecasting, and calibrated count forecasts for three U.S. cities"
+title: "Scoring only where crime happened: evaluation, spatial scale and calibration of sparse urban crime forecasts"
 type: software
 authors:
   - family-names: Singh

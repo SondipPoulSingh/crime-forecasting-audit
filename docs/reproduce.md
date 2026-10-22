@@ -1,6 +1,6 @@
 # Reproducing the study on Kaggle
 
-The study ran in three stages. Each stage reads the outputs of the previous one, so they must run in order. All stages use one free Kaggle notebook with a T4 GPU.
+The study ran in four stages. Each stage reads the outputs of the previous one, so they must run in order. All stages use one free Kaggle notebook with a T4 GPU.
 
 ## Common settings
 
@@ -33,13 +33,30 @@ The notebook audits seven public crime-prediction repositories at pinned commits
 
 Output: `optionA_outputs_v3.zip` (complete v1 + v2 + v3 result set; its `tables/` folder is this repository's `results/tables/`).
 
+## Stage 4 — fair deep baselines and area boundaries (`notebooks/04_poisson_and_boundaries_v4.ipynb`, ≈1–2 h)
+
+No input dataset is needed. The notebook downloads the benchmark and the official model code itself.
+
+It does two things:
+- Re-trains Graph WaveNet and MTGNN with a Poisson likelihood on all cell-days, with the epoch chosen by validation deviance (5 seeds, both cities).
+- Downloads the area boundaries of the three cities from their open-data portals.
+
+*Internet* must be **On**.
+
+Output: `optionA_outputs_v4.zip`. Copy its `tables/`, `predictions/` and `boundaries/` folders into `results/`.
+
 ## Paper tables and figures (local)
 
 ```bash
-pip install -r requirements.txt
-python scripts/analysis_decision.py results     # decision protocol P4 and bootstrap → results/tables/h01–h04
-python scripts/make_tables.py results paper     # paper/tables/*.tex
-python scripts/make_figures.py results paper    # paper/figures/*.pdf and .png
+pip install -r requirements.txt   # the spatial scripts also need geopandas, libpysal and esda
+python scripts/analysis_decision.py results         # decision protocol P4 and bootstrap → results/tables/h01–h04
+python scripts/analysis_spatial_bench.py results '{"NYC":[16,16],"CHI":[14,12]}'   # Moran's I and spatial scale → s01–s03
+python scripts/analysis_poisson.py results          # literature vs. Poisson setting of the deep baselines → s07 (needs stage 4)
+python scripts/analysis_spatial_areas.py results    # area coverage maps and Moran's I → s04–s06 (needs stage 4)
+python scripts/make_tables.py results paper         # paper/tables/*.tex
+python scripts/make_figures.py results paper        # paper/figures/*.pdf and .png
+python scripts/make_figures_spatial.py results paper
+python scripts/make_supplement.py results paper     # paper/supplementary.tex (Tables S1–S11)
 ```
 
 Then compile `paper/main.tex` with pdflatex + bibtex (Overleaf works out of the box).

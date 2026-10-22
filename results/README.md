@@ -1,6 +1,6 @@
 # Results
 
-All tables are CSV files written by the notebooks (runs 1–3) and by `scripts/analysis_decision.py` (h01–h04). Prefixes: **b** benchmark audit, **c** weekly forecasts, **d** intervals (main split), **e** rolling origins, **f** equity, **g** protocol census, **h** decision protocol and bootstrap, **z** hypothesis verdicts.
+All tables are CSV files written by the notebooks (runs 1–4) and by the scripts in `scripts/` (h01–h04, s01–s07). Prefixes: **b** benchmark audit, **c** weekly forecasts, **d** intervals (main split), **e** rolling origins, **f** equity, **g** protocol census, **h** decision protocol and bootstrap, **s** spatial analysis and the deep baselines in the Poisson setting, **z** hypothesis verdicts. Run 4 adds `e00`, `e01_poisson_*`, `e02_poisson_*` and `e03_boundary_sources`, which are separate from the rolling-origin tables `e01`–`e03` of runs 1 and 3.
 
 | File | Content |
 |---|---|
@@ -58,3 +58,20 @@ All tables are CSV files written by the notebooks (runs 1–3) and by `scripts/a
 | `z01_hypothesis_verdicts.csv` | all hypotheses and verdicts |
 
 `predictions/` holds the benchmark test predictions of every model and seed (`benchmark_<city>_test_predictions.npz`, arrays in day × cell × category order) and the weekly test predictions and intervals of run 1 (`*.csv.gz`). `census/` holds the ACS 2022 tract tables and Census gazetteer files used for the equity check. `logs/` holds the progress log, status and software environment of each run.
+
+## Added in run 4 and by the spatial scripts
+
+| File | Content |
+|---|---|
+| `e00_code_versions_v4.csv` | official code at the v1 commits (run 4) |
+| `e01_poisson_retrain_runs.csv` | Graph WaveNet / MTGNN trained with Poisson loss on all cell-days, per seed (run 4) |
+| `e02_poisson_retrain_summary.csv` | the same, mean / sd / min / max over seeds (run 4) |
+| `e03_boundary_sources.csv` | portal datasets of the area boundaries (run 4) |
+| `s01_bench_morans_i.csv`, `s01_bench_morans_i_per_seed.csv` | Moran's I of benchmark residuals |
+| `s02_bench_scale_sensitivity.csv`, `s03_bench_scale_rank_agreement.csv` | benchmark aggregated to 6- and 12-km cells |
+| `s04_area_coverage.csv` | per-area interval coverage, weekly panels |
+| `s05_area_morans_i.csv` | Moran's I of area coverage and residuals |
+| `s06_area_residual_{CHI,NYC,SF}.csv` | per-area mean Pearson residual |
+| `s07_poisson_vs_literature.csv` | deep baselines in the literature vs. the Poisson setting |
+
+`boundaries/` holds the GeoJSON area boundaries; `predictions/benchmark_{NYC,CHI}_poisson_predictions.npz` the run-4 test predictions.

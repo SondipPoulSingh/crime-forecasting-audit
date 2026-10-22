@@ -3,3 +3,6 @@ numpy>=1.26
 pandas>=2.0
 scipy>=1.11
 matplotlib>=3.8
+geopandas>=1.0
+libpysal>=4.10
+esda>=2.6

@@ -6,13 +6,13 @@
 \begin{document}\maketitle
 All tables are generated from the result files of the code repository (link withheld for double-anonymized review); the file name of each source table is given in its caption.
 \begin{table}[H]\centering\scriptsize\setlength{\tabcolsep}{3pt}
-\caption{Official code: repositories, pinned commits and the patches applied (\texttt{b01}).}\label{tab:s1}
+\caption{Official code: repositories, pinned commits (first 12 characters of the git hash; full hashes in \texttt{b01}) and the patches applied.}\label{tab:s1}
 \begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}X}\toprule
 Repository & Commit & Patches\\\midrule
-STHSL & 6f3429c07f88ada44b5c34a0a098e95eedf9cbd6 & engine.py: running loss stored with .item() (memory only); train.py: device and seed read from arguments/environment (official default seed 523 = our seed 0) \\
-ST-SHN & 0a5f1adf907e91212a0b0e252a59fb3e379a975b & TensorFlow 1 code run with tf.compat.v1; xavier\_initializer $\rightarrow$ glorot\_uniform (same initialiser); softmax on 6-D tensor written out (numerically identical); seed from environment; predictions and validation metrics logged every epoch \\
-Graph-WaveNet & 6b162e80c59a1d494809252eca055cff93dc66b1 & nn.Conv1d with 2-D kernels replaced by nn.Conv2d (old PyTorch accepted this silently; identical computation) \\
-MTGNN & f811746fa7022ebf336f9ecd2434af5f365ecbf6 & none \\
+STHSL & 6f3429c07f88 & engine.py: running loss stored with .item() (memory only); train.py: device and seed read from arguments/environment (official default seed 523 = our seed 0) \\
+ST-SHN & 0a5f1adf907e & TensorFlow 1 code run with tf.compat.v1; xavier\_initializer $\rightarrow$ glorot\_uniform (same initialiser); softmax on 6-D tensor written out (numerically identical); seed from environment; predictions and validation metrics logged every epoch \\
+Graph-WaveNet & 6b162e80c59a & nn.Conv1d with 2-D kernels replaced by nn.Conv2d (old PyTorch accepted this silently; identical computation) \\
+MTGNN & f811746fa702 & none \\
 \bottomrule\end{tabularx}\end{table}
 
 \begin{table}[H]\centering\scriptsize\setlength{\tabcolsep}{3pt}

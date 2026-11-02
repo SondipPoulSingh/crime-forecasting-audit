@@ -31,7 +31,8 @@ out = [r"""\documentclass[11pt]{article}
 All tables are generated from the result files of the code repository (link withheld for double-anonymized review); the file name of each source table is given in its caption.
 """]
 b1 = rd("b01_code_versions_and_patches")
-out.append(table("tab:s1", r"Official code: repositories, pinned commits and the patches applied (\texttt{b01}).", b1[["repository", "commit", "patches"]],
+b1 = b1.assign(commit=b1["commit"].str[:12])
+out.append(table("tab:s1", r"Official code: repositories, pinned commits (first 12 characters of the git hash; full hashes in \texttt{b01}) and the patches applied.", b1[["repository", "commit", "patches"]],
                  p("2.2cm") + p("3.2cm") + X, ["Repository", "Commit", "Patches"]))
 b3 = rd("b03_protocol_audit")
 out.append(table("tab:s2", r"Automatic audit of the official evaluation code, run on the untouched clones (\texttt{b03}).", b3, p("1.6cm") + p("2.4cm") + X + p("1.4cm"),

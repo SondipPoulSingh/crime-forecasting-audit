@@ -23,12 +23,12 @@ def table(label, caption, df, spec, header=None, size=r"\scriptsize", d=3):
             + rf"\begin{{tabularx}}{{\linewidth}}{{{spec}}}\toprule" + "\n" + hdr + r"\\\midrule" + "\n" + body + "\n" + r"\bottomrule\end{tabularx}\end{table}" + "\n\n")
 X = r">{\raggedright\arraybackslash}X"; p = lambda w: rf">{{\raggedright\arraybackslash}}p{{{w}}}"
 out = [r"""\documentclass[11pt]{article}
-\usepackage[T1]{fontenc}\usepackage[margin=2.2cm]{geometry}\usepackage{booktabs,tabularx,float}\usepackage[hidelinks]{hyperref}\hypersetup{pdfauthor={}}
+\usepackage[T1]{fontenc}\usepackage[margin=2.2cm]{geometry}\usepackage{booktabs,tabularx,float,xcolor}\usepackage[hidelinks]{hyperref}\hypersetup{pdfauthor={}}
 \renewcommand{\thetable}{S\arabic{table}}
 \title{Supplementary Material\\[4pt]\large Scoring only where crime happened: evaluation, spatial scale and calibration of sparse urban crime forecasts}
 \author{}\date{}
 \begin{document}\maketitle
-All tables are generated from the result files of the code repository (link withheld for double-anonymized review); the file name of each source table is given in its caption.
+All tables are generated from the result files of the code repository (anonymised copy for review: ANONREPO); the file name of each source table is given in its caption.
 """]
 b1 = rd("b01_code_versions_and_patches")
 b1 = b1.assign(commit=b1["commit"].str[:12])
@@ -78,4 +78,6 @@ if s5 is not None:
     out.append(table("tab:s12", r"Weekly panels, test period, $H=1$: per-area coverage of the 90\,\% intervals and per-area mean Pearson residual of the forecaster. Moran's $I$ with queen contiguity of the area polygons (areas without a land neighbour get their two nearest neighbours; 999 permutations), lowest area coverage (\%) and share of areas below 85\,\% (\%) (\texttt{s05}).",
                      s5, "ll" + X + "rrrrr", ["City", "Method", "Variable", "Areas", "Moran's I", "p", "Lowest area", "Areas below 85"], d=3))
 out.append(r"\end{document}" + "\n")
-(P / "supplementary.tex").write_text("".join(out)); print("wrote supplementary.tex")
+ANON = sys.argv[3] if len(sys.argv) > 3 else r"\textcolor{red}{[ANONYMOUS REPOSITORY LINK]}"
+if ANON.startswith("http"): ANON = rf"\url{{{ANON}}}"
+(P / "supplementary.tex").write_text("".join(out).replace("ANONREPO", ANON)); print("wrote supplementary.tex")

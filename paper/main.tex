@@ -18,6 +18,8 @@
 \newif\ifanonymous
 \anonymoustrue
 \newcommand{\repo}{\url{https://github.com/SondipPoulSingh/crime-forecasting-audit}}
+%% Anonymous mirror for reviewers (anonymous.4open.science). Replace the red placeholder with the link before submission:
+\newcommand{\anonrepo}{\textcolor{red}{[ANONYMOUS REPOSITORY LINK]}}
 \hypersetup{pdfauthor={},pdfcreator={},pdfsubject={},pdfkeywords={}}
 
 \journal{Computers, Environment and Urban Systems}
@@ -306,7 +308,7 @@ The standard crime-prediction benchmark scores models only where crime occurred.
 
 %% ===================================================================================
 \section*{Data and code availability}
-All data are public: the benchmark files from the ST-HSL repository, incident data and area boundaries from the Chicago, New York City and San Francisco open-data portals, and American Community Survey data from the U.S.\ Census Bureau. The four analysis notebooks (with the hypotheses fixed before each run), the scripts that build every table and figure of this paper, and all result tables, figures and run logs are \ifanonymous publicly available in a code repository and in an archived snapshot with a DOI; both links are withheld for double-anonymized review and are given on the title page.\else available at \repo{} and archived at Zenodo (version 1.0: \href{https://doi.org/10.5281/zenodo.23491403}{doi:10.5281/zenodo.23491403}).\fi Supplementary Tables S1--S12 are provided as Supplementary Material.
+All data are public: the benchmark files from the ST-HSL repository, incident data and area boundaries from the Chicago, New York City and San Francisco open-data portals, and American Community Survey data from the U.S.\ Census Bureau. The four analysis notebooks (with the hypotheses fixed before each run), the scripts that build every table and figure of this paper, and all result tables, figures and run logs are \ifanonymous publicly available. For double-anonymized review, an anonymised copy of the repository is available at \anonrepo{}; the public repository and its archived DOI are given on the title page.\else available at \repo{} and archived at Zenodo (version 1.0: \href{https://doi.org/10.5281/zenodo.23491403}{doi:10.5281/zenodo.23491403}).\fi Supplementary Tables S1--S12 are provided as Supplementary Material.
 
 \ifanonymous\else
 \section*{CRediT authorship contribution statement}

@@ -255,7 +255,7 @@ if (T / "h02_decision_protocol.csv").exists():
         rows.append(f"{lab12[m]} & " + " & ".join(cells) + r" \\")
     tt = {(r.city, r.protocol_b): r for r in ta.itertuples()}
     write("t12_decision", r"""\begin{table}[!htbp]\centering\small\setlength{\tabcolsep}{4pt}
-\caption{Decision protocol P4 on the benchmark: share of each day's crimes that fall in the 10\,\% of cells with the highest forecast (hit rate), the Predictive Accuracy Index (PAI = hit rate / area share; 1 = no better than a random list), and the rank among the 10 models (mean over seeds). Kendall's $\tau$ of the P4 ranking with P3: """
+\caption{Decision protocol P4 on the benchmark: share of each day's crimes that fall in the 10\,\% of cells with the highest forecast (hit rate), the Prediction Accuracy Index (PAI = hit rate / area share; 1 = no better than a random list), and the rank among the 10 models (mean over seeds). Kendall's $\tau$ of the P4 ranking with P3: """
           + f"NYC {tt[('NYC', 'P3_deviance_all')].kendall_tau:.2f}, CHI {tt[('CHI', 'P3_deviance_all')].kendall_tau:.2f}; with P1: NYC {tt[('NYC', 'P1_mean_MAE')].kendall_tau:.2f}, CHI {tt[('CHI', 'P1_mean_MAE')].kendall_tau:.2f}." + r"""}\label{tab:decision}
 \begin{tabular}{lrrrrrr}\toprule
  & \multicolumn{3}{c}{New York} & \multicolumn{3}{c}{Chicago}\\\cmidrule(lr){2-4}\cmidrule(lr){5-7}

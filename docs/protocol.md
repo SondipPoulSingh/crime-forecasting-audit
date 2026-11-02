@@ -4,7 +4,7 @@ Derived from the results of this study (Section 6.3 of the paper). A checklist f
 
 1. **Score all space-time units.**
    - Use a proper loss for counts: mean Poisson deviance, or a proper score of the predictive distribution.
-   - Add the decision criterion the forecast serves — e.g. the hit rate and Predictive Accuracy Index of a top-k hot-spot list.
+   - Add the decision criterion the forecast serves — e.g. the hit rate and Prediction Accuracy Index of a top-k hot-spot list.
    - Errors on zero and non-zero units may be reported separately, but never only the latter.
    - Do not use MAPE on sparse counts.
 2. **Report results at the unit of use, and check their sensitivity to the unit.**

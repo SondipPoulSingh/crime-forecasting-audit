@@ -1,5 +1,8 @@
 %% Manuscript for Computers, Environment and Urban Systems (Elsevier), elsarticle class.
 %% Overleaf, TeX Live and MiKTeX ship elsarticle; compile with pdflatex + bibtex.
+%% CEUS uses double-anonymized review. \anonymoustrue = the anonymized manuscript for submission
+%% (no names, affiliation, repository link or CRediT; these go on the separate title page, title_page.tex).
+%% \anonymousfalse = the full version with authors (for the final accepted version or a preprint).
 \documentclass[preprint,12pt,authoryear]{elsarticle}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb}
@@ -12,7 +15,10 @@
 \usepackage[section]{placeins} % floats never pass a section boundary
 \linenumbers
 \graphicspath{{figures/}}
+\newif\ifanonymous
+\anonymoustrue
 \newcommand{\repo}{\url{https://github.com/SondipPoulSingh/crime-forecasting-audit}}
+\hypersetup{pdfauthor={},pdfcreator={},pdfsubject={},pdfkeywords={}}
 
 \journal{Computers, Environment and Urban Systems}
 
@@ -21,12 +27,14 @@
 
 \title{Scoring only where crime happened: evaluation, spatial scale and calibration of sparse urban crime forecasts}
 
+\ifanonymous\else
 \author[aff1]{Sondip Poul Singh\corref{cor1}}
 \ead{sondippsingh@gmail.com}
 \author[aff1]{Susmoy Bless Singh}
 \ead{susmoyblesssingh@gmail.com}
 \cortext[cor1]{Corresponding author.}
 \affiliation[aff1]{organization={Bangladesh University of Business and Technology}, city={Dhaka}, country={Bangladesh}}
+\fi
 
 \begin{abstract}
 Area-level crime forecasts are used to decide where resources go, so they must be judged on every place, including the many quiet ones. Deep spatio-temporal models on the public New York/Chicago benchmark are instead scored only on cell-days with crime. Re-running four official codebases over five seeds, we show that under this protocol a constant forecast of one beats the published state of the art, and rankings are unrelated to rankings on all cell-days and on a top-10\,\% hot-spot hit rate (Kendall's $\tau$ from $-0.47$ to $0.29$), whereas those two agree ($\tau\ge0.87$). On all cell-days a gradient-boosted Poisson model beats the re-run deep models, by 1--4\,\% even when they are trained with the same Poisson loss; that loss also removes the spatial clustering of the deep models' errors. Coarser cells reduce, but do not remove, the distortion. The published state of the art is reproduced only with its official seed, and all six public crime-count codebases we audited score only non-zero cells. On weekly panels for 195 community areas, precincts and neighbourhoods of Chicago, New York and San Francisco (2016--2026), Mondrian conformal intervals keep 90\,\% coverage in every volume quintile and through the 2020 shift, with no area below 86\,\%, whereas Poisson and split-conformal intervals under-cover busy places by up to 12 points, and zero-inflated intervals are conservative and 14--37\,\% wider. We derive an evaluation protocol for sparse urban count forecasts.
@@ -298,10 +306,12 @@ The standard crime-prediction benchmark scores models only where crime occurred.
 
 %% ===================================================================================
 \section*{Data and code availability}
-All data are public: the benchmark files from the ST-HSL repository, incident data and area boundaries from the Chicago, New York City and San Francisco open-data portals, and American Community Survey data from the U.S.\ Census Bureau. The four analysis notebooks (with the hypotheses fixed before each run), the scripts that build every table and figure of this paper, and all result tables, figures and run logs are available at \repo{} and archived at Zenodo (version 1.0: \href{https://doi.org/10.5281/zenodo.23491403}{doi:10.5281/zenodo.23491403}). Supplementary Tables S1--S12 are provided as Supplementary Material.
+All data are public: the benchmark files from the ST-HSL repository, incident data and area boundaries from the Chicago, New York City and San Francisco open-data portals, and American Community Survey data from the U.S.\ Census Bureau. The four analysis notebooks (with the hypotheses fixed before each run), the scripts that build every table and figure of this paper, and all result tables, figures and run logs are \ifanonymous publicly available in a code repository and in an archived snapshot with a DOI; both links are withheld for double-anonymized review and are given on the title page.\else available at \repo{} and archived at Zenodo (version 1.0: \href{https://doi.org/10.5281/zenodo.23491403}{doi:10.5281/zenodo.23491403}).\fi Supplementary Tables S1--S12 are provided as Supplementary Material.
 
+\ifanonymous\else
 \section*{CRediT authorship contribution statement}
 \textbf{Sondip Poul Singh}: Conceptualization, Methodology, Software, Formal analysis, Investigation, Data curation, Writing -- original draft, Visualization. \textbf{Susmoy Bless Singh}: Validation, Investigation, Writing -- review \& editing.
+\fi
 
 \section*{Declaration of competing interest}
 The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.

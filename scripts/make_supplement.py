@@ -23,12 +23,12 @@ def table(label, caption, df, spec, header=None, size=r"\scriptsize", d=3):
             + rf"\begin{{tabularx}}{{\linewidth}}{{{spec}}}\toprule" + "\n" + hdr + r"\\\midrule" + "\n" + body + "\n" + r"\bottomrule\end{tabularx}\end{table}" + "\n\n")
 X = r">{\raggedright\arraybackslash}X"; p = lambda w: rf">{{\raggedright\arraybackslash}}p{{{w}}}"
 out = [r"""\documentclass[11pt]{article}
-\usepackage[T1]{fontenc}\usepackage[margin=2.2cm]{geometry}\usepackage{booktabs,tabularx,float}\usepackage[hidelinks]{hyperref}
+\usepackage[T1]{fontenc}\usepackage[margin=2.2cm]{geometry}\usepackage{booktabs,tabularx,float}\usepackage[hidelinks]{hyperref}\hypersetup{pdfauthor={}}
 \renewcommand{\thetable}{S\arabic{table}}
 \title{Supplementary Material\\[4pt]\large Scoring only where crime happened: evaluation, spatial scale and calibration of sparse urban crime forecasts}
-\author{Sondip Poul Singh \and Susmoy Bless Singh}\date{}
+\author{}\date{}
 \begin{document}\maketitle
-All tables are generated from the result files of the repository (\url{https://github.com/SondipPoulSingh/crime-forecasting-audit}; Zenodo doi:10.5281/zenodo.23491403); the file name of each source table is given in its caption.
+All tables are generated from the result files of the code repository (link withheld for double-anonymized review); the file name of each source table is given in its caption.
 """]
 b1 = rd("b01_code_versions_and_patches")
 out.append(table("tab:s1", r"Official code: repositories, pinned commits and the patches applied (\texttt{b01}).", b1[["repository", "commit", "patches"]],

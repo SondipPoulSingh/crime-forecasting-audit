@@ -1,4 +1,6 @@
-# Option A experiments – results summary (v1 + v2 + v3)
+# Option A experiments – results summary (v1 + v2 + v3 + v4)
+
+The v4 section is at the end of this file. (In the v3 status table below, the last part reads `running` because the table was written while that part was still finishing; its outputs are complete.)
 v3 generated 2026-10-19 21:35, run time 0.70 h, FAST = False.
 v3 adds: a protocol census of public crime-prediction code (g01–g02), ZINB interval baselines on the weekly panels (d03–d05, e03) and on the benchmark (b17), and a consistency check of the re-built panels against v1 (c02b, d06). Everything else is from v1/v2 (see results_summary_v2.md).
 
@@ -1006,3 +1008,79 @@ Parts II–IV (weekly forecasts, intervals, rolling origins) are from v1; the be
 | SF     | Mondrian-ACI         |      40 |                -0.2755 |      0.0853 |                 -0.1792 |       0.2686 |             0.0200 |
 | SF     | CQR                  |      40 |                -0.3405 |      0.0316 |                 -0.2188 |       0.1751 |             0.0255 |
 | SF     | Locally weighted CP  |      40 |                -0.1731 |      0.2854 |                 -0.0648 |       0.6913 |             0.0293 |
+
+## v4 (stage 4) and the spatial analyses
+
+v4 run (Kaggle T4, 1.5 h): Graph WaveNet and MTGNN re-trained with a Poisson likelihood on all cell-days, epoch chosen by validation deviance (5 seeds, both cities), and the area boundaries of the three cities. All four v4 parts finished `ok`.
+
+### Deep baselines: literature setting vs. Poisson setting (`s07`)
+
+| city   | model              | setting                            |   seeds |   P1_mean_MAE |   P3_deviance |   P4_hit_rate |   morans_I |   morans_I_max_p |   dev_minus_ours |   ci_lo |   ci_hi |   days_ours_better |
+|:-------|:-------------------|:-----------------------------------|--------:|--------------:|--------------:|--------------:|-----------:|-----------------:|-----------------:|--------:|--------:|-------------------:|
+| NYC    | GBM-Poisson (ours) | Poisson, all cell-days             |       5 |        0.9145 |        0.3488 |        0.6772 |     0.0136 |            0.787 |           0      |  0      |  0      |                nan |
+| NYC    | Graph WaveNet      | squared error, crime-day selection |       5 |        0.9119 |        0.3726 |        0.6691 |     0.404  |            0.001 |           0.0237 |  0.0217 |  0.0256 |                 92 |
+| NYC    | Graph WaveNet      | Poisson, all cell-days             |       5 |        0.9421 |        0.3616 |        0.6704 |    -0.0171 |            0.769 |           0.0128 |  0.011  |  0.0144 |                 87 |
+| NYC    | MTGNN              | squared error, crime-day selection |       5 |        0.9122 |        0.361  |        0.6754 |     0.3342 |            0.043 |           0.0121 |  0.0107 |  0.0136 |                 85 |
+| NYC    | MTGNN              | Poisson, all cell-days             |       5 |        0.9279 |        0.3527 |        0.6768 |     0.082  |            0.883 |           0.0039 |  0.0027 |  0.0051 |                 74 |
+| CHI    | GBM-Poisson (ours) | Poisson, all cell-days             |       5 |        1.0159 |        0.5008 |        0.5144 |     0.0629 |            0.249 |           0      |  0      |  0      |                nan |
+| CHI    | Graph WaveNet      | squared error, crime-day selection |       5 |        1.0388 |        0.5297 |        0.5078 |     0.2711 |            0.027 |           0.0289 |  0.0263 |  0.0315 |                 91 |
+| CHI    | Graph WaveNet      | Poisson, all cell-days             |       5 |        1.0313 |        0.5114 |        0.5083 |     0.144  |            0.687 |           0.0106 |  0.0086 |  0.0126 |                 81 |
+| CHI    | MTGNN              | squared error, crime-day selection |       5 |        1.0193 |        0.5145 |        0.5126 |     0.3717 |            0.001 |           0.0137 |  0.0114 |  0.0162 |                 83 |
+| CHI    | MTGNN              | Poisson, all cell-days             |       5 |        1.0197 |        0.5077 |        0.513  |     0.1173 |            0.505 |           0.0069 |  0.0051 |  0.0089 |                 72 |
+
+### Spatial scale on the benchmark (`s03`, Kendall's tau)
+
+| city   | scale           |   share_zero | protocol_a   | protocol_b      |   kendall_tau |   p_value |   models |
+|:-------|:----------------|-------------:|:-------------|:----------------|--------------:|----------:|---------:|
+| NYC    | 3 km (original) |        0.865 | P1_mean_MAE  | P3_deviance_all |        -0.422 |     0.108 |       10 |
+| NYC    | 3 km (original) |        0.865 | P4_hit_rate  | P3_deviance_all |         0.956 |     0     |       10 |
+| NYC    | 3 km (original) |        0.865 | P4_hit_rate  | P1_mean_MAE     |        -0.467 |     0.073 |       10 |
+| NYC    | 6 km            |        0.705 | P1_mean_MAE  | P3_deviance_all |         0.556 |     0.029 |       10 |
+| NYC    | 6 km            |        0.705 | P4_hit_rate  | P3_deviance_all |         0.822 |     0     |       10 |
+| NYC    | 6 km            |        0.705 | P4_hit_rate  | P1_mean_MAE     |         0.644 |     0.009 |       10 |
+| NYC    | 12 km           |        0.415 | P1_mean_MAE  | P3_deviance_all |         0.778 |     0.001 |       10 |
+| NYC    | 12 km           |        0.415 | P4_hit_rate  | P3_deviance_all |         0.764 |     0.002 |       10 |
+| NYC    | 12 km           |        0.415 | P4_hit_rate  | P1_mean_MAE     |         0.629 |     0.012 |       10 |
+| CHI    | 3 km (original) |        0.743 | P1_mean_MAE  | P3_deviance_all |         0.156 |     0.601 |       10 |
+| CHI    | 3 km (original) |        0.743 | P4_hit_rate  | P3_deviance_all |         0.867 |     0     |       10 |
+| CHI    | 3 km (original) |        0.743 | P4_hit_rate  | P1_mean_MAE     |         0.289 |     0.291 |       10 |
+| CHI    | 6 km            |        0.534 | P1_mean_MAE  | P3_deviance_all |         0.689 |     0.005 |       10 |
+| CHI    | 6 km            |        0.534 | P4_hit_rate  | P3_deviance_all |         0.644 |     0.009 |       10 |
+| CHI    | 6 km            |        0.534 | P4_hit_rate  | P1_mean_MAE     |         0.6   |     0.017 |       10 |
+
+### Area coverage and Moran's I on the weekly panels (`s05`)
+
+| city   | method                    | variable              |   areas |   morans_I |   expected_I |   p_value |   min_coverage |   share_areas_below_85 |   islands_fixed |
+|:-------|:--------------------------|:----------------------|--------:|-----------:|-------------:|----------:|---------------:|-----------------------:|----------------:|
+| CHI    | Poisson                   | area coverage         |      77 |      0.338 |       -0.013 |     0.001 |         86.133 |                  0     |               0 |
+| CHI    | Neg. binomial             | area coverage         |      77 |      0.242 |       -0.013 |     0.002 |         91.063 |                  0     |               0 |
+| CHI    | Split conformal (CP)      | area coverage         |      77 |      0.344 |       -0.013 |     0.001 |         82.666 |                  0.065 |               0 |
+| CHI    | Mondrian CP               | area coverage         |      77 |      0.096 |       -0.013 |     0.069 |         86.441 |                  0     |               0 |
+| CHI    | Mondrian-ACI              | area coverage         |      77 |      0.117 |       -0.013 |     0.035 |         85.978 |                  0     |               0 |
+| CHI    | CQR                       | area coverage         |      77 |      0.183 |       -0.013 |     0.007 |         86.826 |                  0     |               0 |
+| CHI    | Locally weighted CP       | area coverage         |      77 |      0.163 |       -0.013 |     0.004 |         76.888 |                  0.013 |               0 |
+| CHI    | LightGBM-Poisson forecast | mean Pearson residual |      77 |      0.329 |       -0.013 |     0.001 |        nan     |                nan     |             nan |
+| NYC    | Poisson                   | area coverage         |      77 |      0.176 |       -0.013 |     0.015 |         84.338 |                  0.039 |               0 |
+| NYC    | Neg. binomial             | area coverage         |      77 |      0.119 |       -0.013 |     0.059 |         90.099 |                  0     |               0 |
+| NYC    | Split conformal (CP)      | area coverage         |      77 |      0.132 |       -0.013 |     0.045 |         84.788 |                  0.013 |               0 |
+| NYC    | Mondrian CP               | area coverage         |      77 |     -0.075 |       -0.013 |     0.228 |         87.039 |                  0     |               0 |
+| NYC    | Mondrian-ACI              | area coverage         |      77 |     -0.045 |       -0.013 |     0.372 |         86.769 |                  0     |               0 |
+| NYC    | CQR                       | area coverage         |      77 |      0.093 |       -0.013 |     0.076 |         86.319 |                  0     |               0 |
+| NYC    | Locally weighted CP       | area coverage         |      77 |      0.087 |       -0.013 |     0.101 |         81.998 |                  0.026 |               0 |
+| NYC    | LightGBM-Poisson forecast | mean Pearson residual |      77 |     -0.044 |       -0.013 |     0.379 |        nan     |                nan     |             nan |
+| SF     | Poisson                   | area coverage         |      41 |      0.405 |       -0.025 |     0.001 |         82.512 |                  0.024 |               1 |
+| SF     | Neg. binomial             | area coverage         |      41 |      0.367 |       -0.025 |     0.001 |         90.293 |                  0     |               1 |
+| SF     | Split conformal (CP)      | area coverage         |      41 |      0.421 |       -0.025 |     0.001 |         76.965 |                  0.098 |               1 |
+| SF     | Mondrian CP               | area coverage         |      41 |      0.255 |       -0.025 |     0.01  |         86.364 |                  0     |               1 |
+| SF     | Mondrian-ACI              | area coverage         |      41 |      0.257 |       -0.025 |     0.004 |         86.441 |                  0     |               1 |
+| SF     | CQR                       | area coverage         |      41 |      0.231 |       -0.025 |     0.011 |         82.589 |                  0.024 |               1 |
+| SF     | Locally weighted CP       | area coverage         |      41 |      0.213 |       -0.025 |     0.02  |         82.666 |                  0.024 |               1 |
+| SF     | LightGBM-Poisson forecast | mean Pearson residual |      41 |      0.267 |       -0.025 |     0.006 |        nan     |                nan     |             nan |
+
+### Boundary sources (`e03`)
+
+| city   | dataset_id   |   features | key        |   areas_matched |   areas_expected |   unmatched |
+|:-------|:-------------|-----------:|:-----------|----------------:|-----------------:|------------:|
+| CHI    | igwz-8jzy    |         77 | area_num_1 |              77 |               77 |         nan |
+| NYC    | y76i-bdw7    |         78 | precinct   |              77 |               77 |         nan |
+| SF     | j2bu-swwd    |         41 | nhood      |              41 |               41 |         nan |

@@ -1,3 +1,5 @@
+> **Note (2 Nov 2026):** this is the referee-style review of draft 2 (October 2026). All points were addressed in later drafts; the current manuscript is `paper/main.tex`.
+
 # Internal review of draft 2 (written as a CEUS referee)
 
 **Manuscript:** "Scoring only where crime happened: an audit of evaluation practice in deep spatio-temporal crime forecasting, and calibrated count forecasts for three U.S. cities"

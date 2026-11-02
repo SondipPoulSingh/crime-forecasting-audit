@@ -17,10 +17,10 @@ identifiers:
   - type: doi
     value: "10.5281/zenodo.23491403"
     description: "Version 1.0"
-version: "1.0"
+version: "1.1"
 repository-code: "https://github.com/SondipPoulSingh/crime-forecasting-audit"
 license: MIT
-date-released: 2026-10-20
+date-released: 2026-11-02
 keywords:
   - crime forecasting
   - evaluation protocol

@@ -123,7 +123,7 @@ All models forecast counts for places and weeks, never for individuals, and use 
 
 ## Citation
 
-If you use this code or these results, please cite the Zenodo archive: Singh, S. P. and Singh, S. B. (2026). *crime-forecasting-audit*. Zenodo. <https://doi.org/10.5281/zenodo.23491402> (this DOI always resolves to the latest version; v1.0, <https://doi.org/10.5281/zenodo.23491403>, predates the stage-4 results). See also [`CITATION.cff`](CITATION.cff); the paper reference will be added on publication.
+If you use this code or these results, please cite the Zenodo archive: Singh, S. P. and Singh, S. B. (2026). *crime-forecasting-audit*. Zenodo. Version 1.1 (the version described in the paper): <https://doi.org/10.5281/zenodo.23876770>; all versions: <https://doi.org/10.5281/zenodo.23491402>. See also [`CITATION.cff`](CITATION.cff); the paper reference will be added on publication.
 
 ## License
 

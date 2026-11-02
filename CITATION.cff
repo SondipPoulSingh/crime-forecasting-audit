@@ -15,8 +15,8 @@ identifiers:
     value: "10.5281/zenodo.23491402"
     description: "Concept DOI (all versions)"
   - type: doi
-    value: "10.5281/zenodo.23491403"
-    description: "Version 1.0"
+    value: "10.5281/zenodo.23876770"
+    description: "Version 1.1"
 version: "1.1"
 repository-code: "https://github.com/SondipPoulSingh/crime-forecasting-audit"
 license: MIT

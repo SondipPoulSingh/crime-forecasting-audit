@@ -62,7 +62,8 @@ crime-forecasting-audit/
 │   ├── analysis_spatial_areas.py     # area coverage and Moran's I (weekly panels)
 │   ├── analysis_poisson.py           # deep baselines: literature vs. Poisson setting
 │   ├── make_figures_spatial.py       # residual and coverage maps
-│   ├── make_supplement.py            # Supplementary Tables S1–S12
+│   ├── analysis_in_city_rescoring.py # full protocol on in-city cells only (Supplementary Table S15)
+│   ├── make_supplement.py            # Supplementary Tables S1–S12 (S13–S15 added by hand for submission)
 │   ├── make_tables.py                # builds every LaTeX table of the paper from results/tables
 │   └── make_figures.py               # builds every figure of the paper from results/tables
 ├── results/
@@ -96,7 +97,8 @@ python scripts/analysis_decision.py results          # writes results/tables/h01
 python scripts/analysis_spatial_bench.py results '{"NYC":[16,16],"CHI":[14,12]}'
 python scripts/analysis_poisson.py results
 python scripts/analysis_spatial_areas.py results
-python scripts/make_tables.py results paper          # writes paper/tables/*.tex
+python scripts/analysis_in_city_rescoring.py results  # writes results/tables/s08 (Supplementary Table S15)
+python scripts/make_tables.py results paper          # writes paper/tables/*.tex (see paper/README.md before re-running)
 python scripts/make_figures.py results paper         # writes paper/figures/*.pdf
 python scripts/make_figures_spatial.py results paper
 python scripts/make_supplement.py results paper

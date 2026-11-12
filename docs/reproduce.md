@@ -53,6 +53,7 @@ python scripts/analysis_decision.py results         # decision protocol P4 and b
 python scripts/analysis_spatial_bench.py results '{"NYC":[16,16],"CHI":[14,12]}'   # Moran's I and spatial scale → s01–s03
 python scripts/analysis_poisson.py results          # literature vs. Poisson setting of the deep baselines → s07 (needs stage 4)
 python scripts/analysis_spatial_areas.py results    # area coverage maps and Moran's I → s04–s06 (needs stage 4)
+python scripts/analysis_in_city_rescoring.py results  # full protocol on in-city cells only → s08 (Supplementary Table S15)
 python scripts/make_tables.py results paper         # paper/tables/*.tex
 python scripts/make_figures.py results paper        # paper/figures/*.pdf and .png
 python scripts/make_figures_spatial.py results paper

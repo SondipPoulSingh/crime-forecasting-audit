@@ -73,5 +73,6 @@ All tables are CSV files written by the notebooks (runs 1–4) and by the script
 | `s05_area_morans_i.csv` | Moran's I of area coverage and residuals |
 | `s06_area_residual_{CHI,NYC,SF}.csv` | per-area mean Pearson residual |
 | `s07_poisson_vs_literature.csv` | deep baselines in the literature vs. the Poisson setting |
+| `s08_in_city_rescoring.csv` | P1, P3 on all cells and P3 on in-city cells only, with ranks (post hoc; Supplementary Table S15) |
 
 `boundaries/` holds the GeoJSON area boundaries; `predictions/benchmark_{NYC,CHI}_poisson_predictions.npz` the run-4 test predictions.

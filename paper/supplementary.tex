@@ -1,5 +1,5 @@
 \documentclass[11pt]{article}
-\usepackage[T1]{fontenc}\usepackage[margin=2.2cm]{geometry}\usepackage{booktabs,tabularx,float,xcolor}\usepackage[hidelinks]{hyperref}\hypersetup{pdfauthor={}}
+\usepackage[T1]{fontenc}\usepackage[margin=2.2cm]{geometry}\usepackage{booktabs,tabularx,float,xcolor,adjustbox}\usepackage[hidelinks]{hyperref}\hypersetup{pdfauthor={}}
 \renewcommand{\thetable}{S\arabic{table}}
 \title{Supplementary Material\\[4pt]\large Scoring only where crime happened: evaluation, spatial scale and calibration of sparse urban crime forecasts}
 \author{}\date{}
@@ -200,5 +200,50 @@ SF & CQR & area coverage & 41 & 0.231 & 0.011 & 82.589 & 2.439 \\
 SF & Locally weighted CP & area coverage & 41 & 0.213 & 0.020 & 82.666 & 2.439 \\
 SF & LightGBM-Poisson forecast & mean Pearson residual & 41 & 0.267 & 0.006 & -- & -- \\
 \bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\small\setlength{\tabcolsep}{3.5pt}
+\caption{Full-protocol Poisson deviance of each model minus that of our XGBoost-Poisson forecaster (both averaged over seeds), with a 95\,\% interval from a bootstrap over the 92 test days (2{,}000 resamples), and the number of test days on which our forecaster has the lower deviance. Positive = our forecaster is better.} Source: \texttt{h04}.\label{tab:s13}
+\begin{tabular}{lrrrrrr}\toprule
+ & \multicolumn{3}{c}{New York} & \multicolumn{3}{c}{Chicago}\\\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Compared with & Difference & 95\,\% CI & Days & Difference & 95\,\% CI & Days\\\midrule
+MTGNN & 0.0121 & [0.0107, 0.0136] & 85/92 & 0.0137 & [0.0114, 0.0161] & 83/92 \\
+Graph WaveNet & 0.0237 & [0.0217, 0.0256] & 92/92 & 0.0289 & [0.0263, 0.0314] & 91/92 \\
+ST-HSL & 0.1312 & [0.1290, 0.1335] & 92/92 & 0.1308 & [0.1278, 0.1340] & 92/92 \\
+ST-SHN & 1.5036 & [1.4970, 1.5106] & 92/92 & 1.9131 & [1.9011, 1.9242] & 92/92 \\
+30-day mean & 0.0134 & [0.0115, 0.0153] & 86/92 & 0.0169 & [0.0142, 0.0195] & 84/92 \\
+\bottomrule\end{tabular}\end{table}
+
+\begin{table}[H]\centering\scriptsize\setlength{\tabcolsep}{3.5pt}
+\caption{The 2020 test year (rolling origin, $H=1$; third run). Overall coverage, worst under-coverage and worst absolute deviation over the volume quintiles (points), and mean interval score.} Source: \texttt{e03}.\label{tab:s14}
+\begin{tabular}{lrrrrrrrr}\toprule
+ & \multicolumn{4}{c}{Chicago} & \multicolumn{4}{c}{New York}\\\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+Method & Cov. & Under & Worst & IS & Cov. & Under & Worst & IS\\\midrule
+Poisson & 91.6 & 7.5 & 7.5 & 10.65 & 89.0 & 9.9 & 9.9 & 15.56 \\
+Neg. binomial & 93.4 & 1.6 & 7.4 & 10.17 & 91.2 & 4.3 & 6.1 & 14.76 \\
+ZINB (fitted) & 93.3 & 1.9 & 7.4 & 10.18 & 91.8 & 3.5 & 6.1 & 14.66 \\
+ZINB (fitted per volume bin) & 93.7 & 2.5 & 7.8 & 10.19 & 92.7 & 3.4 & 6.7 & 14.62 \\
+GRU-ZINB (learned) & 94.8 & -1.2 & 7.5 & 9.54 & 93.2 & 0.6 & 6.7 & 14.00 \\
+Split conformal (CP) & 88.4 & 12.4 & 12.4 & 11.35 & 88.0 & 10.1 & 10.1 & 15.79 \\
+CQR & 87.6 & 6.1 & 6.1 & 11.36 & 87.2 & 7.9 & 7.9 & 15.49 \\
+Mondrian CP & 88.4 & 3.9 & 3.9 & 10.95 & 88.4 & 4.4 & 4.4 & 15.32 \\
+Mondrian-ACI & 89.5 & 1.1 & 1.1 & 10.71 & 89.5 & 1.3 & 1.3 & 15.07 \\
+\bottomrule\end{tabular}\end{table}
+
+\begin{table}[H]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\caption{Full protocol restricted to in-city cells (post hoc): Poisson deviance over all cell-days of the cells that record at least one crime in the test period (123 of 256 cells in New York, 92 of 168 in Chicago; share of zero cell-days 72\,\% and 53\,\%), next to the official protocol P1 and the full protocol P3 on all cells, with ranks among the ten models (mean over seeds). Kendall's $\tau$ between the in-city ranking and the all-cell P3 ranking: 0.82 in both cities ($p<0.001$); between the in-city ranking and the P1 ranking: $-0.33$ (New York) and $0.33$ (Chicago), both $p=0.22$. Computed from the saved test predictions (\texttt{s08}).}\label{tab:s15}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lrrrrrrrrrrrr}\toprule
+ & \multicolumn{6}{c}{New York} & \multicolumn{6}{c}{Chicago}\\\cmidrule(lr){2-7}\cmidrule(lr){8-13}
+Model & P1 MAE & rank & P3 all & rank & P3 in-city & rank & P1 MAE & rank & P3 all & rank & P3 in-city & rank\\\midrule
+GBM-Poisson, XGBoost (ours) & 0.915 & 7 & 0.349 & 1 & 0.704 & 1 & 1.016 & 3 & 0.501 & 1 & 0.898 & 1 \\
+GBM-Poisson, LightGBM (ours) & 0.920 & 8 & 0.350 & 2 & 0.707 & 2 & 1.022 & 5 & 0.502 & 2 & 0.901 & 2 \\
+MTGNN & 0.912 & 6 & 0.361 & 3 & 0.725 & 3 & 1.019 & 4 & 0.515 & 3 & 0.922 & 3 \\
+30-day mean & 0.928 & 9 & 0.362 & 4 & 0.732 & 4 & 1.035 & 7 & 0.518 & 4 & 0.929 & 4 \\
+Graph WaveNet & 0.912 & 5 & 0.373 & 5 & 0.749 & 5 & 1.039 & 8 & 0.530 & 5 & 0.940 & 5 \\
+ST-HSL & 0.894 & 4 & 0.480 & 6 & 0.833 & 6 & 1.023 & 6 & 0.632 & 6 & 1.000 & 6 \\
+ST-SHN & 0.680 & 2 & 1.852 & 9 & 1.604 & 7 & 0.933 & 2 & 2.414 & 10 & 1.504 & 8 \\
+Zero-truncated median (protocol-aware) & 0.607 & 1 & 1.826 & 8 & 1.637 & 8 & 0.866 & 1 & 1.728 & 8 & 1.504 & 7 \\
+Constant 1 & 0.806 & 3 & 1.951 & 10 & 1.898 & 9 & 1.330 & 9 & 2.262 & 9 & 2.478 & 9 \\
+Last day & 1.236 & 10 & 0.931 & 7 & 1.915 & 10 & 1.429 & 10 & 1.468 & 7 & 2.665 & 10 \\
+\bottomrule\end{tabular}\end{adjustbox}\end{table}
 
 \end{document}
